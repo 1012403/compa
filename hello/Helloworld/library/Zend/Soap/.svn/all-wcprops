@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Soap
+END
+AutoDiscover.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Soap/AutoDiscover.php
+END
+Client.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Soap/Client.php
+END
+Server.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Soap/Server.php
+END
+Wsdl.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Soap/Wsdl.php
+END

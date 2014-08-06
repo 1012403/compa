@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Mail/Protocol/Smtp/Auth
+END
+Login.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Mail/Protocol/Smtp/Auth/Login.php
+END
+Plain.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Mail/Protocol/Smtp/Auth/Plain.php
+END
+Crammd5.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Mail/Protocol/Smtp/Auth/Crammd5.php
+END

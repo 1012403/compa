@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Ldap/Node/RootDse
+END
+ActiveDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Ldap/Node/RootDse/ActiveDirectory.php
+END
+eDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Ldap/Node/RootDse/eDirectory.php
+END
+OpenLdap.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Ldap/Node/RootDse/OpenLdap.php
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Search/QueryEntry
+END
+Subquery.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Search/QueryEntry/Subquery.php
+END
+Phrase.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Search/QueryEntry/Phrase.php
+END
+Term.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Search/QueryEntry/Term.php
+END

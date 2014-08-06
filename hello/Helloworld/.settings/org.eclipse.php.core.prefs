@@ -1,0 +1,5 @@
+#Wed Aug 06 09:52:48 ICT 2014
+eclipse.preferences.version=1
+include_path=0;/Helloworld\u00050;/Helloworld/public/img\u00050;/Helloworld/public/js\u00050;/Helloworld/public/css\u00050;/Helloworld/application/controllers\u00050;/Helloworld/application\u00050;/Helloworld/library\u00050;/Helloworld/tests\u00050;/Helloworld/application/models\u00050;/Helloworld/application/views/scripts/index\u00050;/Helloworld/application/views\u00050;/Helloworld/public\u00050;/Helloworld/application/views/scripts\u00050;/Helloworld/application/views/helpers\u00050;/Helloworld/application/views/filters
+phpVersion=php5
+use_asp_tags_as_php=false

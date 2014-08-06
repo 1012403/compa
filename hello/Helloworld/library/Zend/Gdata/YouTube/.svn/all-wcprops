@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube
+END
+VideoEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/VideoEntry.php
+END
+VideoFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/VideoFeed.php
+END
+SubscriptionFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/SubscriptionFeed.php
+END
+CommentFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/CommentFeed.php
+END
+ContactFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/ContactFeed.php
+END
+PlaylistListEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/PlaylistListEntry.php
+END
+ActivityEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/ActivityEntry.php
+END
+InboxFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/InboxFeed.php
+END
+PlaylistVideoFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/PlaylistVideoFeed.php
+END
+PlaylistVideoEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/PlaylistVideoEntry.php
+END
+InboxEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/InboxEntry.php
+END
+VideoQuery.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/VideoQuery.php
+END
+ActivityFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/ActivityFeed.php
+END
+MediaEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/MediaEntry.php
+END
+PlaylistListFeed.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/PlaylistListFeed.php
+END
+ContactEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/ContactEntry.php
+END
+CommentEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/CommentEntry.php
+END
+UserProfileEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/UserProfileEntry.php
+END
+SubscriptionEntry.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Gdata/YouTube/SubscriptionEntry.php
+END

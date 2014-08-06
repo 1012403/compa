@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SecurityTokenServer
+END
+Interface.php
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SecurityTokenServer/Interface.php
+END
+SecurityTokenResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SecurityTokenServer/SecurityTokenResponse.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SecurityTokenServer/Exception.php
+END
+GetTokensResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SecurityTokenServer/GetTokensResponse.php
+END

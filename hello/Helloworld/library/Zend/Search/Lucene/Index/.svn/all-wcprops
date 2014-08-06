@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index
+END
+SegmentWriter.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/SegmentWriter.php
+END
+TermsPriorityQueue.php
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/TermsPriorityQueue.php
+END
+FieldInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/FieldInfo.php
+END
+DictionaryLoader.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/DictionaryLoader.php
+END
+TermInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/TermInfo.php
+END
+Term.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/Term.php
+END
+SegmentMerger.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/SegmentMerger.php
+END
+SegmentInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/SegmentInfo.php
+END
+Writer.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/Writer.php
+END
+DocsFilter.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Search/Lucene/Index/DocsFilter.php
+END
