@@ -1,0 +1,22 @@
+/*
+detail.htmlのスタイル
+
+01.item_detail
+02.related
+*/
+/* ------------------------------------- */
+/*	 item_detail 	*/
+/* ------------------------------------- */
+#main .item_detail .feature {
+  margin-bottom: 20px;
+}
+#main .item_detail .review {
+  margin-bottom: 20px;
+}
+
+/* ------------------------------------- */
+/*	 related 	*/
+/* ------------------------------------- */
+#main .related .item_panel {
+  border: none;
+}
