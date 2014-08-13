@@ -1,0 +1,148 @@
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+#colMenu{
+	width: 200px;
+	border-color: #B9CDE5;
+	border-style: solid;
+	border-width: 4px;
+}
+.sidebar-offcanvas {
+	width: 200px;
+}
+@media screen and (max-width: 991px) {
+	.row-offcanvas {
+		position: relative;
+		-webkit-transition: all 0.25s ease-out;
+		-moz-transition: all 0.25s ease-out;
+		transition: all 0.25s ease-out;
+	}
+
+ .row-offcanvas-right
+ .sidebar-offcanvas {
+	 left: -210px; /* 6 columns */
+ }
+
+ .row-offcanvas-left
+ .sidebar-offcanvas {
+	 right: -210px; /* 6 columns */
+ }
+
+ .row-offcanvas-right.active {
+	 left: 210px; /* 6 columns */
+ }
+
+ .row-offcanvas-left.active {
+	 right: 0px; /* 6 columns */
+ }
+ .rightcolumn.active {
+	 left: 210px;
+ }
+ .sidebar-offcanvas {
+	 position: absolute;
+	 top: 0;
+	width: 210px;
+	height: 100% !important;
+	border-color: #B9CDE5;
+	border-style: solid;
+	border-width: 4px;
+ }
+	#colMenu{
+		width: 0px;
+		border: 0px;
+	}
+	.pagination li{
+		display: none;
+	}
+	.pagination li.previous{
+		display: inline-block;
+	}
+	.pagination li.active{
+		display: inline-block;
+	}
+	.pagination li.next{
+		display: inline-block;
+	}
+}
+.detail-like-small{
+	display: none;
+}
+@media screen and (max-width: 991px) {
+	.detail-like{
+		display: none;
+	}
+	.detail-like-small{
+		display: block;
+	}
+}
+.list-small{
+	display: none;
+}
+.list-vsmall{
+	display: none;
+}
+.list-vrsmall{
+	display: none;
+}
+@media screen and (min-width: 992px) {
+	.list-normal {
+		display: block;
+	}
+	.list-small {
+		display: none;
+	}
+	.list-vsmall {
+		display: none;
+	}
+	.list-vrsmall{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+	.list-normal {
+		display: none;
+	}
+	.list-small {
+		display: block;
+	}
+	.list-vsmall {
+		display: none;
+	}
+	.list-vrsmall{
+		display: none;
+	}
+}
+
+@media screen and (min-width : 500px) and (max-width: 767px) {
+	.list-normal {
+		display: none;
+	}
+	.list-small {
+		display: none;
+	}
+	.list-vsmall {
+		display: block;
+	}
+	.list-vrsmall{
+		display: none;
+	}
+}
+
+@media screen and (max-width : 499px)	{
+	.list-normal {
+		display: none;
+	}
+	.list-small {
+		display: none;
+	}
+	.list-vsmall {
+		display: none;
+	}
+	.list-vrsmall{
+		display: block;
+	}
+}
+
+

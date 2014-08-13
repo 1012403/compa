@@ -1,0 +1,33 @@
+
+
+
+			<?php if ($this->pageCount > 1): ?>
+			
+			<?php if (isset($this->previous)): ?>
+			
+			<a id="<?php echo $this->previous;?>" href="<?php echo $this->url(array('page' => $this->previous)); ?>" style="color: blue;">
+				<?php echo $this->escape('< '); ?>前へ</a>
+			<?php endif; ?>
+
+			<?php foreach ($this->pagesInRange as $page): ?>
+
+			<?php if ($page != $this->current): ?>
+		
+			<a id="<?php echo $page;?>" href="<?php echo $this->url(array('page' => $page)); ?>" style="color: blue;"><?php echo $page; ?></a>
+			<?php else: ?>
+			
+			
+			<?php echo $page; ?>
+			<?php endif; ?>
+			
+			<?php endforeach; ?>
+
+			<?php if (isset($this->next)): ?>
+			<a id="<?php echo $this->next;?>" href="<?php echo $this->url(array('page' => $this->next)); ?>" style="color: blue;">
+				次へ<?php echo $this->escape(' >'); ?></a>
+			<?php endif; ?>
+			<?php endif; ?>
+
+
+
+		

@@ -1,0 +1,723 @@
+<style>
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+table.scroll tbody {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:473px;
+}
+
+table.content{
+	border: 1px solid #8DB4E3;
+	width: 90%;
+	margin: 0 auto;
+}
+table.content th{
+	border: 1px solid #8DB4E3;
+	border-bottom: 2px solid #8DB4E3;
+	color: blue;
+	font-style: normal;
+	text-align: center;
+	font-weight: normal;
+}
+table.content td{
+	border-left: 1px solid #8DB4E3;
+	border-right: 1px solid #8DB4E3;
+	border-bottom: 1px dotted #8DB4E3;
+}
+
+tr.rowedit input[type="text"] {
+	display: none;
+}
+.invisible {
+	position: absolute;
+	left: -9999px;
+}
+
+</style>
+<?php
+$url = $this->url(array('action' => 'index','controller' =>'category'));
+?>
+
+<div id="cat">
+	<div class=" title_col col-lg-9 ">
+		<div class="title_tyle" >
+			<label class="pull-left"> 商品カテゴリー
+			 </label>
+		</div>
+	</div>
+	<div >
+		<form enctype="multipart/form-data" id="import_csv_form" method="post" action="/admin/category/importcsv">
+			<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+				<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">ＣＳＶ取込み</a>
+				<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">ＣＳＶ出力</a>
+			<?php else : ?>
+				<a id="importCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ取込み</a>
+				<input type="file" name="fileCategory" id="fileCategory" class="invisible"/>
+				<a id="exportCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ出力</a>
+			<?php endif; ?>
+		</form>
+	</div>
+	<br/>
+
+	<table  style="width:100%;border:0; align:center ">
+	<tr>
+		<td valign="top" style="width: 50%;">
+		<form action="<?php echo $url ?>" method="post" id="formCatParent">
+			<input type="hidden" name="parent">
+
+			<table border="0" align="center" style="width:90%;">
+				<tr>
+					<td colspan="3">
+						<div class="error" style="color: red; text-align: left;"></div>
+						<input class="serchInput" id="txtparent" type="text"  name="txtparent"  style="word-wrap:break-word;">
+						<!-- <input type="button" class="searchLog addparent" value="追加" style="width: 70px;float:right;"> -->
+						<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+							<a class="button2Disable" href="javascript:void(0);" style="width: 70px;float:right; text-decoration: none; color:#AEA797; cursor: default;">追加</a>
+						<?php else : ?>
+							<a id="addparent" class="button2 addparent " href="javascript:void(0);" style="width: 70px;float:right;">追加</a>
+						<?php endif; ?>
+					</td>
+				</tr>
+
+			</table >
+			<br/>
+			<div class="erredit" style="color: red; text-align: left;"></div>
+			<table border="0" align="center" style="width:90%;" class="content scroll" id="parent" >
+				<thead>
+					<tr class="rowedit">
+						<th></th>
+						<th>親カテゴリー</th>
+						<th>処理</th>
+					</tr>
+				</thead>
+				<tbody style="">
+					<?php
+						$i=0;
+						foreach ($this->catPerent as $value) {
+					?>
+					<!-- row edit, delete, add : parent-->
+					<tr class="rowedit">
+						<td align="center" style="width:7%">
+							<input type="radio" name="catParent"
+							<?php if ($i==0){ echo "class='firstchild '";} ?>
+						 		value="<?php echo $value['category_id']; ?>" >
+						 </td>
+						<td style="">
+							<span id="labname<?php echo $value['category_id'] ?>"
+								 style=" word-wrap: break-word; max-width: 400px; display: block;">
+								 <?php echo $value['category_name'];?>
+							 </span>
+							<input type="text" id="name<?php echo $value['category_id']?>"
+									value="<?php echo $value['category_name'];?>">
+							<input type="hidden" id="displayorder<?php echo $value['category_id']?>"
+												name="displayorder<?php echo $value['category_id']?>"
+												value="<?php echo $value['display_order'];?>">
+						</td>
+						<td style="width:10%" >
+							<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+								<a class="button2Disable" href="javascript:void(0);" style="width: 70px; float:right; text-decoration: none; color:#AEA797; cursor: default;">編集</a>
+							<?php else : ?>
+								<a id="<?php echo $value['category_id']?>" class="button2 editprod " href="javascript:void(0);" style="width: 70px;float:right;">編集</a>
+							<?php endif; ?>
+							<!-- <input type="button" id ="<?php echo $value['category_id']?>" class="searchLog editprod" value="編集" style="width: 70px;"> -->
+						</td>
+	
+					</tr>
+					<!-- end -->
+					<?php $i++; }
+					?>
+				</tbody>
+			</table >
+			<br/>
+			<table border="0" align="center" style="width:90%;">
+				<tr>
+					<td colspan="3">
+					<!-- 
+						<input type="button" class="searchLog margin_padding delete" value="削除" style="width: 70px;" >
+						<input type="button" class="searchLog margin_padding moveup" value="↑移動" style="width: 70px;">
+						<input type="button" class="searchLog margin_padding movedow" value="↓移動" style="width: 70px;">
+					 -->
+						<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+							<a class="button2Disable margin_padding " href="javascript:void(0);" style="width: 70px; float:right; text-decoration: none; color:#AEA797; cursor: default;">削除</a>
+							<a class="button2Disable margin_padding " href="javascript:void(0);" style="width: 70px; float:right; text-decoration: none; color:#AEA797; cursor: default;">↑移動</a>
+							<a class="button2Disable margin_padding " href="javascript:void(0);" style="width: 70px; float:right; text-decoration: none; color:#AEA797; cursor: default;">↓移動</a>
+						<?php else : ?>
+							<a id="delete" class="button2 margin_padding delete" href="javascript:void(0);" style="width: 70px;float:right;">削除</a>
+							<a id="moveup" class="button2 margin_padding moveup" href="javascript:void(0);" style="width: 70px;float:right;">↑移動</a>
+							<a id="movedow" class="button2 margin_padding movedow" href="javascript:void(0);" style="width: 70px;float:right;">↓移動</a>
+						<?php endif; ?>
+					</td>
+				</tr>
+			</table >
+
+		</form>
+		</td>
+		<td valign="top" >
+		<?php $urlprod = $this->url(array('action' => 'index','controller' =>'category')); ?>
+		<form action="<?php echo $urlprod ?>" method="post" id="formCategoryChild">
+			<input type="hidden" name="child">
+			<table border="0" align="center" style="width:90%;">
+				<tr>
+					<td colspan="3">
+						<div class="errorchild" style="color: red; text-align: left;"></div>
+						<input class="serchInput" id="txtchild" type="text"  name="txtchild">
+						<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+							<a class="button2Disable margin_padding" href="javascript:void(0);" style="width: 70px; float:right; text-decoration: none; color:#AEA797; cursor: default;">追加</a>
+						<?php else : ?>
+							<a id="addChild" class="button2 addChild" href="javascript:void(0);" style="width: 70px;float:right;">追加</a>
+						<?php endif; ?>
+						<!-- <input type="button" class="searchLog addChild" value="追加" style="width: 70px;float:right;"> -->
+						<input type="hidden" id="parent_id" name="parent_id" value="">
+					</td>
+				</tr>
+			</table >
+			<br/>
+			<table border="0" align="center" style="width:90%;" class="content scroll" id="category">
+				<tr class="rowedit">
+					<th></th>
+					<th>親カテゴリー</th>
+					<th>処理</th>
+				</tr>
+				<!--  category child-->
+			</table >
+			<br/>
+			<table border="0" align="center" style="width:90%;">
+				<tr>
+					<td colspan="3">
+					<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+						<a class="button2Disable margin_padding" href="javascript:void(0);" style="width: 70px;float:right; text-decoration: none; color:#AEA797; cursor: default;">削除</a>
+						<a class="button2Disable margin_padding" href="javascript:void(0);" style="width: 70px;float:right; text-decoration: none; color:#AEA797; cursor: default;">↑移動</a>
+						<a class="button2Disable margin_padding" href="javascript:void(0);" style="width: 70px;float:right; text-decoration: none; color:#AEA797; cursor: default;">↓移動</a>
+					<?php else : ?>
+						<a id="deleteChild" class="button2 margin_padding deleteChild" href="javascript:void(0);" style="width: 70px;float:right;">削除</a>
+						<a id="moveupChild" class="button2 margin_padding moveupChild" href="javascript:void(0);" style="width: 70px;float:right;">↑移動</a>
+						<a id="movedowChild" class="button2 margin_padding movedowChild" href="javascript:void(0);" style="width: 70px;float:right;">↓移動</a>
+					<?php endif; ?>
+					<!-- 
+						<input type="button" class="searchLog margin_padding deleteChild" value="削除" style="width: 70px;">
+						<input type="button" class="searchLog margin_padding moveupChild" value="↑移動" style="width: 70px;">
+						<input type="button" class="searchLog margin_padding movedowChild" value="↓移動" style="width: 70px;">
+					 -->
+					</td>
+				</tr>
+			</table >			
+		</form>
+		</td>
+	</tr>
+	</table>
+	<div class="clear"></div>
+	<div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+//Add 20140417 Hieunm start
+function disableBtnWhenNodata(which) {
+	var parentCategoryRowNum = $("#parent .rowedit:last").find('td').size();
+	var childCategoryRowNum = $("#category .rowedit:last").find('td').size();
+	var res = "0";
+
+	if(parentCategoryRowNum < 1 && which != "child"){
+		$('.delete').attr("disabled", "disabled");
+		$('.moveup').attr("disabled", "disabled");
+		$('.movedow').attr("disabled", "disabled");
+
+		$('.delete').css("background-color" , "#C0C0C0");
+		$('.moveup').css("background-color" , "#C0C0C0");
+		$('.movedow').css("background-color" , "#C0C0C0");
+		$('.delete').css("color" , "#FFFFFF");
+		$('.moveup').css("color" , "#FFFFFF");
+		$('.movedow').css("color" , "#FFFFFF");
+		res = "1";
+	} else {
+		$('.delete').removeAttr("disabled");
+		$('.moveup').removeAttr("disabled");
+		$('.movedow').removeAttr("disabled");
+
+		$('.delete').css("background-color" , "");
+		$('.moveup').css("background-color" , "");
+		$('.movedow').css("background-color" , "");
+		$('.delete').css("color" , "");
+		$('.moveup').css("color" , "");
+		$('.movedow').css("color" , "");
+	}
+
+	if(childCategoryRowNum < 1 && which != "parent"){
+		$('.deleteChild').attr("disabled", "disabled");
+		$('.moveupChild').attr("disabled", "disabled");
+		$('.movedowChild').attr("disabled", "disabled");
+
+		$('.deleteChild').css("background-color" , "#C0C0C0");
+		$('.moveupChild').css("background-color" , "#C0C0C0");
+		$('.movedowChild').css("background-color" , "#C0C0C0");
+		$('.deleteChild').css("color" , "#FFFFFF");
+		$('.moveupChild').css("color" , "#FFFFFF");
+		$('.movedowChild').css("color" , "#FFFFFF");
+		res = "1";
+	} else {
+		$('.deleteChild').removeAttr("disabled");
+		$('.moveupChild').removeAttr("disabled");
+		$('.movedowChild').removeAttr("disabled");
+
+		$('.deleteChild').css("background-color" , "");
+		$('.moveupChild').css("background-color" , "");
+		$('.movedowChild').css("background-color" , "");
+		$('.deleteChild').css("color" , "");
+		$('.moveupChild').css("color" , "");
+		$('.movedowChild').css("color" , "");
+	}
+
+	return res;
+}
+// Add 20140417 Hieunm end
+
+$(document).ready(function() {
+	$(".firstchild").attr("checked", "checked");
+	$(".catcheck").attr("checked", "checked");
+
+  	var id = $(".firstchild").attr('value');
+  	$.ajax({
+		url: "<?php echo $this->url(array('action' => 'category','controller' =>'category')); ?>",
+		type: "post",
+		data: { "id": id},
+		success: function( strData ){
+			if (strData != "null"){
+				$("#category").html(strData);
+				$("#parent_id").val(id);
+			}
+
+			// Add 20140417 Hieunm start
+			disableBtnWhenNodata("both");
+			// Add 20140417 Hieunm end
+
+		}
+	});
+
+ 	// Add 20140417 Hieunm start
+  	$("#category").click(function(){
+		$('.error').html("");
+		$('.errorchild').html("");
+	});
+
+  	$("#parent").click(function(){
+		$('.error').html("");
+		$('.errorchild').html("");
+	});
+	// Add 20140417 Hieunm end
+
+	$("#parent input[type='radio']").change(function(){
+		if ($(this).is(':checked')){
+			var cthis = $(this);
+		  	var id = cthis.attr('value');
+		  	$.ajax({
+				url: "<?php echo $this->url(array('action' => 'category','controller' =>'category')); ?>",
+				type: "post",
+				data: { "id": id},
+				success: function( strData ){
+					if (strData != "null"){
+						$("#category").html(strData);
+						$("#parent_id").val(id);
+					}
+
+					// Add 20140417 Hieunm start
+					disableBtnWhenNodata("both");
+					// Add 20140417 Hieunm end
+
+				}
+			});
+			return false;
+		}
+    });
+
+    $(".addChild").click(function(){
+        var id=$("#parent_id").val();
+        var txtname=$("#txtchild").val();
+     	// Mod 20140417 Hieunm start
+        //if(txtname!=""){
+        if ($.trim(txtname) != ""){
+        // Mod 20140417 Hieunm end
+        	$.ajax({
+    			url: "<?php echo $this->url(array('action' => 'addchild','controller' =>'category')); ?>",
+    			type: "post",
+    			data: { "parent_id": id,"category_name": txtname},
+    			success: function( strData ){
+    				if (strData != "false"){
+    					$('.errorchild').html('');
+    					$("#category .rowedit:last").after(strData);
+    					$("#txtchild").val('');
+    				} else {
+    				}
+
+    				// Add 20140417 Hieunm start
+    				disableBtnWhenNodata("both");
+    				// Add 20140417 Hieunm end
+
+    			}
+    		});
+        }else{
+			$('.error').html('');
+        	$('.errorchild').html(" 子カテゴリー は必ず入力してください。");
+        	// Add 20140417 Hieunm start
+			$('#txtchild').focus();
+			// Add 20140417 Hieunm end
+        }
+		return false;
+    });
+
+    $(".addparent").click(function(){
+        var txtname=$("#txtparent").val();
+     	// Mod 20140417 Hieunm start
+        //if (txtname!=""){
+        if ($.trim(txtname) != ""){
+        // Mod 20140417 Hieunm end
+        	$.ajax({
+    			url: "<?php echo $this->url(array('action' => 'addparent','controller' =>'category')); ?>",
+    			type: "post",
+    			data: { "category_name": txtname},
+    			success: function( strData ){
+    				if (strData != "false"){
+    					var res = strData.split("@@@");
+    					$('.error').html('');
+    					$("#parent .rowedit:last").after(strData);
+    					$("#txtparent").val('');
+    				  	var id = res[1];
+    				  	$.ajax({
+    						url: "<?php echo $this->url(array('action' => 'category','controller' =>'category')); ?>",
+    						type: "post",
+    						data: { "id": id},
+    						success: function( strData1 ){
+    							if (strData1 != "false"){
+    								$("#category").html(strData1);
+    								$("#parent_id").val(id);
+    							}
+
+    							// Add 20140417 Hieunm start
+    							disableBtnWhenNodata("both");
+    							// Add 20140417 Hieunm end
+
+    						}
+    					});
+
+    				 	// Add 20140417 Hieunm start
+						disableBtnWhenNodata("both");
+						// Add 20140417 Hieunm end
+    				} else {
+    				}
+    			}
+    		});
+        }else{
+			$('.errorchild').html('');
+			$('.error').html(" 親カテゴリー は必ず入力してください");
+			// Add 20140417 Hieunm start
+			$('#txtparent').focus();
+			// Add 20140417 Hieunm end
+        }
+		return false;
+    });
+
+    $(".editprod").click(function(){
+    	var button = $(this);
+	  	var id = $(this).attr('id');
+	  	if ($(this).html() == '編集'){
+			$('.error').html('');
+			$('.errorchild').html('');
+	  		$(this).html('更新');
+	  		$('#name'+id).show();
+		  	$('#labname'+id).hide();
+	  	}else{
+	  		var name = $('#name'+id).val();
+	  		if(name!=""){
+				$('.errorchild').html('');
+				$('.error').html('');
+	  			$.ajax({
+					url: "<?php echo $this->url(array('action' => 'editparent','controller' =>'category')); ?>",
+					type: "post",
+					data: { "category_name": name, "category_id": id},
+					success: function( strData ){
+						if (strData =="true"){
+							button.html('編集');
+							$('#labname'+id).html(name);
+						  	$('#labname'+id).show();
+						  	$('#name'+id).hide();
+						} else {
+							$('#name'+id).focus().select();
+						}
+					}
+				});
+	  		}else{
+				$('.error').html('カテゴリー必ず入力してください。');
+	  		}
+	  	}
+    });
+
+    $(".delete").click(function(){
+    	// Add 20140417 Hieunm start
+		var result = disableBtnWhenNodata("parent");
+		if(result == "1"){
+			return;
+		}
+    	// Add 20140417 Hieunm end
+    	//var conf = confirm("カテゴリーを削除します。よろしいですか。?");
+    	var conf = confirm("削除してもよろしいですか？");
+    	if(conf){
+        	var radiochecked = $('input[name=catParent]:checked', '#formCatParent');
+        	var id = radiochecked.val();
+            $.ajax({
+    			url: "<?php echo $this->url(array('action' => 'deleteparent','controller' =>'category')); ?>",
+    			type: "post",
+    			data: {"category_id": id},
+    			success: function(str){
+    				if(str=="true"){
+    					$('.error').html('');
+    					$('.errorchild').html('');
+    					var tr = radiochecked.parent().parent();
+    					tr.remove();
+    					alert("正常に削除しました。");
+    					location.reload();
+
+    					// Add 20140417 Hieunm start
+						disableBtnWhenNodata("both");
+						// Add 20140417 Hieunm end
+
+    				}else{
+    					alert("カテゴリーが使用されています。削除できません。");
+    				}
+    			}
+    		});
+	   	}
+
+    });
+
+    $(".deleteChild").click(function(){
+    	// Add 20140417 Hieunm start
+    	var result = disableBtnWhenNodata("child");
+		if(result == "1"){
+			return;
+		}
+    	// Add 20140417 Hieunm end
+    	//var conf = confirm("カテゴリーを削除します。よろしいですか。?");
+    	var conf = confirm("削除してもよろしいですか？");
+    	if(conf){
+        	var radiochecked = $('input[name=catChild]:checked', '#formCategoryChild');
+        	var id = radiochecked.val();
+            $.ajax({
+    			url: "<?php echo $this->url(array('action' => 'deletechid','controller' =>'category')); ?>",
+    			type: "post",
+    			data: {"category_id": id},
+    			success: function(str){
+    				if(str=="true"){
+    					$('.error').html('');
+    					$('.errorchild').html('');
+    					var tr = radiochecked.parent().parent();
+    					tr.remove();
+    					alert("正常に削除しました。");
+    					$("input[name=catChild]:first").prop('checked', true);
+
+    					// Add 20140417 Hieunm start
+						disableBtnWhenNodata("both");
+						// Add 20140417 Hieunm end
+
+    				}else{
+    					alert("カテゴリーが使用されています。削除できません。");
+    				}
+    			}
+    		});
+    	}
+
+    });
+
+ 	// Add 20140417 Hieunm start
+    var enableMove = true;
+ 	// Add 20140417 Hieunm end
+    $(".moveup").click(function(){
+    	// Add 20140417 Hieunm start
+        if (enableMove) {
+        	enableMove = false;
+        // Add 20140417 Hieunm end
+	    	var radiochecked = $('input[name=catParent]:checked', '#formCatParent');
+	    	var id = radiochecked.val();
+	    	var displayorder = $('#displayorder'+id).val();
+			var tr = radiochecked.parent().parent();
+			var prev = tr.prev();
+			var id2 = 0;
+			var displayorder2 = 0;
+			prev.find('input[id^=displayorder]').each(function(){
+				displayorder2=$(this).val();
+			});
+			prev.find('input[type=radio]').each(function(){
+				id2=$(this).val();
+			});
+	    	$.ajax({
+				url: "<?php echo $this->url(array('action' => 'moveup','controller' =>'category')); ?>",
+				type: "post",
+				data: {"category_id": id, "display_order":displayorder, "category_id_2":id2, "display_order_2":displayorder2},
+				success: function( str){
+					if (str == "true"){
+						$('.error').html('');
+						$('.errorchild').html('');
+						prev.before(tr);
+					} else {
+						alert("上へ移動できません。");
+					}
+
+					enableMove = true; // Add 20140417 Hieunm
+				}
+			});
+        }	// Add 20140417 Hieunm
+		return false;
+    });
+
+
+    $(".movedow").click(function(){
+    	// Add 20140417 Hieunm start
+    	if (enableMove) {
+        	enableMove = false;
+        // Add 20140417 Hieunm end
+	    	var radiochecked = $('input[name=catParent]:checked', '#formCatParent');
+	    	var id = radiochecked.val();
+	  		var displayorder = $('#displayorder'+id).val();
+
+			var tr = radiochecked.parent().parent();
+			var next = tr.next();
+
+			var id2 = 0;
+			var displayorder2 = 0;
+			next.find('input[id^=displayorder]').each(function(){
+				displayorder2=$(this).val();
+			});
+			next.find('input[type=radio]').each(function(){
+				id2=$(this).val();
+			});
+	    	$.ajax({
+				url: "<?php echo $this->url(array('action' => 'movedow','controller' =>'category')); ?>",
+				type: "post",
+				data: {"category_id": id, "display_order":displayorder, "category_id_2":id2, "display_order_2":displayorder2},
+				success: function( str){
+					if (str == "true"){
+						$('.error').html('');
+						$('.errorchild').html('');
+				    	next.after(tr);
+					} else {
+						alert("下へ移動できません。");
+					}
+
+					enableMove = true;	// Add 20140417 Hieunm
+				}
+			});
+    	}	// Add 20140417 Hieunm
+		return false;
+    });
+
+    $(".moveupChild").click(function(){
+    	// Add 20140417 Hieunm start
+    	if (enableMove) {
+        	enableMove = false;
+        // Add 20140417 Hieunm end
+	    	var radiochecked = $('input[name=catChild]:checked', '#formCategoryChild');
+	    	var id = radiochecked.val();
+	    	var displayorder = $('#displayorder'+id).val();
+			var tr = radiochecked.parent().parent();
+			var prev = tr.prev();
+			var id2 = 0;
+			var displayorder2 = 0;
+			prev.find('input[id^=displayorder]').each(function(){
+				displayorder2=$(this).val();
+
+			});
+			prev.find('input[type=radio]').each(function(){
+				id2=$(this).val();
+			});
+	    	$.ajax({
+				url: "<?php echo $this->url(array('action' => 'moveup','controller' =>'category')); ?>",
+				type: "post",
+				data: {"category_id": id, "display_order":displayorder, "category_id_2":id2, "display_order_2":displayorder2},
+				success: function( str){
+					if (str == "true"){
+						$('.error').html('');
+						$('.errorchild').html('');
+						prev.before(tr);
+					} else {
+						alert("上へ移動できません。");
+					}
+
+					enableMove = true;	// Add 20140417 Hieunm
+				}
+			});
+    	}	// Add 20140417 Hieunm
+		return false;
+    });
+
+
+    $(".movedowChild").click(function(){
+    	// Add 20140417 Hieunm start
+    	if (enableMove) {
+        	enableMove = false;
+        // Add 20140417 Hieunm end
+	    	var radiochecked = $('input[name=catChild]:checked', '#formCategoryChild');
+	    	var id = radiochecked.val();
+	  		var displayorder = $('#displayorder'+id).val();
+			var tr = radiochecked.parent().parent();
+			var next = tr.next();
+
+			var id2 = 0;
+			var displayorder2 = 0;
+			next.find('input[id^=displayorder]').each(function(){
+				displayorder2=$(this).val();
+			});
+			next.find('input[type=radio]').each(function(){
+				id2=$(this).val();
+			});
+	    	$.ajax({
+				url: "<?php echo $this->url(array('action' => 'movedow','controller' =>'category')); ?>",
+				type: "post",
+				data: {"category_id": id, "display_order":displayorder, "category_id_2":id2, "display_order_2":displayorder2},
+				success: function( str){
+					if (str == "true"){
+						$('.error').html('');
+						$('.errorchild').html('');
+				    	next.after(tr);
+					} else {
+						alert("下へ移動できません。");
+					}
+
+					enableMove = true;	// Add 20140417 Hieunm
+				}
+			});
+    	}	// Add 20140417 Hieunm
+		return false;
+    });
+
+    function submitForm() {
+    	$('#frmSearch').submit();
+    }
+    
+	// import CSV
+    $('#importCsvBtn').click(function(){
+    	$('#fileCategory').val("");
+		$('#fileCategory').click();
+	});
+
+	$('#fileCategory').change(function(){
+		$("#import_csv_form").ajaxForm({
+			success: function(data){
+				if (data == "true") {
+					alert("正常にインポートしました。");
+					location.href='/admin/category';
+				} else {
+					alert(data);
+				}
+				
+			}
+		}).submit();
+	});
+
+	//export SCV category
+	$('#exportCsvBtn').click(function(){
+		window.location.href="<?php echo $this->url(array('action' => 'export','controller' =>'category')); ?>";
+	});
+
+});
+</script>

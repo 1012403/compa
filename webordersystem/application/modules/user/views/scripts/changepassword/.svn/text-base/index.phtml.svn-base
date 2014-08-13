@@ -1,0 +1,107 @@
+<script type="text/javascript">
+var urlBack = '<?php echo $this->url(array('action' => 'index', 'controller' => 'login'));?>';
+ $(document).ready(function() {
+	$('#passwd').focus();
+	$('#backButton').click(function(){
+		gotoPage(urlBack);
+	});
+
+	$('#submitButton').click(function(){
+		submitForm();
+	});
+});
+
+ 
+function submitForm() {
+	if (checkChangePw() == false) {
+		return;
+	}
+	$.ajax({
+		url: '<?php echo $this->config['url_base'] ?>/changepassword/processchangepassword',
+		type: 'POST',
+		data: $('#formChangePasswd').serialize(),
+		success: function(data){
+			var str = data.substring(0,4);
+			var arrname = data.split("true");
+			var username=arrname[1];
+			if(str=="true"){
+            	alert("パスワードを変更しました。");
+            	window.location.href = '<?php echo $this->config['url_base'] ?>/login/login?login_username='+username;
+            }else{
+            	$('#formChangePasswd').submit();
+            }
+		}
+	});
+}
+
+$(document).ready(function() {
+	<?php
+	if (isset($this->buttonErr)){
+		$flag=$this->buttonErr;
+		if($flag=="1")
+	?>
+			$('#submitButton').attr("disabled", true);
+			$('#passwd').attr("disabled", true);
+			$('#passwdConfirm').attr("disabled", true);
+	<?php
+	}
+	?>
+});
+
+</script>
+
+<div>
+	<div class=" col-xs-2 col-sm-2 col-md-3 col-lg-4" ></div>
+	<div class=" col-xs-8 col-sm-8 col-md-6 col-lg-4">
+		<div class="title_tyle" style="text-align: center; margin: 0 auto; padding-left: 10px;">
+		<div class="title_col">
+			<label class="pull-left">パスワード変更</label>
+		</div>
+	</div>
+<br/>
+<br/>
+<div class="divLogin" style="text-align: center; margin: 0 auto;">
+	<?php
+	$url = $this->url(array('action' => 'processchangepassword','controller' =>'changepassword'));
+	?>
+
+	<form action="<?php echo $url ?>" method="post" id="formChangePasswd">
+	<?php echo $this->changePasswdForm->hiddenUsername; ?>
+	<?php echo $this->changePasswdForm->hiddenToken; ?>
+		<div class="row" style="padding-left: 20px;">
+			<div class="col-12">
+				<div id="errorArea"	style="text-align: left; color: red;">
+					<?php echo $this->err; ?>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">ユーザＩＤ</div>
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 " style="text-align: left;">
+				<?php echo $this->changePasswdForm->username ?>
+			</div>
+			<div class="col-12">&nbsp;</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">新しいパスワード	</div>
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 " style="text-align: left;">
+				<?php echo $this->changePasswdForm->passwd ?>
+			</div>
+			<div class="col-12">&nbsp;</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">新しいパスワード （確認用）</div>
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 " style="text-align: left;">
+				<?php echo $this->changePasswdForm->passwdConfirm ?>
+			</div>
+			
+			<div class="col-12">&nbsp;</div>
+			<div class="col-12">
+				<input class="smallButton" id="submitButton" type="button" name="changePasswd" value="更新する">
+				<input class="smallButton" id="backButton" type="button" name="back" value="キャンセル" >
+				</div>
+			<br/> <br/><br/>
+		</div>
+	</form>
+</div>
+	</div>
+</div>
+
+
+
+

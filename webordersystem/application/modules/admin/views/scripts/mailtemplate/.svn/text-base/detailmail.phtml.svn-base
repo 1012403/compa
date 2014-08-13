@@ -1,0 +1,93 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#addMail').click(function(){
+		if (checkMailEmpty() == false){
+			return;
+		}
+		$('#formAdd').submit();
+	});
+	
+});
+
+</script>
+
+<?php
+/* @var $values Core_Models_MailTemplate*/
+	$values= $this->detailmail;
+?>
+<input type="hidden" name="update">
+<div id="log">
+<input type="hidden" name="id" value="<?php echo $values->getMailId();?>">
+ <input type="hidden" name="itemcdsubmit" value="<?php echo $values->getItemCd();?>">
+	<br/>
+	<div class="title_col" style="width:67%; margin-left: 15px;">
+		<div class="row title_tyle" >
+			<label class="pull-left">詳細 </label>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tables">
+		<div style="color: red;" id ="error"><?php if($this->errclass !='') echo $this->errclass;?></div>
+		<label class="margin_padding" style="font-weight: normal;width: 90px;">分類 </label>
+		<select id="class_itemp" name ="class_itemp" style="height:30px;padding-top:7px; " class="margin_padding" >
+		<!-- <option value="0"></option> -->
+			<?php $id=-1;
+				foreach ($this->mailClass as $value){
+					if ($value->getItemName()!=null)
+			?>
+				<option value="<?php echo $value->getItemCd();?>"
+					<?php if ($value->getItemCd() == $values->getItemCd()) {
+						$id=$value->getItemCd(); echo "selected";
+					}?>>
+						<?php echo $value->getItemName(); ?>
+				</option>
+			<?php
+				} 
+			?>
+		</select>
+		
+		<input type="hidden" name="classhidden" value="<?php echo $id;?>">
+		<label>
+			<input class="margin_padding" type="checkbox" name="apply_flg" id="apply_flg" 
+				value="apply_flg" <?php if ($values->getFlagTemp()=="1") echo "checked";?>> 適用
+		</label><br>
+		
+		<div class="clear"></div>
+		
+		
+		<div class="margin_padding" >
+			<div class="float" style="width: 100px;">タイトル</div>
+			<div class="float" >
+				<div style="color: red;"><?php if($this->errtitle !='') echo $this->errtitle;?></div>
+				<input class="width_hight" id="title" name ="title" type="text" maxlength="225"
+					value="<?php if($values->gettitle()!="") echo $values->gettitle();?>"style="padding-left: 10px;" >
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">ヘッダ</div>
+			<div class="float" >
+				<textarea class="width_hight"
+						style=" height: 70px; padding-left: 10px; text-align: left;" 
+						id="header" name ="header" maxlength="225"><?php echo $values->getheader();?>
+				</textarea>
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">フッタ</div>
+			<div class="float">
+				<textarea class="width_hight" 
+						style=" height: 70px; padding-left: 10px;" 
+						id="footer" name ="footer" maxlength="225"><?php echo $values->getFooter();?>
+				</textarea>
+			</div>
+		</div>
+		<div class="clear margin_padding"></div>
+		<input type="button" id="addMail" name ="addMail" class="searchLog width_bt float_right margin_padding" value="保存" >
+		<br/><br/>
+		
+	</div>
+</div>

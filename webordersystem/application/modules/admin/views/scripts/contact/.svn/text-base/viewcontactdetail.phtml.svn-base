@@ -1,0 +1,135 @@
+<style>
+.spanBlue{
+	color:blue;
+	font-weight: bold;
+}
+
+.spanRed{
+	color:red;
+	font-weight: bold;
+}
+.tblAnsContact {
+	width: 100%;
+    border-collapse:separate;
+    border: solid gray 1px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #888888;
+}
+
+.tblAnsContact td{
+	padding: 10px;
+}
+
+.tblAnsContact .tdTitle{
+	width: 80%;
+	font-weight: bold;
+	border-bottom: solid gray 1px;
+}
+
+.tblAnsContact .tdDate{
+	width: 20%;
+	text-align: right;
+	font-weight: bold;
+	border-bottom: solid gray 1px;
+}
+
+#txtNewTitle{
+	width: 100%;
+}
+
+#txtNewContent{
+	width: 100%;
+	height: 50px;
+}
+
+</style>
+
+<?php
+$url = $this->url(array('action' => 'newreply', 'controller' =>'contact'));
+?>
+<form action="<?php echo $url ?>" method="post" id="formContact">
+			<div class="row" style="padding-left:30px; padding-right: 50px">
+	          	<div class="col-12 col-md-12 col-lg-12">
+					<div class="row title_tyle" >
+						<label class="pull-left">お問い合わせ内容</label>
+					</div>
+	          	</div>
+	          	
+	          	<?php foreach ($this->arrAnsContact as $id=>$contact){?>
+		          	<div class="col-12 col-md-12 col-lg-12" style="margin-bottom: 20px">
+		          		<table class="tblAnsContact" style="<?php if($contact->getAskAnswerFlg() == Core_Util_Const::CONTACT_ANS_FLG){ echo "background-color:rgb(213, 213, 213)"; } ?>">
+		          			<tr>
+		          				<td class="tdTitle" style=" word-wrap: break-word; max-width: 900px;" >
+		          					<?php echo $contact->getTitle() ?>
+		          				</td>
+		          				<td class="tdDate">
+		          					<?php $date = new DateTime( $contact->getContactDateTime()); echo date_format($date, 'Y/m/d H:i');?>
+		          					
+		          				</td>
+		          			</tr>
+		          			<tr>
+		          				<td colspan="2" class="tdContent" style=" word-wrap: break-word; max-width: 900px;" >
+		          					<?php echo $contact->getContent() ?>
+		          				</td>
+		          			</tr>
+		          		</table>
+		          	</div>
+	          	<?php }?>
+	          	
+	          	<br/>
+	          	<div class="col-12 col-md-12 col-lg-12">
+	          	<div id="errorArea"	style="text-align: left; color: red;">
+	          	</div>
+		          	<table class="tblAnsContact">
+	          			<tr>
+	          				<td class="tdContent">
+	          				<b>内容</b>
+	          				<div style="">
+		          				<textarea rows="" cols="" id="notice" name ="notice"></textarea>
+			          				<?php echo $this->ckeditor('notice');
+									?>
+							</div>
+	          				</td>
+	          			</tr>
+	          		</table>
+	          		
+	          		<span>
+	                      <a id="submitButton" class="button" href="#" style="color:black; font-weight:bold; width: 140px;">送信</a>
+	                  </span>
+          		</div>
+           </div>
+            <input type="hidden" id="contactClass" name="contactClass" value="<?php echo $this->contactClass ?>"/>
+            <input type="hidden" id="contactId" name="contactId" value="<?php echo $this->contactId ?>"/>
+            <input type="hidden" id="contactTitle" name="contactTitle" value="<?php echo $this->contactTitle ?>"/>
+</form>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	$('#submitButton').click(function(){
+		if(checkContactInput()){
+			$('#formContact').submit();
+		}
+	});
+});
+
+ function checkContactInput() {
+		var contactContent = CKEDITOR.instances.notice.getData();
+		var errorMsg = "";
+		var isFocus = false;
+		
+		if ($.trim(contactContent) == "" ) {
+			errorMsg += "内容は必ず入力してください。<br/>";
+			if(!isFocus){
+				CKEDITOR.instances.notice.focus();
+				isFocus = true;
+			}
+		}
+		if(errorMsg != ""){
+			$("#errorArea").empty();
+			$("#errorArea").append(errorMsg);
+			return false;
+		}
+		return true;
+	}
+ 
+</script>

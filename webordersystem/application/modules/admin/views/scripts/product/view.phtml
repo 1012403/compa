@@ -1,0 +1,205 @@
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+<div id="main" style="width: 1200px;">
+<input type="hidden" value="<?php echo $this->config['url_base']; ?>" id="url_base"/>
+<div id="product" style="float: left;">
+      <table>
+        <tr>
+          <td>
+            <div class="productTitle">
+         &nbsp;<img class="productIconSize" src="<?php echo $this->config['url_base']; ?>/images/web/circle.png" />&nbsp;<b>商品詳細</b>
+       　　       </div>
+          </td>
+          <td>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <?php if (Core_Util_Helper::isReferenceAdmin()):?>
+                    <a href="javascript:void(0);" id="btnEdit" class="button2Disable" style="color:#AEA797; text-decoration: none;">編集</a>
+			          &nbsp;&nbsp;
+			          <a href="javascript:void(0);" id="btnDelete" class="button2Disable" style="color:#AEA797;text-decoration: none;">削除</a>
+			          &nbsp;&nbsp;
+          <?php else :?>
+		          <a href="javascript:editProduct(<?php echo $this->product["productId"];?>)" id="btnEdit" class="productBtnStyle btnWidth btnBold">編集</a>
+		          &nbsp;&nbsp;
+		          <a href="javascript:deleteProduct(<?php echo $this->product["productId"];?>)" id="btnDelete" class="productBtnStyle btnWidth btnBold">削除</a>
+		          &nbsp;&nbsp;
+          <?php endif;?>
+          		<a id="removeFeaturedProductId_<?php echo $this->product['productId'];?>" href="javascript:removeFeaturedProductById('<?php echo $this->product['productId'];?>');"><div style="float: right; margin-top: 5px; width: 80px; background-color: #FFFF99; color: #984807;" class="productBtnStyle btnWidth btnBold"><b>☆おすすめ</b></div></a>	<!-- MOD 20140429 Hieunm add margin-top -->
+            	<a id="addFeaturedProductId_<?php echo $this->product['productId'];?>" href="javascript:addFeaturedProductById('<?php echo $this->product['productId'];?>');"><div style="float: right; background-color: white; color: black;margin-top: 5px; width: 80px;" class="productBtnStyle btnWidth btnBold" ><b>おすすめへ</b></div></a>	<!-- MOD 20140429 Hieunm add margin-top -->
+            	<?php if ($this->isAddedFeature) :?>
+            	<script type="text/javascript">
+					$('#addFeaturedProductId_<?php echo $this->product['productId'];?>').hide();
+					$('#removeFeaturedProductId_<?php echo $this->product['productId'];?>').show();
+				</script>
+            	<?php else: ?>
+            	<script type="text/javascript">
+					$('#removeFeaturedProductId_<?php echo $this->product['productId'];?>').hide();
+					$('#addFeaturedProductId_<?php echo $this->product['productId'];?>').show();
+				</script>
+            	<?php endif; ?>
+          </td>
+          <td>
+          		
+          </td>
+        </tr>
+      </table>
+
+      <br/>
+
+        <table width="940" border="0" cellspacing="0" cellpadding="0"
+            class="graph2 mt20">
+            <tr>
+                <th class="tal">商品名称</th>
+                <td style="word-wrap: break-word; max-width: 600px">					<!-- MOD 20140429 Hieunm add style -->
+                    <?php echo $this->product["productName"]; ?>
+                </td>
+                <td rowspan="5" class="tal" width="350px">			<!-- MOD 20140429 Hieunm add width -->
+                  <div id="viewImage">
+                    <img id="imgUpload" alt="" width="340px" src="<?php echo $this->config['url_base']. $folderImage .$this->product["imagePath"]; ?>"  width="120">
+                  </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="tal">商品番号</th>
+                <td style="word-wrap: break-word;">					<!-- MOD 20140429 Hieunm add style -->
+                    <?php echo $this->product["productNo"]; ?>
+                </td>
+            </tr>
+
+            <tr> 
+                <th class="tal">メーカー品番</th>
+                    <td style="word-wrap: break-word;">
+                        <?php echo $this->product["makerProductNo"]; ?>
+                    </td>
+            </tr>
+
+            <tr>
+                <th class="tal">商品説明</th>
+                <td style="word-wrap: break-word; max-width: 600px">	<!-- MOD 20140429 Hieunm add style -->
+                    <?php echo nl2br($this->escape($this->product["productBrief"])); ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="tal">標準価格</th>
+                <td >
+                    <?php
+                        foreach ($this->product["prices"] as $item){
+                        	$priceCondDis = "";
+                        	if ($item['priceConditionClass'] == 0){
+                        		$priceCondDis = "表示制限（無）";
+                        	} else{
+                        		$priceCondDis = "表示制限（有）";
+                        	}
+                            $quanResDis = "";
+                        	if ($item['quantityRestriction'] == 0){
+                        		$quanResDis = "入力制限（無）";
+                        	} else{
+                        		$quanResDis = "入力制限（有）";
+                        	}
+                            echo $this->echoNumber($item['price']) . "円	（".$this->echoDate($item['priceApplyStartDate'])."から適用）
+                            &nbsp&nbsp".$priceCondDis."&nbsp".$quanResDis."<br/>";
+                        }
+                    ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="tal">ポイント倍率</th>
+                <td >
+                    <?php
+                        foreach ($this->product["points"] as $item){
+                            echo $this->echoNumber($item['magnificationPoint']) . "倍  （".$this->echoDate($item['pointApplyStartDate'])."から適用）<br/>";
+                        }
+                    ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="tal">コメント</th>
+                <td colspan="2">
+                    <?php $str = $this->echoShipping($this->product["shippingCheck"],$this->product["shipping"], $this->product["shippingValue"]);
+                          if($str!="") {echo $str . "<br/>";}?>
+                    <?php echo $this->echoStock($this->product["stockCheck"],$this->product["stock"],$this->product["stockValue"])?>
+                </td>
+            </tr>
+
+            <tr>  
+                <th class="tal">仕入れ先</th>
+                <td colspan="2">
+                     <?php
+                      		echo $this->product["itemName"];
+                    ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="tal">商品カテゴリー</th>
+                <td colspan="2">
+                     <?php
+                        foreach ($this->product["categories"] as $item){
+                            echo $item['categoryParentName'] . "＞  " . $item['categoryChildName'] . "<br/>";
+                        }
+                    ?>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="tal">詳細説明</th>
+                <td colspan="2" style="word-wrap: break-word;">	<!-- MOD 20140429 Hieunm add style -->
+                     <?php //echo  $this->product["productDetailInfo"]; ?>
+                     <?php
+                     $arrProductDetail = $this->product["productDetailInfo"];
+		                     if ($arrProductDetail !== null && is_array($arrProductDetail)) {
+		                     /* @var $productExtra Core_Models_MstProductExtra */
+		                     foreach ($arrProductDetail as $key => $productExtra) {
+								echo "【" . $productExtra->getDetailClassLabel() . "】";
+								echo "<br />";
+		                     	echo htmlspecialchars_decode($productExtra->getProductDetailInfo());
+		                     	echo "<br /> <br />";
+		                     }
+                     	}
+                     ?>
+                </td>
+            </tr>
+        </table>
+</div>
+<div style="width: 200px; float: left; margin-left: 5px;">
+	<div class="title_cate" style="width: 100%;">
+		<div style="padding-left: 20px; padding-top: 6px; font-weight: bold;" class="title_cate_bg">
+			 関連商品
+		</div>
+	</div>
+	<?php
+		$relaProducts = $this->relaProducts;
+		$index = 0;
+		/* @var $product Core_Models_MstProduct */
+		foreach ($relaProducts as $key => $product):
+		if ($index != 0 ) {
+			echo "<hr />";
+		}
+	?>
+	<div class="rela_product_container">
+		<div style="word-wrap: break-word;"><?php echo $this->escape($product->getProductName()); ?></div>	<!-- MOD 20140429 Hieunm add style -->
+		<br />
+		<div><b>商品番号</b> <b><?php echo $this->escape($product->getProductNo()); ?></b> </div>
+		<br />
+		<!-- MOD 20140512 Hieunm modify src of img tag below-->
+		<div><img alt="" src="<?php echo $this->config['url_base'] . $folderImageThumb . $product->getImagePath() ?>" width="100" height="75"></div>
+		<br />
+		<div>
+			<a href="/admin/product/view/id/<?php echo $product->getProductId(); ?>">
+				<img alt="" src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+			</a>
+		</div>
+	</div>
+	<br />
+	<?php
+	$index++;
+	endforeach;
+
+	?>
+</div>
+</div>

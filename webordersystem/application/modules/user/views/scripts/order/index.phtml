@@ -1,0 +1,291 @@
+<script type="text/javascript">
+var tylelist = "<?php echo $this->tylelist;?>"; 
+
+$(document).ready(function(){
+  $("#selectsort").change(function() {
+    var val = $(this).val();
+    $.ajax({
+      url: "<?php echo $this->url(array('action' => 'changesort','controller' =>'product')); ?>",
+      type: "post",
+      data: { "val": val},
+      success: function( strData ){
+        location.reload();
+      }
+    });
+  });
+
+  $( ".todetail" ).click(function() {
+      var id = $(this).attr('id');
+
+      var data = $('#frmSearch').serialize();
+    var url = '<?php echo $this->config['url_base']?>/product/detail?'+data+'&id='+id;
+    window.location.href=url;
+  });
+});
+function orderProduct(index, id){
+	  	var nameLabelQuantity = "txtQuantity-" + index;
+	  	var quantity = $("#" + nameLabelQuantity).text();
+	  	if (!jQuery.isNumeric( quantity )){
+		  	return false;
+	  	}
+	  		  	
+	  	$.ajax({
+					url: "<?php echo $this->url(array('action' => 'updateordercartinfo','controller' =>'product')); ?>",
+					type: "post",
+					data: { "id": id, "quantity":quantity, "tylelist": tylelist},
+					success: function( strData ){
+						if (strData != "null"){
+							$("#numberorder").html(strData);
+						}
+						location.href='/ordercart/';
+					}
+				});
+};
+</script>
+<style>
+<!--
+.textright{
+  text-align: right;
+}
+
+.OrderDateTime {
+   width: 200px;
+   margin-top: 500px;
+}
+
+
+
+.order-todetail-small a{
+  display: block;
+}
+.order-shippingfee-small{
+  display: none;
+  text-align: right;
+  padding-right:3%;
+}
+@media screen and (max-width: 992px) {
+  .titledate{
+    display: none;
+  }
+  .producttitle{
+    display: none;
+  }
+  .order-shippingfee{
+    display: none;
+  }
+  .order-shippingfee-small{
+    display: block;
+
+  }
+  #titledate-table{
+    display: block!important;
+
+  }
+  #producttitle-table{
+    display: block!important;
+  }
+  .titledate-table-title{
+    margin-right: 20px;
+  }
+
+  .order-todetail-small a{
+    display: none;
+  }
+
+  .orderdetailsmall {
+    margin-bottom: 30%;
+    padding-right:3%;
+  }
+
+  .disibletitle-md{
+    display: none;
+  }
+
+
+
+
+}
+
+@media screen and (max-width: 600px) {
+  .disibletitle-ms{
+
+    display: none;
+  }
+  .orderdetailsmall {
+    margin-bottom: 50%;
+    padding-right:3%;
+  }
+
+}
+
+
+-->
+</style>
+
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+<div class="row">
+  <div class="col-6 col-xs-8 col-md-8 col-md-8 col-lg-8">
+    <div class="row title_tyle">
+      <label class="pull-left"> 購入履歴 </label>
+      <?php
+        $displayNamespace = new Zend_Session_Namespace('Display');
+
+        if (!isset($displayNamespace->sort))
+        {
+          $displayNamespace->sort = Core_Util_Const::$SORT_DEFAULT;
+        }
+      ?>
+        <label for="selectsort">並び替え</label>
+        <select id="selectsort" name="selectsort">
+          <option value="<?php echo Core_Util_Const::$SORT_DEFAULT;?>"
+            <?php if (strcmp($displayNamespace->sort, Core_Util_Const::$SORT_DEFAULT)==0) echo " selected "?>>商品番号順</option>
+          <option
+            value="<?php echo Core_Util_Const::SORT_LOW_TO_HIGH_PRICE;?>"
+            <?php if (strcmp($displayNamespace->sort, Core_Util_Const::SORT_LOW_TO_HIGH_PRICE)==0) echo " selected "?>>価格の安い順</option>
+          <option
+            value="<?php echo Core_Util_Const::SORT_HIGH_TO_LOW_PRICE;?>"
+            <?php if (strcmp($displayNamespace->sort, Core_Util_Const::SORT_HIGH_TO_LOW_PRICE)==0) echo " selected "?>>価格の高い順</option>
+          <option value="<?php echo Core_Util_Const::SORT_NEWEST;?>"
+            <?php if (strcmp($displayNamespace->sort, Core_Util_Const::SORT_NEWEST)==0) echo " selected "?>>新着順</option>
+        </select>
+    </div>
+  </div>
+  <div class="col-6 col-xs-4 col-md-4 col-md-4 col-lg-4 title_col ">
+    <?php
+    $paginator = $this->paginator;
+    echo $paginator;
+  ?>
+  </div>
+</div>
+
+<?php
+  $index = 0;
+  foreach ($this->arrProdHis as $key =>$arr){
+?>
+
+<div class="row">
+    <div class="col-2 col-xs-12 col-sm-12 col-md-1 col-lg-1 ">
+    <div class="titledate">
+      <div class ="" > 注文日時</div>
+          <div >
+                <b><?php $date = new DateTime( $arr['order']->getOrderDateTime()); echo date_format($date, 'Y/m/d');?></b>
+          </div>
+          <div>
+                <b><?php echo date_format($date, 'H:i');?></b>
+          </div>
+        </div>
+    <table id="titledate-table" style="display: none" >
+      <tr >
+        <td > <div class="titledate-table-title">注文日時</div></td>
+        <td >
+          <div class="titledate-table-title">
+            <b><?php $date = new DateTime( $arr['order']->getOrderDateTime()); echo date_format($date, 'Y/m/d');?></b>
+            &nbsp;<b><?php echo date_format($date, 'H:i');?></b>
+          </div>
+        </td>
+
+      </tr>
+    </table>
+
+    </div>
+
+
+  <div class="col-2 col-xs-10 col-sm-8 col-md-5 col-lg-5">
+
+
+    <div style="float: left;margin-right: 5px;">
+        <!-- MOD 20140512 Hieunm modify src of img tag below-->
+        <a href="#" class="todetail" id="<?php echo $arr['product']->getProductId(); ?>">
+        	<img onerror="imgError(this);"
+        	src="<?php echo $this->config['url_base'] ?><?php if ($arr['product']->getImagePath()!=null) echo $folderImageThumb . $arr['product']->getImagePath(); else echo $folderImage . "no_images.jpg"?>"
+          class="img-responsive" style="width: 79px;"/>
+        </a>
+
+    </div>
+    <div style="float: left;">
+      <div><?php echo $arr['product']->getProductName(); ?></div>
+    <div  style="float: left;">
+      <div>
+      <b style="float: left;">
+      <!-- <div  class="disibletitle-ms  disibletitle-md" style="float: left;">商品番号 &nbsp&nbsp&nbsp</div> -->
+    &lt;<?php echo$arr['product']->getProductNo(); ?>&gt;</b></div>
+    </div>
+    </div>
+
+  </div>
+  <div class="col-2 col-xs-2 col-sm-4 col-md-1 col-lg-1 order-shippingfee-small">
+  <div class ="orderdetailsmall">
+      <div>送料</div>
+      <div ><b ><?php echo number_format( $arr['orderdetail']->getShippingFee(),0,",",",");; ?> 円</b></div>
+  </div>
+  </div>
+
+
+
+
+
+  <div class="col-2 col-xs-4 col-sm-4 col-md-2 col-lg-2 order-todetail-small a">
+    <div style="float: left; ">
+      <div class="textright">
+			<div class="disibletitle-ms">注文価格（税抜)</div>
+      </div>
+      <div class="textright"><b><?php echo number_format($arr['orderdetail']->getPrice(),0,",",","); ?> 円</b></div>
+      <div>
+			<a href="#" class="todetail" id="<?php echo $arr['product']->getProductId(); ?>">
+				<img src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg" />
+			</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-2 col-xs-2 col-sm-2 col-md-1 col-lg-1">
+    <div style="float: left; ">
+      <div class="textright">
+      		<div class="disibletitle-ms" >数量</div>
+      </div>
+      <div class="textright">
+       	<label id="<?php echo 'txtQuantity-'.$index ?>">
+			<b><?php echo $arr['orderdetail']->getQuantity(); ?></b>
+        </label>
+      </div>
+      <div>
+      	<a href="#" id="<?php echo $arr['product']->getProductId(); ?>"
+      	class="button order addorder" onClick="orderProduct(<?php echo $index; ?>, <?php echo $arr['product']->getProductId(); ?> );">注文カートへ入れる</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-2 col-xs-6 col-sm-6 col-md-2 col-lg-2">
+    <div style="float: right;">
+      <div class="textright">
+      		<div class="disibletitle-ms">注文金額（税抜）</div>
+      </div>
+      <div class="textright">
+      		<b><?php echo number_format($arr['orderdetail']->getTotalPrice(),0,",",","); ?> 円</b>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 col-xs-12 col-sm-12 col-md-1 col-lg-1 order-shippingfee">
+
+      <div>
+        <div class="textright">送料</div>
+        <div class="textright">
+        	<b><?php echo number_format( $arr['orderdetail']->getShippingFee(),0,",",",");; ?> 円</b>
+        </div>
+      </div>
+
+  </div>
+
+</div>
+
+
+<hr  style="border-color: #B9CDE5; "/>
+<?php
+  $index++;
+  }
+?>
+
+

@@ -1,0 +1,117 @@
+
+#main .list_pager {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 6px;
+}
+#main .list_pager .page_title {
+    line-height: 30px;
+}
+#main .list_pager ul {
+    margin: 0;
+}
+@media (max-width: 767px) {
+#main .list_pager ul li {
+    margin-bottom: 10px;
+}
+}
+#main .item_panel {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+#main .item_panel:last-child {
+    border: medium none;
+}
+#main .item_panel .meta, #main .item_panel .cart, #main .item_panel .info, #main .item_panel .price {
+    display: inline-block;
+}
+#main .item_panel img {
+    height: 100%;
+    vertical-align: top;
+    width: 100%;
+}
+@media (max-width: 767px) {
+#main .item_panel .meta {
+    margin-bottom: 10px;
+}
+}
+#main .item_panel .meta .title {
+    margin-bottom: 5px;
+}
+#main .item_panel .meta .num {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+#main .item_panel .meta .description {
+    font-size: 12px;
+}
+#main .item_panel .price {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+#main .item_panel .price span {
+    color: #f00;
+    font-size: 14px;
+    font-weight: bold;
+}
+@media (max-width: 767px) {
+#main .item_panel .cart {
+    margin-bottom: 0;
+    width: 100%;
+}
+}
+#main .item_panel .cart li {
+    margin-bottom: 10px;
+}
+@media (max-width: 767px) {
+#main .item_panel .cart li {
+    width: 100%;
+}
+}
+#main .item_panel .cart li a {
+    font-size: 10px;
+}
+@media (max-width: 767px) {
+#main .item_panel .cart li a {
+    width: 100%;
+}
+}
+#main .item_panel .more {
+    text-align: center;
+}
+@media (max-width: 767px) {
+#main .item_panel .more {
+    margin-left: 0;
+}
+}
+#main .item_panel .more li {
+    margin-bottom: 10px;
+    padding-right: 0;
+}
+@media (max-width: 767px) {
+#main .item_panel .more li {
+    margin-right: 4%;
+    padding: 0;
+    width: 100%;
+}
+}
+@media (max-width: 767px) {
+#main .item_panel .more li:last-child {
+    margin-right: 0;
+}
+}
+#main .item_panel .more li a {
+    font-size: 12px;
+}
+@media (max-width: 1199px) {
+#main .item_panel .more li a {
+    font-size: 12px;
+}
+}
+@media (max-width: 767px) {
+#main .item_panel .more li a {
+    font-size: 12px;
+    width: 100%;
+}
+}

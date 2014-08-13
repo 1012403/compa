@@ -1,0 +1,69 @@
+<?php
+$url = $this->url(array('action' => 'index','controller' =>'login'));
+?>
+
+
+<div class="title_tyle" style="text-align: center; margin: 0 auto; width: 490px; padding-left: 10px;">
+		<div class="title_col" >
+			<label class="pull-left"> ログイン　【管理サイト】</label>
+		</div>
+	</div>
+<br/>
+<br/>
+
+<div class="divLogin" style="text-align: center; margin: 0 auto;width: 490px;">
+	<form action="<?php echo $url ?>" method="post" id="formLogin">
+	<div class="row" style="padding-left: 20px;">
+		<div class="col-12">
+			<div id="errorArea"	style="text-align: left; color: red;">
+				<?php echo $this->err; ?>
+			</div>
+		</div>
+		<div class=" col-lg-3 title" style="text-align: left;">ユーザＩＤ</div>
+		<div class=" col-lg-9 "  style="text-align: left;">
+			<?php echo $this->loginForm->login_username ?>
+		</div>
+		<div class="col-12">&nbsp;</div>
+		<div class=" col-lg-3 title" style="text-align: left;">パスワード	</div>
+		<div class=" col-lg-9 " style="text-align: left;">
+			<?php echo $this->loginForm->login_password ?>
+		</div>
+		<div class="col-12">&nbsp;</div>
+		<div class=" col-lg-9 " style="margin-left: 40px;">
+			<?php echo $this->loginForm->check_login ?>
+			&nbsp;&nbsp;&nbsp;&nbsp;ユーザIDとパスワードを保存
+		</div>
+		<div style="clear: both;"></div>
+		<div class="col-12">&nbsp;</div>
+		<div class="col-12"><input	class="smallButton enterSubmit" id="submitButton" name="login" type="button" value="ログイン" /></div>
+		
+		
+		<br/>
+		<br/>
+	</div>
+	
+	</form>
+</div>
+<script type="text/javascript">
+ $(document).ready(function() {
+	$('#login_username').focus().select();
+	$('#submitButton').click(function(){
+		submitForm();
+	});
+
+	$("input").keypress(function(event) {
+	    if (event.which == 13) {
+	        event.preventDefault();
+			submitForm();
+	    }
+	});
+});
+
+function submitForm() {
+	if (checkLogin() == false) {
+		return;
+	}
+	$('#formLogin').submit();
+}
+
+</script>

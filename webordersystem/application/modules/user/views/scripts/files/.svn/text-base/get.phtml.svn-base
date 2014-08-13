@@ -1,0 +1,9 @@
+
+
+<div class="file_img_container div_img" id="con_img_<?php echo $this->index;?>" style="display: none">
+		<a href="javascript:selectImage(<?php echo $this->index;?>);">
+			<?php $idUserLogin = Core_Util_Helper::getIdUserLogin(); ?>
+			<img alt="" src="<?php echo $this->config['url_base'] ?>/images/editor_img/<?php echo $idUserLogin; ?>/<?php echo $this->fileName; ?>" width="97%" class="inner_image" id="img_id_<?php echo $this->index;?>">
+		</a>
+		<div class="image_name" id="image_name_id_<?php echo $this->index;?>"><?php echo $this->fileName; ?></div>
+</div>

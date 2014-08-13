@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Auth/Adapter/Http/Resolver
+END
+Interface.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Auth/Adapter/Http/Resolver/Interface.php
+END
+File.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Auth/Adapter/Http/Resolver/File.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Auth/Adapter/Http/Resolver/Exception.php
+END

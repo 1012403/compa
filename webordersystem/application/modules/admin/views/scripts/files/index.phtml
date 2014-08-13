@@ -1,0 +1,226 @@
+<?php
+$arrFiles = $this->arrFiles;
+foreach ($arrFiles as $key => $value) {
+	//	echo $value . "<br />";
+}
+?>
+<script type="text/javascript">
+<?php $arrFiles = $this->arrFiles;
+?>
+var num = <?php echo count($arrFiles);?>;
+var src = null;
+var currentInd = null;
+function selectImage(index) {
+	if($('#con_img_' + index).length > 0) {
+		var el = $('#con_img_' + index);
+		$( ".div_img" ).each(function( index ) {
+			$( this ).removeClass('img_selected');
+		});
+		el.addClass('img_selected');
+		$( '#select_img_id' ).fadeOut( 200, function() {
+			src = $('#img_id_' + index).prop('src');
+			$('#select_img_id').prop('src', src);
+			$( "#select_img_id" ).fadeIn( 200 );
+			currentInd = index;
+			var pos = $( '#con_img_' + index ).position();
+			$( ".div_select_img a" ).show();
+			$( ".div_select_img a" ).animate({
+			    left: pos.left,
+			    top: pos.top
+			  }, 300, function() {
+			  });
+			   
+
+			
+			//$(".div_select_img").css({position:"absolute", left:pos.left,top:pos.top});
+			var name = $('#image_name_id_' + index).html();
+			$('#select_image_name').empty();
+			$('#select_image_name').append(name);
+			setTimeout(function(){
+				checkImageById('select_img_id');
+			},200);
+			
+		});
+	}
+}
+
+function uploadFile(){
+	$('#fileForm1').ajaxForm(function(result) {
+		var res = jQuery.parseJSON( result );
+		if (res.success = true) {
+			refeshImage(res.fileName);	
+		} else {
+			alert(result.error);
+		}
+    });
+}
+
+function refeshImage( varFileName) {
+	
+	$.ajax({
+	  url: "/admin/files/get",
+	  data: { fileName: varFileName, index : num}
+	})
+	  .done(function( data ) {
+			$('#listImages').append(data);
+			$('#con_img_'+num).fadeIn( 1500 );
+			$('html, body').animate({
+				scrollTop : $('#con_img_'+num).offset().top
+			}, 1000);
+			selectImage(num);
+			var ind = num; 
+			num = num +1;
+			setTimeout(function(){
+				checkImage(ind);
+			},50);
+	  });
+	  
+	
+	
+}
+
+function checkImage(index) {
+	var img = document.getElementById('img_id_'+ index); 
+	var width = img.clientWidth;
+	var height = img.clientHeight;
+	
+	if (height > width) {
+		$('#img_id_' + index).removeAttr( 'width');
+		$('#img_id_' + index).attr('height', '75%');
+	}
+}
+
+function checkImageById(id) {
+	var img = document.getElementById(id); 
+	//or however you get a handle to the IMG
+	var width = img.clientWidth;
+	var height = img.clientHeight;
+	
+	//or however you get a handle to the IMG
+	if (height > width) {
+		$('#' + id).removeAttr( 'width');
+		$('#' + id).attr('height', '75%');
+	}
+}
+
+function showWaiting(){
+	$.colorbox({
+		html:"<div style=\"text-align:center;\"><h3>アップロード。 ちょっと待ってください。</h3> <br /> <img src=\"<?php echo $this->config['url_base'] ?>/images/web/ajax-loader.gif\"></div>",
+		closeButton : false,
+		scrolling : false,
+		escKey : false,
+		overlayClose : false,
+		speed : 100
+	});
+}
+
+$(document).ready(function(){
+	$('#fileForm1').ajaxForm(function(result) {
+		//$.colorbox.close();
+		
+		var imgVal = $('#image').val(); 
+        if(imgVal=='') 
+        { 
+        	$.colorbox({
+    			html:"<div style=\"text-align:center;\"><h3>画像を選択してください。</h3>",
+    			//closeButton : false,
+    			scrolling : false,
+    			//escKey : false,
+    			//overlayClose : false,
+    			speed : 100
+    		});
+    		return;
+
+        } else {
+        	$.colorbox.close();
+			var res = jQuery.parseJSON( result );
+			if (res.success = true) {
+				refeshImage(res.fileName);	
+			} else {
+				alert(result.error);
+			}
+        }
+    });
+
+	$('#btnOK').click(function(){
+		window.opener.CKEDITOR.tools.callFunction(<?php echo $this->callback; ?>,src);
+	    window.close();
+	});
+
+	$('#moving_btn_select_image').click(function(){
+		window.opener.CKEDITOR.tools.callFunction(<?php echo $this->callback; ?>,src);
+	    window.close();
+	});
+
+	$( window ).resize(function() {
+		if (currentInd != null) {
+			var pos = $( '#con_img_' + currentInd ).position();
+			$( ".div_select_img a" ).show();
+			$( ".div_select_img a" ).animate({
+			    left: pos.left,
+			    top: pos.top
+			  }, 300, function() {
+			  });
+		}
+	});
+
+	
+
+	for(var i = 0; i < 10; i++) {
+		setTimeout(function(){
+			$( ".inner_image" ).each(function( index ) {
+				var id = $( this ).attr('id');
+				checkImageById(id);
+			});
+		},(i + 1)*100);
+	}
+	
+	
+}); 
+
+</script>
+<div class="div_select_img" id="moving_btn_select_image">
+	<span><a href="javascript:void(0);">select file</a></span>
+</div>
+<div class="main_container">
+<div class="main_header_container">
+	<form id="fileForm1" action="/admin/files/upload" method="post" enctype="multipart/form-data">
+		<div class=upload_area_container>
+			file upload : <input type="file" name="image" id="image"> 
+			<input type="submit" value="upload" onclick="showWaiting();" >
+			
+		</div>
+	</form>
+	<div class="title_selected">
+	Selected file 
+	</div>
+	<div style="width: 200px; height: 350px; float: left;">
+		<img alt="" src="" height="80%" id="select_img_id" style="display: none;"
+			class="cls_selected_img"
+		>
+		<div style="margin-top: 10px;">
+		selected file : <span id="select_image_name"></span>
+		<br /> <input type="button" value="select image" id="btnOK">
+		</div>
+	</div>
+	<div style="float: left;">
+		
+	</div>
+</div>
+<div class="content_container" id="listImages">
+	<div class="title_content">
+	List of images:
+	</div>
+	<?php 
+	$arrFiles = $this->arrFiles;
+	foreach ($arrFiles as $i => $value): ?>
+	<div class="file_img_container div_img" id="con_img_<?php echo $i;?>">
+			<a href="javascript:selectImage(<?php echo $i;?>);">
+				<?php $idAdminLogin = Core_Util_Helper::getIdAdminLogin();?>
+				<img alt="" src="<?php echo $this->config['url_base'] ?>/images/editor_img/<?php echo $idAdminLogin;?>/<?php echo $value; ?>" width="97%" class="inner_image" id="img_id_<?php echo $i;?>">
+			</a>
+			<div class="image_name" id="image_name_id_<?php echo $i;?>"><?php echo $value; ?></div>
+	</div>
+	<?php endforeach; ?>
+</div>
+</div>

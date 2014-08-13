@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Queue/Adapter/Db
+END
+Message.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Queue/Adapter/Db/Message.php
+END
+mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Queue/Adapter/Db/mysql.sql
+END
+postgresql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Queue/Adapter/Db/postgresql.sql
+END
+sqlsrv.sql
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Queue/Adapter/Db/sqlsrv.sql
+END
+queue_sqlite.sql
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Queue/Adapter/Db/queue_sqlite.sql
+END
+Queue.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Queue/Adapter/Db/Queue.php
+END

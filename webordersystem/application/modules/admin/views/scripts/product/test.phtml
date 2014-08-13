@@ -1,0 +1,100 @@
+<style>
+table.content{
+  border: 2px solid #8DB4E3;
+  width: 90%;
+  margin: 0 auto;
+}
+table.content th{
+  border: 1px solid #8DB4E3;
+  border-bottom: 2px solid #8DB4E3;
+  color: blue;
+  font-style: normal;
+  text-align: center;
+  font-weight: normal;
+}
+table.content td{
+  border-left: 1px solid #8DB4E3;
+  border-right: 1px solid #8DB4E3;
+  border-bottom: 1px dotted #8DB4E3;
+}
+.serchInput{
+  color: #888888;
+    height: 25px;
+    line-height: 27px;
+    text-shadow: 1px 1px 0 #FFFFFF;
+
+}
+.searchLog{
+  background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: 2px 2px 4px #666666;
+    color: #558ED5;
+    font-weight: bold;
+    padding: 3px 10px 2px;
+    text-decoration: none;
+
+}
+</style>
+  <script>
+            $('#date-start').datepicker({
+                'format': 'yyyy/mm/dd',
+                'autoclose': true
+            });
+            $('#date-end').datepicker({
+                'format': 'yyyy/mm/dd',
+                'autoclose': true
+            });
+            </script>
+
+<?php
+$url = $this->url(array('action' => 'index','controller' =>'operationloginfo'));
+?>
+<div id="main">
+<form action="<?php echo $url ?>" method="post" id="formLogInfo">
+<div>
+  <div class="col-6 col-xs-8 col-md-8 col-md-8 col-lg-8" style="width: 100%">
+    <div class="row title_tyle" >
+      <label class="pull-left"> 購入履歴 </label>
+      <label>日付</label>
+      <input class="serchInput" id="date_start" type="text" value="" name="date-start" style="margin-left: 10px; margin-right: 10px">
+      <label> ～ </label>
+      <input class="serchInput" id="date_end" type="text" value=""  name="date-end"  style="margin-left: 10px; margin-right: 10px">
+
+
+
+      <input class="serchInput" id="username" type="text" value="" placeholder= "ユーザ名"  name="username" >
+      <input class="serchInput" id="oper_contract" type="text" value="" placeholder= "操作内容"  name="oper_contract">
+      <input class="serchInput" id="oper_detail" type="text" value="" placeholder= "備考"  name="oper_detail">
+      <input type="submit" class="searchLog" value="検索" style="width: 70px;">
+    </div>
+
+  </div>
+  <div style=" clear:left; display:block; text-align: center;">
+    <table  class="content">
+      <tr>
+        <th style="width:15%">日時</th>
+        <th style="width:20%">ユーザ名</th>
+        <th  style="width:25%">操作内容</th>
+        <th>備考</th>
+      </tr>
+
+      <?php
+      /* @var $value Core_Models_OperationLogInfo*/
+      foreach ($this->loginfo as $key => $value) {
+      ?>
+      <tr style="text-align: left; padding-left: 10px">
+        <td style=" padding:5px 10px" ><?php echo $value['log_date_time'];?></td>
+        <td style=" padding:5px 10px" ><?php echo $value['user_name'];?></td>
+        <td style=" padding:5px 10px" title="<?php echo $value['operate_content'];?>"><?php echo $value['operate_content'];?></td>
+        <td style=" padding:5px 10px" title="<?php echo $value['operate_detail'];?>"><?php echo $value['operate_detail'];?></td>
+      </tr>
+      <?php
+      }
+      ?>
+    </table>
+
+  </div>
+</div>
+</form>
+</div>

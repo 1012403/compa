@@ -1,0 +1,40 @@
+
+
+<table align="center" style="float: right;" >
+	<tr>
+		<?php if ($this->pageCount): ?>
+		<td>
+				<?php if ($this->pageCount > 1): ?>
+			<ul class="pagination">
+			<?php if (isset($this->previous)): ?>
+			<li class="previous">
+			<a id="<?php echo $this->previous;?>" href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+				<?php echo $this->escape('< '); ?>前へ</a></li>
+			<?php endif; ?>
+
+			<?php foreach ($this->pagesInRange as $page): ?>
+
+			<?php if ($page != $this->current): ?>
+			<li>
+			<a id="<?php echo $page;?>" href="<?php echo $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a></li>
+			<?php else: ?>
+			<li  class="active">
+			<a id="0" href="javascript:void(0);">
+			<?php echo $page; ?></a>
+			<?php endif; ?>
+			</li>
+			<?php endforeach; ?>
+
+			<?php if (isset($this->next)): ?>
+			<li class="next">
+			<a id="<?php echo $this->next;?>" href="<?php echo $this->url(array('page' => $this->next)); ?>">
+				次へ<?php echo $this->escape(' >'); ?></a></li>
+			<?php endif; ?>
+			<?php endif; ?>
+			<?php else: ?>
+
+			<?php endif; ?>
+			</ul>
+		</td>
+	</tr>
+</table>

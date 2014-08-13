@@ -1,0 +1,280 @@
+<?php
+$url = $this->url(array('action' => 'main','controller' =>'quotationcart'));
+?>
+<link href="<?php echo $this->config['url_base'] ?>/css/quotationcart/quotationcart.css" rel="stylesheet">
+<style>
+<!--
+#tblProductInfo td {
+  padding-right: 10px
+}
+
+.spanBlue{
+  color:blue;
+  font-weight: bold;
+}
+
+.spanRed{
+  color: red;
+  font-weight: bold;
+}
+
+.txtQuantity{
+  color:blue;
+  font-weight:bold ;
+  border-width: 0px;
+  border-left-width: 1px;
+  text-align: right;
+  padding-right:10px;
+}
+
+.title_tyle label.pull-left{
+  background-image: url("../images/2_transparent.png ");
+  background-size: 50px;
+  color: #e55104;
+  padding: 0 0 0 50px;
+}
+
+.btnQuotation{
+  color: #e55104;
+}
+
+#txtRemark{
+  width: 100%;
+  height: 100px;
+}
+.right{
+	float: right;
+}
+-->
+</style>
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+<form action="<?php echo $url ?>" method="post" id="formOrderCart">
+    <div class="col-xs-12 col-sm-12 col-lg-12" id="listproduce">
+      <div class="row" >
+              <div class="col-12 col-sm-12 col-lg-12">
+          <div class="row title_tyle" >
+              <label class="pull-left">見積り内容確認</label>
+          </div>
+              </div>
+            </div>
+       <?php
+          /* @var $product Core_Models_MstProduct */
+          foreach ($this->arrProducts as $id => $product){
+        $proId = $product->getProductId();
+        $totalUnitPrice = $product->getPrice() * $product->getOrderQuantity();
+        $pointRate = $this->pointRate;
+      ?>
+      <div class="row">
+        <div class="col-6 col-sm-3 col-xs-4 col-lg-4 tablet_productinfo">
+          <table id="tblProductInfo">
+	            <tr>
+	              <td rowspan="3" id="dsk_img_quotationcart">
+	              		<a class="button" onclick="onClickDeleteRow(<?php echo $proId; ?>);" style="text-align: center; width: 40px; cursor: pointer;">削除</a>
+	              </td>
+	              <!-- MOD 20140512 Hieunm modify src of img tag below-->
+	              <td rowspan="2">
+	              		<img onerror="imgError(this);" src="<?php echo $folderImageThumb . $product->getImagePath() ?>" class="img-responsive" style="height: 79px"></td>
+	              <td>
+	              		<?php echo $product->getProductName(); ?>
+	              </td>
+	            </tr>
+	            <tr>
+	              <td>
+	              		<b>&lt;<?php echo$product->getProductNo(); ?>&gt;</b>
+	              </td>
+	            </tr>
+          </table>
+
+        </div>
+      <div class="col-6 col-sm-3 col-xs-2 col-lg-4 mobile_img_quotationcart" style="display:none">
+          <table id="tblProductInfo">
+            <tr>
+              <td >
+              		<a class="button mobile_img_quotationcart" onclick="onClickDeleteRow(<?php echo $proId; ?>);" style="text-align: center; width: 40px; cursor: pointer;">削除</a>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+        <div class="col-6 col-sm-3 col-xs-4 col-lg-2 ">
+          <table style="width:100%;">
+            <tr id="mobile_quotation">
+              <td>
+              		<span class="spanBlue"> 前回お見積り価格（税抜）</span>
+              </td>
+            </tr>
+            <tr id="moible_price_quotation">
+              <td><span class="spanBlue right"><?php echo number_format($product->getPrice(), 0).' 円'; ?></span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="col-6 col-sm-3 col-xs-6 col-lg-2 tablet_number_quotation">
+          <table style="width:100%;">
+            <tr id="mobile_quotation">
+              <td>
+              		<span class="spanBlue">数量</span>
+              </td>
+            </tr>
+            <tr>
+              <td id="mobile_input_quotation"><select id="<?php echo 'cmbQuantity-'.$proId ?>"
+                style="height: 22px; width: 93px;"
+                onfocus="this.selectedIndex = -1";
+                onchange="onChangeQuantity(<?php echo $proId ?>);">
+                  <?php for($i=1; $i<=10; $i++){ ?>
+                  <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                  <?php } ?>
+                </select> 
+                
+                <input type="text"
+                id="<?php echo 'txtQuantity-'.$proId ?>"
+                name="<?php echo 'txtQuantity-'.$proId ?>"
+                onkeydown="if (event.keyCode == 13) return false;"
+                value="<?php echo $product->getOrderQuantity(); ?>"
+                class="txtQuantity"
+                style="margin-left: -97px;height: 19px; width: 72px;"></td>
+            </tr>
+          </table>
+
+        </div>
+
+        <div class="col-6 col-sm-6 col-xs-12 col-lg-4 tablet_note_quotation">
+          <table style="width: 100%">
+            <tr id="mobile_quotation">
+              <td>
+              		<span class="spanBlue">コメント</span>
+              </td>
+            </tr>
+            <tr>
+              <td><input maxlength="100" type="text" class="txtComment" id="<?php echo "txtComment-".$proId ?>" name="<?php echo "txtComment-".$proId ?>" style="width: 100%"></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+      <hr>
+      <?php } ?>
+
+      <?php if(count($this->arrProducts) != 0){ ?>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-lg-12">
+          <span class="spanBlue">連絡欄</span><br/>
+          	<textarea id="txtRemark" name="txtRemark"></textarea>
+          </div>
+        </div>
+
+        <div style="text-align: right; padding-right: 20px">
+        <a class="button btnQuotation" style="text-align:center; width:100px; cursor: pointer;" onclick="insertQuotation()" >見積り依頼</a>
+        </div>
+      <?php }?>
+      <br/>
+    </div>
+
+  <input type="hidden" id="actName" name="actionName" value="" />
+  <input type="hidden" id="proId" name="productId" value="" />
+
+</form>
+
+<script>
+  // onload
+  $(document).ready(function() {
+    $( "#listproduce" ).find( ".txtQuantity" ).each(function(){
+      $(this).ForceNumericOnly();
+    });
+  });
+
+  //insertQuotation
+  function insertQuotation(){
+	  if (validAll()) {
+    	setHiddenActionName('insertQuotation');
+	  }
+  }
+
+  function validAll() {
+	$('#txtRemark').css('background-color', 'white');
+	var maxlength = 500;
+	if ($('#txtRemark').val().length > maxlength) {
+		alert('「連絡欄」を半角' + maxlength + '文字以下で入力して下さい。');
+		$('#txtRemark').focus();
+		$('#txtRemark').select();
+		return false;
+	}
+
+	return true;
+  }
+
+  //setHiddenActionName
+  function setHiddenActionName(actionName){
+    $("#actName").val(actionName);
+    $("#formOrderCart").submit();
+  }
+
+  //onClickDeleteRow
+  function onClickDeleteRow(productId){
+    $("#proId").val(productId);
+    setHiddenActionName('deleteRow');
+  }
+
+  //onChangeQuantity
+  function onChangeQuantity(proId){
+    var txtName = "#txtQuantity-" + proId;
+    var cmbName = "#cmbQuantity-" + proId;
+    $(txtName).val($(cmbName).val());
+  }
+
+  //just allow input numeric
+  jQuery.fn.ForceNumericOnly =
+    function()
+    {
+        return this.each(function()
+        {
+            $(this).keydown(function(e)
+            {
+              var key = e.charCode || e.keyCode || 0;
+                if (e.shiftKey && (key != 35 && key != 36)) return false;
+                return (
+                  (key >= 112	&& key <= 127) ||
+                    key == 8	||
+                    key == 9 	||
+                    key == 46 	||
+                    (key >= 35 && key <= 40) ||
+                    (key >= 48 && key <= 57) ||
+                    (key >= 96 && key <= 105));
+            });
+        });
+    };
+
+  //add comma spec
+  function addCommas(nStr)
+  {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+  }
+
+  //replaceFormat
+  function replaceFormat(strInput){
+    return strInput.split(',').join('');
+  }
+
+  //Add 20140516 Hieunm start
+  $(function() {
+	    $("textarea[maxlength]").bind('input propertychange', function() {
+	        var maxLength = $(this).attr('maxlength');
+	        if ($(this).val().length > maxLength) {
+	            $(this).val($(this).val().substring(0, maxLength));
+	        }
+	    })
+	});
+  //Add 20140516 Hieunm end
+</script>

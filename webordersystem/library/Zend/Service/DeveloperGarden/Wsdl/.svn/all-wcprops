@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl
+END
+ODGBaseUserService.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/ODGBaseUserService.xsd
+END
+VoiceButlerService.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/VoiceButlerService.xsd
+END
+IPLocation.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/IPLocation.wsdl
+END
+TokenService.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/TokenService.wsdl
+END
+SmsService.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/SmsService.wsdl
+END
+VoiceButlerService.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/VoiceButlerService.wsdl
+END
+IPLocation.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/IPLocation.xsd
+END
+SmsValidationUserService.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/SmsValidationUserService.wsdl
+END
+ODGBaseUserService.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/ODGBaseUserService.wsdl
+END
+ccsPort.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/ccsPort.wsdl
+END
+localsearch.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/localsearch.xsd
+END
+localsearch.wsdl
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/localsearch.wsdl
+END
+ccsPort.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Wsdl/ccsPort.xsd
+END

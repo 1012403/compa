@@ -1,0 +1,271 @@
+<style>
+table.content{
+	border: 2px solid #8DB4E3;
+	width: 95%;
+	margin: 0 auto;
+}
+table.content th{
+	border: 1px solid #8DB4E3;
+	border-bottom: 2px solid #8DB4E3;
+	color: blue;
+	font-style: normal;
+	text-align: center;
+	font-weight: normal;
+}
+table.content td{
+	border-left: 1px solid #8DB4E3;
+	border-right: 1px solid #8DB4E3;
+	border-bottom: 1px dotted #8DB4E3;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#refechAddMail').click(function(){
+		$("#name").val("");
+		$("#title").val("");
+		$("#header").val("");
+		$("#footer").val("");
+		$("#apply_flg").attr('checked',false);
+		$("#class_itemp1").val("0");
+		$("#class_itemp").val("1");
+		$("#class_itemp").focus();
+		$("#class_itemp ").attr("disabled",false);
+	})
+
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+	  	if (id>0){
+	  		$('#formMailTemplate').append("<input type=\"hidden\" id=\"page\" name=\"page\" value=\"" + id + "\">");
+	  		$('#formMailTemplate').submit();
+	  	}
+		return false
+	});
+	
+	$(".detail" ).click(function() {
+	  	var cthis = $(this);
+	  	var id = cthis.attr('id');
+	  	$.ajax({
+			url: "<?php echo $this->url(array('action' => 'detailmail','controller' =>'mailtemplate')); ?>",
+			type: "post",
+			data: { "id": id},
+			success: function( strData ){
+				if (strData != "null"){
+					$("#formAdd").html(strData);
+					$("#class_itemp ").attr("disabled",true);
+				}
+			}
+		});
+		return false;
+	});
+
+	$('#addMail').click(function(){
+		if (checkMailEmpty() == false){
+			return;
+		}
+		$('#formAdd').submit();
+		
+	});
+
+	$('#searchEmail').click(function(){
+		$('#formMailTemplate').append("<input type=\"hidden\" name=\"operateElementType\" value=\"0\"/>");
+		$('#formMailTemplate').append("<input type=\"hidden\" name=\"operateElementName\" value=\"検索\"/>");
+		$('#formMailTemplate').submit();
+		
+	});
+	
+});
+
+</script>
+
+<?php
+$url = $this->url(array('action' => 'index','controller' =>'mailtemplate'));
+?>
+
+<form action="<?php echo $url; ?>" method="post" id="formMailTemplate">
+
+<div id="log" >
+<table style="width:100%;border:0; " >
+	<tr>
+		<td style="width:70%; padding-left:10px;" >
+			<div class=" title_col">
+				<div class=" title_tyle " style=" padding-left:10px;" >
+					<label class="pull-left">メール通知設定 </label>
+					<div class="" >
+						<label >分類 </label>
+						<select id="class_itemp1" name ="class_itemp1" >
+						<option></option>
+						<?php
+							foreach ($this->mailClass as $value){
+								if ($value->getItemCd()!=null)
+						?>
+						<option value="<?php echo $value->getItemCd();?>"
+							<?php if (strcmp($this->itempcd, $value->getItemCd())==0||strcmp($this->itemcdsubmit, $value->getItemCd())==0){
+								echo "selected";
+							}?>>
+							<?php echo $value->getItemName() ; ?>
+						</option>
+						<?php
+							}
+						?>
+						</select>
+						<!--  <input type="button" id="searchEmail" class="searchLog width_bt margin_padding" value="検索" >
+						  <input type="button" id="refechAddMail" class="searchLog width_bt margin_padding" value="追加" > -->
+						<a href="javascript:void(0);" id="searchEmail" class="button2" style="color: #000000; line-height: 0px; padding: 11px 16px;">検索</a>
+						 <?php if (Core_Util_Helper::isReferAndMasterAdmin()):?>
+							<a href="javascript:void(0);" class="button2Disable" style="color: #AEA797; line-height: 0px; padding: 11px 16px;">追加</a>
+						 <?php else :?>
+							<a href="javascript:void(0);" id="refechAddMail" class="button2" style="color: #000000; line-height: 0px; padding: 11px 16px;">追加</a>
+						<?php endif;?>
+					</div>
+					
+				</div>
+			</div>
+		</td>
+		<td>
+			<div style="margin-right: 50px;">
+				<?php
+					$paginator = $this->paginator;
+					echo $paginator;
+				?>
+			</div>
+		</td>
+	</tr>
+
+</table>
+	<br/>
+	<div style=" clear:left; display:block; text-align: center;">
+		<table  class="content">
+			<tr>
+				<th style="width:80px;"></th>
+				<th style="width:15%">分類</th>
+				<th style="width:15%">適用</th>
+				<th>タイトル</th>
+			</tr>
+			
+			<?php
+			/* @var $value Core_Models_MailTemplate*/
+			foreach ($this->mailTemp as $value){
+			?>
+			<tr style="text-align: left; padding-left: 10px">
+				<td style=" padding:5px 10px; text-align: center; width: " >
+					<!-- <input type="button" class="searchLog width_bt detail margin_padding" value="編集" id="<?php echo $value['id'] ?>" name ="detail"> -->
+					<?php if (Core_Util_Helper::isReferAndMasterAdmin()):?>
+						<a href="javascript:void(0);" class="button2Disable" style="text-decoration: none; color:#AEA797; cursor: default;">編集</a>
+					<?php else :?>
+						<a href="javascript:void(0);" id="<?php echo $value['id'] ?>" class="button2">編集</a>
+					<?php endif;?>
+				</td>
+				<td style=" padding:5px 10px" ><?php echo $value['item_name'] ; ?></td>
+				<td style=" padding:5px 10px" title=""><?php if($value['apply_flg']=='1' ) echo "ON"; else echo "OFF";?></td>
+				<td style=" padding:5px 10px" title=""><?php echo $value['title'] ;?></td>
+			</tr>
+			<?php
+			}
+			?>
+		</table>
+		
+	</div>
+</div>
+</form>
+
+<!-- detail mailtemplate -->
+<?php $act = $this->url(array('action' => 'index','controller' =>'mailtemplate'));?>
+<form action="<?php echo $act?>" method="post" id="formAdd">
+<input type="hidden" name="save">
+<div id="log">
+	<br/>
+	<div class="title_col" style="width:67%; margin-left: 15px; padding-left:10px;">
+		<div class="row title_tyle" style="padding-left:10px;">
+			<label class="pull-left">詳細 </label>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<?php if (Core_Util_Helper::isReferAndMasterAdmin()):?>
+	<div class="tables">
+		<div style="color: red;" id="error"><?php if($this->errclass !='') echo $this->errclass;?></div>
+			<label class="margin_padding" style="font-weight: normal; width: 90px;">分類 </label>
+			<select disabled="disabled" style="height:30px; width:120px; padding-top:6px;" class="margin_padding"></select>
+			<label style="font-weight: normal;">
+			<input disabled="disabled" class="margin_padding" type="checkbox" value="apply_flg"> 適用</label><br>
+		<div class="clear"></div>
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">タイトル</div>
+			<div class="float">
+				<div style="color: red;"></div>
+				<input disabled="disabled" class="width_hight" type="text" value="" maxlength="225">
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">ヘッダ</div>
+			<div class="float">
+				<textarea disabled="disabled" class="width_hight" style=" height: 70px;" maxlength="225"></textarea>
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">フッタ</div>
+			<div class="float">
+				<textarea disabled="disabled" class="width_hight" style=" height: 70px;" maxlength="225"></textarea>
+			</div>
+		</div>
+		<div class="clear margin_padding"></div>
+			<!-- <input disabled="disabled" type="button" class="searchLog width_bt float_right margin_padding" value="保存" > -->
+			<a href="javascript:void(0);" class="button2Disable" style="float: right; margin-right: 10px;">保存</a>
+			
+		<br/><br/>
+	</div>
+	<?php else :?>
+	<div class="tables">
+		<div style="color: red;" id="error"><?php if($this->errclass !='') echo $this->errclass;?></div>
+		<label class="margin_padding" style="font-weight: normal; width: 90px;">分類 </label>
+		<select id="class_itemp" name ="class_itemp" style="height:30px; padding-top:6px;" class="margin_padding">
+		<!-- <option value="0"></option> -->
+			<?php
+				foreach ($this->mailClass as $value){
+			?>
+				<option value="<?php echo $value->getItemCd();?>"><?php echo $value->getItemName(); ?></option>
+			<?php
+				}
+			?>
+		</select>
+		<label style="font-weight: normal;">
+		<input class="margin_padding" type="checkbox" name="apply_flg" id="apply_flg" value="apply_flg"> 適用</label><br>
+		<div class="clear"></div>
+		
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">タイトル</div>
+			<div class="float">
+				<div style="color: red;"><?php if($this->errtitle !='') echo $this->errtitle;?></div>
+				<input class="width_hight" id="title" name ="title" type="text" value="" maxlength="225">
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">ヘッダ</div>
+			<div class="float">
+				<textarea class="width_hight" style=" height: 70px;" id="header" name ="header"maxlength="225"></textarea>
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<div class="margin_padding">
+			<div class="float" style="width: 100px;">フッタ</div>
+			<div class="float">
+				<textarea class="width_hight" style=" height: 70px;" id="footer" name ="footer" maxlength="225"></textarea>
+			</div>
+		</div>
+		<div class="clear margin_padding"></div>
+		<!-- <input type="button" id="addMail" name ="addMail" class="searchLog width_bt float_right margin_padding" value="保存" > -->
+		<a href="javascript:void(0);" class="button2" id="addMail" style="float: right; margin-right: 10px;">保存</a>
+		<br/><br/>
+	</div>
+	<?php endif;?>
+</div>
+</form>
+

@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+.colZipCode {
+	width: 120px;
+	word-wrap: break-word;
+}
+
+.colAddress {
+	width: 320px;
+	word-wrap: break-word;
+}
+
+.colPhoneNumber {
+	width: 120px;
+	word-wrap: break-word;
+}
+
+.colFaxNumber {
+	width: 120px;
+	word-wrap: break-word;
+}

@@ -1,0 +1,142 @@
+@CHARSET "UTF-8";
+
+.brief-md-lg{
+	display: block;
+	text-align: justify;
+}
+
+.brief-sm{
+	display: none;
+}
+	
+@media screen and (max-width: 991px) {
+	.brief-md-lg{
+		display: none;
+	}
+	.brief-sm{
+		display: inline;
+		text-align: justify;
+	}
+	
+	.title_tyle .col-xs-12 {
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+	
+	.pagination-wrapper table { 
+		margin: 0px 0px !important;
+		float: right;
+	}
+	
+	.pagination-wrapper {
+		padding-right: 20px !important;;
+	}
+	
+	.product-no {
+		display: block !important;
+	}
+}
+
+.product-xs {
+	display: none;
+}
+
+.product-sm-md-lg {
+	display: block;
+}
+
+.product-no {
+	display: inline;
+}
+	
+.star-xs{
+	background-color: #ffff99;
+	color: #984807;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.nonstar-xs{
+	background-color: #fff;
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.todetail {
+	display: inline-block;
+}
+
+#spanLikeUnlikeXs {
+	display: none;
+}
+
+#spanLikeUnlikeSmMdLg {
+	display: inline-block;
+}
+
+@media screen and (max-width: 767px) {
+	.product-xs {
+		display: block;
+		cursor: pointer;
+	}
+
+	.product-sm-md-lg {
+		display: none;
+	}
+	
+	.product-no {
+		display: none !important;
+	}
+	
+	#spanLikeUnlikeXs {
+		display: block;
+	}
+	
+	.todetail {
+		display: none;
+	}
+	
+	#listproduce .button, .button{
+		text-align: center;
+		display: inline-block;javascript:void(0);
+		padding: 3px 5px 3px 5px;
+		-webkit-border-radius: 2px 2px 2px 2px;
+		border-radius: 2px 2px 2px 2px;
+		-webkit-box-shadow: 1px 1px 1px 1px #8C8C8C;
+		box-shadow: 1px 1px 1px 1px #8C8C8C;
+		width: 145px !important;
+	}
+	
+	.title_tyle label.pull-left { 
+		/*background-size:30px 30px!important;*/ 
+		padding: 0 0 0 29px!important; 
+	}
+	
+	.title_tyle .col-xs-12 {
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+	
+	.pagination-wrapper table { 
+		margin: 0px 0px !important;
+		float: right;
+	}
+	
+	.pagination-wrapper {
+		padding-right: 20px !important;
+	}
+	.like{
+		display: block;
+	}
+}
+
+@media ( max-width :350px) {
+	.title_tyle a {
+		margin: -15px 5px 0 0;
+		padding: 5px 3px 5px 3px;
+		text-decoration: none;
+		color: gray;
+		font-weight: bold;
+	}
+}

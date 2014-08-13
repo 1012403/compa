@@ -1,0 +1,87 @@
+<?php
+$form = $this->form;
+?>
+
+<div class="title_col" style="float: left;">
+  <div class="title_tyle title_search" >
+    <label class="pull-left">発送先</label>
+    <span>
+    </span>
+  </div>
+</div>
+<form id="add_shipping_form" method="post" action="/admin/user/newrowshipping" style="float: left; width: 100%">
+  <input type="hidden" name="idShipping" value="<?php echo $this->id; ?>">
+  <table class="content" style="width: 100%">
+    <tr>
+      <td class="first_col">発送先名<span style="color: red;">*</span></td>
+      <td>
+        <?php
+          echo $form->des_name;
+        ?>
+        <br class="error_des_name_cls"/>
+        <span class="error_des_name_cls" id='error_des_name_id' style='color:red;'></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_col">郵便番号<span style="color: red;">*</span></td>
+      <td>
+        <?php
+          echo $form->post_no;
+        ?>
+        <!-- <a href="javascript:void(0);" class="button2" style="color: black;" id="btnGetAddressId"
+          onclick="AjaxZip2.zip2addr('post_no','address1','address1');"
+        >住所検索</a>  -->
+        <br class="error_post_no_cls"/>
+        <span class="error_post_no_cls" id='error_post_no_id' style='color:red;'></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_col">住所1<span style="color: red;">*</span></td>
+      <td>
+        <?php
+          echo $form->address1;
+        ?>
+        <br class="error_address1_cls"/>
+        <span id='error_address1_id' class="error_address1_cls" style='color:red;'></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_col">住所2</td>
+      <td>
+        <?php
+          echo $form->address2;
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_col">電話番号</td>
+      <td>
+        <?php
+          echo $form->tel_no;
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_col">ＦＡＸ番号</td>
+      <td>
+        <?php
+          echo $form->fax_no;
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="first_col">発送方法</td>
+      <td>
+        <?php
+          echo $form->shipping_method;
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: right;">
+        <a href="#" class="button2" style="color: black;" onclick="saveNewTempUserShipping(<?php echo $this->id;?>);">追加</a>
+        <a href="#" class="button2" style="color: black;" onclick="closeUserShipping();">閉じる</a>
+      </td>
+    </tr>
+  </table>
+</form>

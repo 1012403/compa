@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding
+END
+Storefront.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/Storefront.php
+END
+Aspect.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/Aspect.php
+END
+PaginationOutput.php
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/PaginationOutput.php
+END
+ShippingInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/ShippingInfo.php
+END
+SellerInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/SellerInfo.php
+END
+Category.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/Category.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/Exception.php
+END
+SellingStatus.php
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/SellingStatus.php
+END
+Abstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/Abstract.php
+END
+ListingInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/Ebay/Finding/ListingInfo.php
+END

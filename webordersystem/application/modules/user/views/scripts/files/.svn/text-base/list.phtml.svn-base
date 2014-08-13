@@ -1,0 +1,14 @@
+<div class="title_content">
+List of images:
+</div>
+<?php 
+$arrFiles = $this->arrFiles;
+foreach ($arrFiles as $i => $value): ?>
+<div class="file_img_container div_img" id="con_img_<?php echo $i;?>">
+		<a href="javascript:selectImage(<?php echo $i;?>);">
+			<?php $iduserLogin = Core_Util_Helper::getIdUserLogin();?>
+			<img alt="" src="<?php echo $this->config['url_base'] ?>/images/editor_img/<?php echo $iduserLogin;?>/<?php echo $value; ?>" width="100%" id="img_id_<?php echo $i;?>">
+		</a>
+		<div class="image_name" id="image_name_id_<?php echo $i;?>"><?php echo $value; ?></div>
+</div>
+<?php endforeach; ?>

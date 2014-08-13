@@ -1,0 +1,125 @@
+
+<style>
+table.content{
+	border: 2px solid #8DB4E3;
+	width: 95%;
+	margin: 0 auto;
+}
+table.content th{
+	border: 1px solid #8DB4E3;
+	border-bottom: 2px solid #8DB4E3;
+	color: blue;
+	font-style: normal;
+	text-align: center;
+	font-weight: normal;
+}
+table.content td{
+	border-left: 1px solid #8DB4E3;
+	border-right: 1px solid #8DB4E3;
+	border-bottom: 1px dotted #8DB4E3;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+	  	if (id>0){
+	  		$('#formLogInfo').append("<input type=\"hidden\" id=\"page\" name=\"page\" value=\"" + id + "\">");
+	  		$('#formLogInfo').submit();
+	  	}
+		return false;
+	});
+
+	
+});
+</script>
+
+<?php
+$url = $this->url(array('action' => 'index','controller' =>'operationloginfo'));
+?>
+<form action="<?php echo $url ?>" method="post" id="formLogInfo">
+<div id="log" class="row">
+<table  style="width: 100%; border:0px;" >
+	<tr>
+		<td style="width:70%">
+			<div  class=" title_col ">
+				<div class="title_tyle ">
+					<label class="pull-left"> 操作ログ </label>
+				</div>
+			</div>
+		</td >
+		<td style="width:30%">
+		<div style="margin-right: 50px;">
+			<?php
+				$paginator = $this->paginator;
+				echo $paginator;
+			?>
+		</div>
+		
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div>
+			<label>日付</label>
+				<input class="serchInput" id="date_start" type="text" value="<?php echo $this->date_start; ?>" name="date_start">
+				<label>～ </label>
+				<input class="serchInput" id="date_end" type="text" value="<?php echo $this->date_end; ?>"  name="date_end" >
+				<script>
+		            $('#date_start').datepicker({
+		                'format': 'yyyy/mm/dd',
+		                'autoclose': true
+		            });
+		            $('#date_end').datepicker({
+		                'format': 'yyyy/mm/dd',
+		                'autoclose': true
+		            });
+				</script>
+				<input class="serchInput" id="username" type="text" value="<?php echo $this->username; ?>" placeholder= "ユーザ名"  name="username" >
+				<input class="serchInput" id="oper_contract" type="text" value="<?php echo $this->oper_contract; ?>" placeholder= "操作内容"  name="oper_contract">
+				<input class="serchInput" id="oper_detail" type="text" value="<?php echo $this->oper_detail; ?>" placeholder= "備考"  name="oper_detail">
+				<input type="submit" class="searchLog " value="検索" style="width:70px;">
+		</div>
+		<br/>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table  class="content" style="margin-left: 20px;">
+				<tr>
+					<th style="width:15%">日時</th>
+					<th style="width:20%">ユーザ名</th>
+					<th  style="width:25%">操作内容</th>
+					<th>備考</th>
+				</tr>
+				
+				<?php
+				
+				/* @var $value Core_Models_OperationLogInfo*/
+				foreach ($this->loginfo as $key => $value) {
+				?>
+				<tr style="text-align: left; padding-left: 10px">
+					<td style=" padding:5px 10px" ><?php $date = new DateTime(  $value['log_date_time']); echo date_format($date, 'Y/m/d h:i:s');?></td>
+					<td style=" padding:5px 10px" ><?php echo $value['user_name'];?></td>
+					<td style=" padding:5px 10px" title="<?php echo $value['operate_content'];?>">
+						<span style="word-wrap: break-word; max-width: 250px; display: block;">
+							<?php echo $value['operate_content'];?>
+						</span>
+					</td>
+					<td style=" padding:5px 10px; "
+						 title='<?php echo $value['operate_detail'];?>'>
+						<span style="word-wrap: break-word; max-width: 550px; display: block;">
+							<?php echo $value['operate_detail'];?>
+						</span>
+					</td>
+				</tr>
+				<?php
+				} 
+				?>
+			</table>
+		</td>
+	</tr>
+</table>
+	
+</div>
+</form>

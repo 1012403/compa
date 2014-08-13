@@ -1,0 +1,129 @@
+<script type="text/javascript" >
+var urlBack = '<?php echo $this->url(array('action' => 'index', 'controller' => 'login'));?>';
+$(document).ready(function() {
+	
+	$('#backButton').click(function(){
+		gotoPage(urlBack);
+	});
+
+    function closeWindow() {
+        window.open('', '_self', '');
+        window.close();
+    }
+	
+	$('#submitButton').click(function(){
+		if (checkSendlink() == false) {
+			return;
+		}else{
+			$.colorbox({
+				html:"<div style=\"text-align:center;\"><h3>保存しています。少しお待ちください。</h3> <br /> <img src=\"<?php echo $this->config['url_base'] ?>/images/web/ajax-loader.gif\"></div>",
+				closeButton : false,
+				scrolling : false,
+				escKey : false,
+				overlayClose : false,
+				transition : 'none',
+				speed : 100
+			});
+			
+			$.ajax({
+				url: '<?php echo $this->config['url_base'] ?>/sendlink/sendlink',
+				type: 'POST',
+				data: $('#formSendLink').serialize(),
+				success: function(data){
+					if(data=="true"){
+		            	alert("パスワード変更の依頼メールを送信しました。");
+		            	closeWindow();
+		            }else{
+		            	$('#formSendLink').submit();
+		            }
+					$.colorbox.close();
+				}
+			});
+		}
+
+	});
+
+	
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	<?php
+	if (isset($this->flagError)){
+		$flag=$this->flagError;
+		if($flag=="1"){
+			?>
+			setTimeout(function(){
+				$('#login_username').focus();
+				$('#login_username').select();
+				} ,500);
+		<?php
+		 }else if ($flag=="2"){
+		 ?>
+			setTimeout(function(){
+				$('#email').focus();
+				$('#email').select();
+				},500);
+	<?php
+		}
+
+	}else{
+	?>
+		$('#login_username').focus();
+	<?php
+	}
+	?>
+});
+</script>
+
+<div>
+	<div class=" col-xs-2 col-sm-2 col-md-3 col-lg-4" ></div>
+	<div class=" col-xs-8 col-sm-8 col-md-6 col-lg-4">
+		<div class="title_tyle" style="text-align: center; margin: 0 auto; padding-left: 10px;">
+		<div class="title_col" >
+			<label class="pull-left">パスワード変更依頼	</label>
+		</div>
+	</div>
+<br/>
+<br/>
+<div class=" divLogin" style="text-align: center; margin: 0 auto;">
+	<?php
+	$url = $this->url(array('action' => 'sendlink','controller' =>'sendlink'));
+	?>
+
+	<form action="<?php echo $url ?>" method="post" id="formSendLink">
+		
+		<div class="row" style="padding-left: 20px;">
+			<div class="col-12">
+				<div id="errorArea"	style="text-align: left; color: red;">
+					<?php echo $this->err; ?>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">ユーザＩＤ</div>
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 " style="text-align: left;">
+				<?php echo $this->sendLinkForm->login_username ?>
+			</div>
+			<div class="col-12">&nbsp;</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">メールアドレス</div>
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 " style="text-align: left;">
+				<?php echo $this->sendLinkForm->email?>
+			</div>
+			<div class="col-12">&nbsp;</div>
+			<div class="col-12">
+				<input class="smallButton" id="submitButton" type="button" name="sendLink" value="送信する">
+				&nbsp;&nbsp;&nbsp;
+				<input class="smallButton" id="backButton" type="button" name="back" value="キャンセル">
+			</div>
+			<br/> <br/> <br/>
+		</div>
+	</form>
+</div>
+	
+	</div>
+	<div class=" col-xs-2 col-sm-2 col-md-3 col-lg-4"></div>
+</div>
+
+
+

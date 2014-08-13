@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+    td.titleChange{
+        padding-left: 10px;
+   }
+
+   .textLogin {
+        width: 90%;
+        height: 24px;
+        border : 1px solid ;
+        border-color: #A5A5A5;
+        border-radius:5px;
+        -moz-border-radius:5px;
+        background-color: #FFF5F6;
+        padding-left: 2px;
+        padding-right: 2px;
+   }
+
+   .divLogin {
+    height: auto;
+    border:2px solid;
+    border-radius:10px;
+    -moz-border-radius:10px; /* Old Firefox */
+    border-color: #A5A5A5;
+    padding-top: 20px;
+    align: center;
+
+   }
+
+
+    .bar {
+        margin-left: auto;
+    }
+
+    .bal {
+        margin-right: auto;
+    }
+
+    .mt35 {
+        margin-top: 35px;
+    }
+
+    .w400 {
+        width: 500px;
+    }
+
+    .divTitleLogin {
+    width: 360px;
+    height: 30px;
+    border:2px solid;
+    border-radius:10px;
+    -moz-border-radius:10px; /* Old Firefox */
+    border-color: #A5A5A5;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    font-size: 25px;
+    font-style: oblique;
+    background-color: #FFF5F6;
+    text-align: center;
+   }
+
+   .tableLogin {
+        width: 100%;
+   }
+
+   .tableLogin td{
+
+        margin: 5px;
+        padding: 5px;
+        vertical-align: center;
+   }
+
+   td.title{
+        padding-left: 10px;
+   }

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Amf
+END
+Constants.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Amf/Constants.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Amf/Exception.php
+END
+Request.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Amf/Request.php
+END
+Response.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Amf/Response.php
+END
+Server.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Amf/Server.php
+END

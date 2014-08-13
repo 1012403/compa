@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Ishida02/!svn/ver/1148/trunk/webordersystem/library/Core/Controller
+END
+FrontAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/1130/trunk/webordersystem/library/Core/Controller/FrontAbstract.php
+END
+AdminAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/1148/trunk/webordersystem/library/Core/Controller/AdminAbstract.php
+END
+Abstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/1125/trunk/webordersystem/library/Core/Controller/Abstract.php
+END

@@ -1,0 +1,95 @@
+<?php $value = $this->valueparent;?>
+<tr class="rowedit">
+	<td align="center">
+		<input type="radio" name="catParent" checked="checked"
+		 value="<?php echo $value['category_id']; ?>">
+	</td>
+	<td style=" padding:5px 10px; word-wrap:break-word; ">
+		<span id="labname<?php echo $value['category_id'] ?>"
+			style=" word-wrap: break-word; max-width: 400px; display: block;">
+			<?php echo $value['category_name'];?>
+		</span>
+		<input type="text" id="name<?php echo $value['category_id']?>"
+				value="<?php echo $value['category_name'];?>" >
+		<input type="hidden" id="displayorder<?php echo $value['category_id']?>"
+				name="displayorder<?php echo $value['category_id']?>"
+				value="<?php echo $value['display_order']?>">
+	</td>
+	<td style=" padding:5px 10px" >
+		<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+			<a 
+			class="button2Disable margin_padding" 
+			href="javascript:void(0);" style="width: 70px; float:right; text-decoration: none; color:#AEA797; cursor: default;">編集</a>
+		<?php else : ?>
+			<a id="<?php echo $value['category_id']?>" 
+			class="button2 margin_padding editChild<?php echo $value['category_id']?>" 
+			href="javascript:void(0);" style="width: 70px; float:right;">編集</a>
+		<?php endif; ?>
+		<!-- <input type="button" class="searchLog editprod<?php echo $value['category_id']?>" id ="<?php echo $value['category_id']?>" value="編集" style="width: 70px;"> -->
+	</td>
+</tr>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$("#parent input[type='radio']").change(function(){
+		if ($(this).is(':checked')){
+			var cthis = $(this);
+		  	var id = cthis.attr('value');
+		  	$.ajax({
+				url: "<?php echo $this->url(array('action' => 'category','controller' =>'category')); ?>",
+				type: "post",
+				data: { "id": id},
+				success: function( strData ){
+					if (strData != "null"){
+						$("#category").html(strData);
+						$("#parent_id").val(id);
+					}
+
+					// Add 20140421 Hieunm start
+					disableBtnWhenNodata("both");
+					// Add 20140421 Hieunm end
+				}
+			});
+			return false;
+		}
+    });
+
+	 $(".editprod"+<?php echo $value['category_id']?>).click(function(){
+	    	var button = $(this);
+		  	var id = $(this).attr('id');
+		  	if ($(this).val() == '編集'){
+				$('.error').html('');
+				$('.errorchild').html('');
+		  		$(this).val('更新');
+		  		$('#name'+id).show();
+			  	$('#labname'+id).hide();
+		  	}else{
+		  		var name = $('#name'+id).val();
+		  		if(name!=""){
+					$('.errorchild').html('');
+					$('.error').html('');
+		  			$.ajax({
+						url: "<?php echo $this->url(array('action' => 'editparent','controller' =>'category')); ?>",
+						type: "post",
+						data: { "category_name": name, "category_id": id},
+						success: function( strData ){
+							if (strData =="true"){
+								button.val('編集');
+								$('#labname'+id).html(name);
+							  	$('#labname'+id).show();
+							  	$('#name'+id).hide();
+							} else {
+								$('#name'+id).focus().select();
+							}
+						}
+					});
+		  		}else{
+					$('.error').html('カテゴリー必ず入力してください。');
+		  		}
+		  	}
+	    });
+
+
+});
+</script>

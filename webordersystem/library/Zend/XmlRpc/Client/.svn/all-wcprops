@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/XmlRpc/Client
+END
+HttpException.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/XmlRpc/Client/HttpException.php
+END
+ServerIntrospection.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/XmlRpc/Client/ServerIntrospection.php
+END
+ServerProxy.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/XmlRpc/Client/ServerProxy.php
+END
+FaultException.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/XmlRpc/Client/FaultException.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/XmlRpc/Client/Exception.php
+END
+IntrospectException.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/XmlRpc/Client/IntrospectException.php
+END

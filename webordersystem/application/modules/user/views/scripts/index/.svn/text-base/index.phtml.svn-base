@@ -1,0 +1,1060 @@
+<?php $user = $this->userLogin;?>
+<style>
+.slider1_control {
+	width: 30px;
+	height: 30px;
+	background-color: #B5B5B5;
+	color: white;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.slider1_control:hover {
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	color: #B5B5B5;
+	border-style: solid;
+	border-color: #B5B5B5;
+	border-width: 1px;
+}
+
+.slider1_control a {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	color: white;
+}
+
+.slider1_pre_next {
+	float: left;
+	margin-top: 50px;
+	text-align: center;
+	padding-top: 0px;
+	padding-right: 3px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+}
+
+
+</style>
+<script type="text/javascript">
+	var slider1 = null;
+	var slider2 = null;
+	var slider3 = null;
+	var slider4 = null;
+	var slider5 = null;
+	var slider6 = null;
+	var slider7 = null;
+	var slider8 = null;
+	var slider9 = null;
+	var slider10 = null;
+	var slider11 = null;
+	var slider12 = null;
+
+	$(document).ready(function(){
+	$('.image_responsive img').addClass("img-responsive");
+	$('.image_responsive img').css({ height : "auto"});
+	// slider 1
+	if ($('#lightSlider1 li').length > 1) {
+				slider1 = $("#lightSlider1").lightSlider({
+		slideWidth:1000,
+		pager:false
+		});
+	} else {
+		$(".btnpre1").hide();
+		$(".btnnext1").hide();
+	}
+
+	//slider 2
+	if ($('#lightSlider2 li').length > 1) {
+			slider2 = $("#lightSlider2").lightSlider({
+			slideWidth:615,
+			pager:false
+			});
+	} else {
+		$(".btnpre2").hide();
+		$(".btnnext2").hide();
+	}
+	//slider 3
+	if ($('#lightSlider3 li').length > 1) {
+			slider3 = $("#lightSlider3").lightSlider({
+			slideWidth:410,
+			pager:false
+			});
+	} else {
+		$(".btnpre3").hide();
+		$(".btnnext3").hide();
+	}
+
+	// slider 4
+	if ($('#lightSlider4 li').length > 1) {
+				slider4 = $("#lightSlider4").lightSlider({
+					slideWidth:205,
+				pager:false
+			});
+	} else {
+		$(".btnpre4").hide();
+		$(".btnnext4").hide();
+	}
+	//slider 5
+	if ($('#lightSlider5 li').length > 1) {
+			slider5 = $("#lightSlider5").lightSlider({
+				slideWidth:1000,
+				pager:false
+			});
+	} else {
+		$(".btnpre5").hide();
+		$(".btnnext5").hide();
+	}
+	//slider 6
+	if ($('#lightSlider6 li').length > 1) {
+			slider6 = $("#lightSlider6").lightSlider({
+				slideWidth:615,
+				pager:false
+			});
+	} else {
+		$(".btnpre6").hide();
+		$(".btnnext6").hide();
+	}
+	// slider 7
+	if ($('#lightSlider7 li').length > 1) {
+					slider7 = $("#lightSlider7").lightSlider({
+							slideWidth:410,
+						pager:false
+					});
+	} else {
+		$(".btnpre7").hide();
+		$(".btnnext7").hide();
+	}
+	//slider 8
+	if ($('#lightSlider8 li').length > 1) {
+		slider8 = $("#lightSlider8").lightSlider({
+				slideWidth:205,
+				pager:false
+			});
+	} else {
+		$(".btnpre8").hide();
+		$(".btnnext8").hide();
+	}
+	//slider 9
+	if ($('#lightSlider9 li').length > 1) {
+			slider9 = $("#lightSlider9").lightSlider({
+					slideWidth:1000,
+					pager:false
+			});
+	} else {
+		$(".btnpre9").hide();
+		$(".btnnext9").hide();
+	}
+	//slider 10
+	if ($('#lightSlider10 li').length > 1) {
+			slider10 = $("#lightSlider10").lightSlider({
+					slideWidth:615,
+					pager:false
+			});
+	} else {
+		$(".btnpre10").hide();
+		$(".btnnext10").hide();
+	}
+	//slider 11
+	if ($('#lightSlider11 li').length > 1) {
+			slider11 = $("#lightSlider11").lightSlider({
+					slideWidth:410,
+					pager:false
+			});
+	} else {
+		$(".btnpre11").hide();
+		$(".btnnext11").hide();
+	}
+	//slider 12
+	if ($('#lightSlider12 li').length > 1) {
+			slider12 = $("#lightSlider12").lightSlider({
+					slideWidth:205,
+					pager:false
+			});
+	} else {
+		$(".btnpre12").hide();
+		$(".btnnext12").hide();
+	}
+});
+
+function nextSlider(index) {
+	if (index == 1) {
+		if (slider1 != null) {
+			slider1.goToNextSlide();
+		}
+	}
+	if (index == 2) {
+		if (slider2 != null) {
+			slider2.goToNextSlide();
+		}
+	}
+	if (index == 3) {
+		if (slider3 != null) {
+			slider3.goToNextSlide();
+		}
+	}
+	if (index == 4) {
+			if (slider4 != null) {
+				slider4.goToNextSlide();
+			}
+	}
+	if (index == 5) {
+		 if (slider5 != null) {
+				slider5.goToNextSlide();
+			}
+	}
+	if (index == 6) {
+		 if (slider6 != null) {
+				slider6.goToNextSlide();
+			}
+	}
+	if (index == 7) {
+		 if (slider7 != null) {
+				 slider7.goToNextSlide();
+		 }
+	}
+	if (index == 8) {
+		 if (slider8 != null) {
+				 slider8.goToNextSlide();
+		 }
+	}
+	if (index == 9) {
+		 if (slider9 != null) {
+				 slider9.goToNextSlide();
+		 }
+	}
+	if (index == 10) {
+			 if (slider10 != null) {
+					 slider10.goToNextSlide();
+			 }
+		}
+	if (index == 11) {
+			 if (slider11 != null) {
+					 slider11.goToNextSlide();
+			 }
+		}
+	if (index == 12) {
+			 if (slider12 != null) {
+					 slider12.goToNextSlide();
+			 }
+		}
+}
+
+function preSlider(index) {
+	if (index == 1) {
+		if (slider1 != null) {
+			slider1.goToPrevSlide();
+		}
+	}
+	if (index == 2) {
+		if (slider2 != null) {
+			slider2.goToPrevSlide();
+		}
+	}
+
+
+
+	if (index == 3) {
+		if (slider3 != null) {
+			slider3.goToPrevSlide();
+		}
+	}
+	if (index == 4) {
+			if (slider4 != null) {
+				slider4.goToPrevSlide();
+		}
+	}
+	if (index == 5) {
+			if (slider5 != null) {
+				slider5.goToPrevSlide();
+		}
+	}
+
+	if (index == 6) {
+		 if (slider6 != null) {
+				 slider6.goToPrevSlide();
+		 }
+	}
+	if (index == 7) {
+		 if (slider7 != null) {
+					slider7.goToPrevSlide();
+		 }
+	}
+	if (index == 8) {
+		 if (slider8 != null) {
+					 slider8.goToPrevSlide();
+		 }
+	}
+
+	if (index == 9) {
+		 if (slider9 != null) {
+					slider9.goToPrevSlide();
+		 }
+	}
+
+	if (index == 10) {
+			 if (slider10 != null) {
+						slider10.goToPrevSlide();
+			 }
+		}
+	if (index == 11) {
+			 if (slider11 != null) {
+						slider11.goToPrevSlide();
+			 }
+		}
+	if (index == 12) {
+			 if (slider12 != null) {
+						slider12.goToPrevSlide();
+			 }
+		}
+}
+</script>
+<?php $folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+<!--<div class="col-xs-12 " id="listproduce">-->
+<div class="row row_container image_responsive"
+	style="border-style: solid; border-width: 1px;">
+		<?php
+			$news = $this->news;
+			/* @var $news Core_Models_NoticeInfo */
+			if ($news !== null) {
+				echo $news->getContent ();
+			}
+
+		?>
+</div>
+<div class="row row_container image_responsive"
+	style="border-style: solid; border-width: 1px; border-color: #CDCECB; padding: 0px; margin: 0px; margin-top: 5px; width: 98%; height: auto;">
+
+	<div class="title_review" style="padding: 0px;">
+		<div class="title_bg">
+			<span style="color: white; font-weight: bold;"> ご案内 </span>
+		</div>
+	</div>
+	<div class="title_review2" style="padding: 0px;">
+		<span style="color: #727370; margin-left: 5px; padding-top: 4px;">
+			営業担当者からのご挨拶 </span>
+	</div>
+	<div>
+		<?php
+			$notice = $this->notice;
+			/* @var $notice Core_Models_NoticeInfo */
+			if ($notice !== null) {
+				echo $notice->getContent ();
+			}
+		?>
+	</div>
+</div>
+<div class="row">
+	<div style="padding: 0px; width: 99%" class="list-normal">
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> おすすめ商品 </span> <span
+					style="color: black; float: right; display: inline-block;"
+					id="slider1_control"></span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(1);">
+			<div class="slider1_control slider1_pre_next btnpre1">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 1000px;">
+			<ul id="lightSlider1" style="list-style-type: none;">
+			<?php $arrFeaProduct = $this->arrFeaProduct;
+				if (count($arrFeaProduct) > 0) :
+			?>
+				<li>
+					<?php
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrFeaProduct as $key => $product ) :
+							if ($index != 0 && ($index % 4) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img  onerror="imgError(this);"
+								alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+									<?php echo $this->escape($product->getProductName())?>
+								</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+									&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+								</div>
+						</div>
+							<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn" src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+					</li>
+					<?php endif; ?>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(1);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext1">&gt;</div>
+		</a>
+	</div>
+	 <div style="padding: 0px; width: 99%;" class="list-small" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> おすすめ商品 </span> <span
+					style="color: black; float: right; display: inline-block;"
+					></span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(2);">
+			<div class="slider1_control slider1_pre_next btnpre2">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 615px;">
+			<ul id="lightSlider2">
+			<?php $arrFeaProduct = $this->arrFeaProduct;
+				if (count($arrFeaProduct) > 0) :
+			?>
+				<li>
+					<?php
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrFeaProduct as $key => $product ) :
+							if ($index != 0 && ($index % 3) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img 
+								onerror="imgError(this);"
+								alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+									<?php echo $this->escape($product->getProductName())?>
+								</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+									&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+								</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+							</li>
+							<?php endif; ?>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(2);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext2">&gt;</div>
+		</a>
+	</div>
+	<div style="padding: 0px; width: 99%;" class="list-vsmall" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> おすすめ商品 </span> <span
+					style="color: black; float: right; display: inline-block;"
+					></span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(3);">
+			<div class="slider1_control slider1_pre_next btnpre3">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 410px;">
+			<ul id="lightSlider3">
+			<?php $arrFeaProduct = $this->arrFeaProduct;
+				if (count($arrFeaProduct) > 0) :
+			?>
+				<li>
+					<?php
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrFeaProduct as $key => $product ) :
+							if ($index != 0 && ($index % 2) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img onerror="imgError(this);"
+								alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+									<?php echo $this->escape($product->getProductName())?>
+								</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+									&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+								</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+							</li>
+							<?php endif; ?>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(3);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext3">&gt;</div>
+		</a>
+	</div>
+	<div style="padding: 0px; width: 99%;" class="list-vrsmall" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> おすすめ商品 </span> <span
+					style="color: black; float: right; display: inline-block;"
+					></span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(4);">
+			<div class="slider1_control slider1_pre_next btnpre4">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 205px;">
+			<ul id="lightSlider4">
+			<?php $arrFeaProduct = $this->arrFeaProduct;
+				if (count($arrFeaProduct) > 0) :
+			?>
+				<li>
+					<?php
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrFeaProduct as $key => $product ) :
+							if ($index != 0 && ($index % 1) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img  onerror="imgError(this);"
+								alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+									<?php echo $this->escape($product->getProductName())?>
+								</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+									&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+								</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+							</li>
+							<?php endif; ?>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(4);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext4">&gt;</div>
+		</a>
+	</div>
+</div>
+
+
+
+<div class="row" >
+	<div style="padding: 0px; width: 99%" class="list-normal">
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> 人気商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(5);">
+			<div class="slider1_control slider1_pre_next btnpre5">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 1000px;">
+			<ul id="lightSlider5">
+
+				<li>
+					<?php
+						$arrBestSell = $this->arrBestSell;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrBestSell as $key => $product ) :
+							if ($index != 0 && ($index % 4) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img onerror="imgError(this);"
+								alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+								<?php echo $this->escape($product->getProductName());?>
+							</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+								&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+							</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+							</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(5);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext5">&gt;</div>
+		</a>
+	</div>
+	<div style="padding: 0px; width: 99%;" class="list-small" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> 人気商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(6);">
+			<div class="slider1_control slider1_pre_next btnpre6">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 615px;">
+			<ul id="lightSlider6">
+
+				<li>
+					<?php
+						$arrBestSell = $this->arrBestSell;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrBestSell as $key => $product ) :
+							if ($index != 0 && ($index % 3) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img onerror="imgError(this);" alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+															<?php echo $this->escape($product->getProductName());?>
+														</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+												&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+											</div>
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+							</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(6);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext6">&gt;</div>
+		</a>
+	</div>
+	<div style="padding: 0px; width: 99%;" class="list-vsmall" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> 人気商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(7);">
+			<div class="slider1_control slider1_pre_next btnpre7">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 410px;">
+			<ul id="lightSlider7">
+
+				<li>
+					<?php
+						$arrBestSell = $this->arrBestSell;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrBestSell as $key => $product ) :
+							if ($index != 0 && ($index % 2) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img onerror="imgError(this);" alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+															<?php echo $this->escape($product->getProductName());?>
+														</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+												&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+											</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+							</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(7);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext7">&gt;</div>
+		</a>
+	</div>
+	<div style="padding: 0px; width: 99%;" class="list-vrsmall" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> 人気商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(8);">
+			<div class="slider1_control slider1_pre_next btnpre8">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 205px;">
+			<ul id="lightSlider8">
+
+				<li>
+					<?php
+						$arrBestSell = $this->arrBestSell;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrBestSell as $key => $product ) :
+							if ($index != 0 && ($index % 1) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img onerror="imgError(this);" alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+															<?php echo $this->escape($product->getProductName());?>
+														</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+												&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+											</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+							</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(8);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext8">&gt;</div>
+		</a>
+	</div>
+</div>
+
+
+
+<div class="row" >
+	<div style="padding: 0px; width: 99%" class="list-normal">
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> お気に入り商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(9);">
+			<div class="slider1_control slider1_pre_next btnpre9">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 1000px;">
+			<ul id="lightSlider9">
+				<li>
+								<?php
+						$arrProUserLike = $this->arrProUserLike;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrProUserLike as $key => $product ) :
+							if ($index != 0 && ($index % 4) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+						<div class="img_bounder">
+							<img onerror="imgError(this);" alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+												<?php echo $this->escape($product->getProductName());?>
+											</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+												&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+											</div>
+							
+						</div>
+						<a	style="float: left;"
+							href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+								<?php endforeach; ?>
+							</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(9);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext9">&gt;</div>
+		</a>
+	</div>
+	 <div style="padding: 0px; width: 99%;" class="list-small" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> お気に入り商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(10);">
+			<div class="slider1_control slider1_pre_next btnpre10">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 615px;">
+			<ul id="lightSlider10">
+				<li>
+								<?php
+						$arrProUserLike = $this->arrProUserLike;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrProUserLike as $key => $product ) :
+							if ($index != 0 && ($index % 3) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+
+						<div class="img_bounder">
+							<img onerror="imgError(this);" alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						</div>
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+												<?php echo $this->escape($product->getProductName());?>
+											</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+												&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+											</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+								<?php endforeach; ?>
+							</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(10);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext10">&gt;</div>
+		</a>
+	</div>
+	<div style="padding: 0px; width: 99%;" class="list-vsmall" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> お気に入り商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(11);">
+			<div class="slider1_control slider1_pre_next btnpre11">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 410px;">
+			<ul id="lightSlider11">
+				<li>
+								<?php
+						$arrProUserLike = $this->arrProUserLike;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrProUserLike as $key => $product ) :
+							if ($index != 0 && ($index % 2) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
++
+						<div class="img_bounder">
+							<img onerror="imgError(this);" alt="<?php echo $this->escape($product->getProductName());?>"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+								width="60px;">
+						<div class="img_bounder">
+
+						<div class="content_product_info">
+							<div class="content_product_name">
+												<?php echo $this->escape($product->getProductName());?>
+											</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+												&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+											</div>
+							
+						</div>
+						<a style="float: left;"
+								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+								<?php endforeach; ?>
+							</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(11);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext11">&gt;</div>
+		</a>
+	</div>
+	<div style="padding: 0px; width: 99%;" class="list-vrsmall" >
+		<div class="title_cate">
+			<div class="title_cate_bg">
+				<span style="color: black;"> お気に入り商品 </span>
+			</div>
+		</div>
+		<a href="javascript:preSlider(12);">
+			<div class="slider1_control slider1_pre_next btnpre12">
+				<span>&lt;</span>
+			</div>
+		</a>
+		<div class="content_cate" style="float: left; width: 205px;">
+			<ul id="lightSlider12">
+				<li>
+								<?php
+						$arrProUserLike = $this->arrProUserLike;
+						$index = 0;
+						/* @var $product Core_Models_MstProduct */
+						foreach ( $arrProUserLike as $key => $product ) :
+							if ($index != 0 && ($index % 1) == 0) {
+								echo "</li><li>";
+							}
+							$index ++;
+					?>
+						<div class="content_product_container">
+						<div class="img_bounder">
+						<img onerror="imgError(this);" alt="<?php echo $this->escape($product->getProductName());?>"
+							src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+							width="60px;">
+						</div>
+						<div class="content_product_info">
+							<div class="content_product_name">
+												<?php echo $this->escape($product->getProductName());?>
+											</div>
+							<div class="content_product_no pull-left" style="margin-left:15px">
+												&lt;<?php echo $this->escape($product->getProductNo());?>&gt;
+											</div>
+							
+						</div>
+						<a style="float: left;"
+							href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+								<img alt="" class="detail_btn"
+								src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+							</a>
+					</div>
+					<?php endforeach; ?>
+				</li>
+			</ul>
+		</div>
+		<a href="javascript:nextSlider(12);">
+			<div style="padding-left: 3px; margin-left: 5px;"
+				class="slider1_pre_next slider1_control btnnext12">&gt;</div>
+		</a>
+	</div>
+</div>
+

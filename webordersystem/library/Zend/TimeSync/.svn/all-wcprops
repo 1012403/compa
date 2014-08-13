@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/TimeSync
+END
+Sntp.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/TimeSync/Sntp.php
+END
+Protocol.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/TimeSync/Protocol.php
+END
+Ntp.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/TimeSync/Ntp.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/TimeSync/Exception.php
+END

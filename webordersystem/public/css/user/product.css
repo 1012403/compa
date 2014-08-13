@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+ul.navProd
+{
+	display: inline-block;
+	overflow: hidden;
+	padding: 0px;
+}
+ul.navProd li
+{
+    display: inline;
+    float: left;
+    margin: 0px 2px;
+    background: silver;
+}
+ul.navProd li a
+{
+	color: white;
+	text-decoration: none;
+	display: block;
+	padding: 3px 8px;
+}
+ul.navProd li:hover
+{
+	background: #3A7ABE;
+}
+ul.navProd li.current
+{
+	font-weight: bold;
+	padding: 3px 8px;
+}

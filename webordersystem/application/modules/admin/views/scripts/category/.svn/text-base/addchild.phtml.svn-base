@@ -1,0 +1,74 @@
+<?php $value = $this->value;?>
+
+<tr class="rowedit">
+	<td align="center">
+		<input type="radio" checked="checked" name="catChild"
+			 value="<?php echo $value['category_id']; ?>">
+	</td>
+	
+	<td style=" padding:5px 10px" >
+		<span id="labnameChild<?php echo $value['category_id'] ?>" 
+			style=" word-wrap: break-word; max-width: 400px; display: block;">
+			<?php echo $value['category_name'];?>
+		</span>
+		<input type="text" id="nameChild<?php echo $value['category_id']?>" 
+				value="<?php echo $value['category_name'];?>">
+		<input type="hidden" id="displayorder<?php echo $value['category_id']?>" 
+				name="displayorder<?php echo $value['category_id']?>" 
+				value="<?php echo $value['display_order'];?>">
+	</td>
+	<td style=" padding:5px 10px">
+		<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+			<a 
+				class="button2Disable margin_padding" 
+				href="javascript:void(0);" style="width: 70px; float:right; text-decoration: none; color:#AEA797; cursor: default;">編集</a>
+		<?php else : ?>
+			<a id="<?php echo $value['category_id']?>" 
+				class="button2 margin_padding editChild<?php echo $value['category_id']?>" 
+				href="javascript:void(0);" style="width: 70px;float:right;">編集</a>
+		<?php endif; ?>
+		<!-- <input type="button" class="searchLog editChild<?php echo $value['category_id']?>" id ="<?php echo $value['category_id']?>" value="編集" style="width: 70px; "> -->
+	</td>
+</tr>
+
+<script type="text/javascript">
+	var idall=$(this).attr('id');
+	//alert(idall);
+	$(".editChild"+<?php echo $value['category_id']?>).click(function(){
+    	var button = $(this);
+	  	var id = $(this).attr('id');
+	  	if ($(this).val() == '編集'){
+			$('.error').html('');
+			$('.errorchild').html('');
+	  		$(this).val('更新');
+	  		$('#nameChild'+id).show();
+		  	$('#labnameChild'+id).hide();
+		  	//return false;
+	  	}else{
+	  		var name = $('#nameChild'+id).val();
+	  		if(name!=""){
+				$('.error').html('');
+				$('.errorchild').html('');
+	  			$.ajax({
+					url: "<?php echo $this->url(array('action' => 'editchild','controller' =>'category')); ?>",
+					type: "post",
+					data: { "category_name": name, "category_id": id},
+					success: function( str){
+						if (str =="true"){
+							button.val('編集');
+							$('#labnameChild'+id).html(name);
+						  	$('#labnameChild'+id).show();
+						  	$('#nameChild'+id).hide();
+						} else {
+							$('#nameChild'+id).focus().select();
+						}
+					}
+				});
+	  		}else{
+				$('.errorchild').html('カテゴリー必ず入力してください。');
+	  		}
+	  	}
+    });
+
+
+</script>

@@ -1,0 +1,228 @@
+<div id="main">
+    <input type="hidden" value="<?php echo $this->config['url_base']; ?>" id="url_base"/>
+
+    <div id="product">
+      <table>
+        <tr>
+          <td>
+          <div class="productTitle">
+          &nbsp;
+          <img class="productIconSize" src="../../images/web/circle.png" />&nbsp;<b>商品追加</b>
+       		</div>
+          </td>
+          <td>
+          &nbsp;&nbsp;&nbsp;
+          <a href="javascript:void(0)" id="btnSave" class="productBtnStyle btnWidth btnBold">追加</a>
+          <a href="javascript:addFeaturedProductById(<?php echo $this->product["productId"];?>)" id="btnAddFeatureProduct" class="productBtnStyle btnBold" style="width: 80px;">おすすめへ</a>
+          <a href="javascript:removeFeaturedProductById(<?php echo $this->product["productId"];?>)" id="btnRemoveFeatureProduct" class="productBtnStyle btnBold" style="width: 80px; background-color: #FFFF99; color: #984807; display: none;">☆おすすめ</a>
+          </td>
+
+
+        </tr>
+      </table>
+
+       <br/>
+       <div id="displayError" class="error"></div>
+       <form name="addProductForm" id="addProductForm" method="post">
+       <input type="hidden" value="0" id="addFeatureId" name="addFeature"/>
+       <input type="hidden" value="<?php echo $this->mode ?>" id="mode" name="mode"/>
+            <table width="940" border="0" cellspacing="0" cellpadding="0"
+                class="graph2">
+                <tr>
+                    <th class="tal">商品名称</th>
+                    <td>
+                        <?php echo  $this->form->productName; ?>
+                    </td>
+                    <td rowspan="3" class="tal">
+                      <div id="viewImage">
+                        <img id="imgUpload" alt="" src="/images/blank.jpg"  height="200px" width="340px"> <br/>
+                      </div>
+                       <!-- <a href="javascript:void(0)" id="selectImage" class="productBtnStyle btnColor">画像を設定</a>
+                       <input type="file" name="file" id="file" class="invisible"/> -->
+	 					<div id="right-col" class="input_file_wrap">
+							<input type="file" name="file" id="file" class="input_file" />
+							<a href="" class="image_file_name">画像を設定</a>
+					    </div>
+                       <input type="hidden" name="fileName" id="fileName"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="tal">商品番号</th>
+                    <td>
+                        <?php echo  $this->form->productNo; ?>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th class="tal">メーカー品番</th>
+                    <td>
+                        <?php echo  $this->form->makerProductNo; ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="tal">商品説明</th>
+                    <td>
+                        <?php echo  $this->form->productBrief; ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="tal">販売価格</th>
+                    <td colspan="2">
+                        <div id="tablePrice" class="tableGrid">
+                                  <div class="rowh">
+                                    <div class="cellh">適用開始日</div>
+                                    <div class="cellh">販売価格（税抜）</div>
+                                    <div class="cellh">販売価格（税込）</div>
+                                    <div class="cellh">消費税額</div>
+                                    <div style="width: 70px" class="cellh">表示制限</div>
+                                    <div style="width: 70px" class="cellh">入力制限</div>
+                                    <div class="cellh"></div>
+                                  </div>
+                                  <div class="productRow">
+                                    <div class="cell">
+                                       <?php echo  $this->form->priceApplyStartDate; ?>
+                                    </div>
+                                    <script type="text/javascript">
+                                    	$( "#priceApplyStartDate" ).val('<?php echo date('Y/m/d');?>');
+                                    </script>
+                                    <div class="cell">
+                                        <?php echo  $this->form->price; ?>
+                                    </div>
+                                    <div class="cell">
+                                        <?php echo  $this->form->priceIncludingTax; ?>
+                                    </div>
+                                    <div class="cell">
+                                        <?php echo  $this->form->tax; ?>
+                                    </div>
+                                    
+                             		<div style="width: 70px; text-align: center" class="cell clsDivPriceCond">&nbsp;
+	                                    <?php echo  $this->form->priceCond_0; ?>
+                                    </div>
+                                    <div style="width: 70px; text-align: center" class="cell">&nbsp;
+										<?php echo  $this->form->quanRes_0; ?>
+                                    </div>
+                                    
+                                     <div class="cell">&nbsp;
+                                    <a href="javascript:void(0)" onClick="delRow('tablePrice',this)" class="productBtnStyle btnWidth btnColor">削除</a>
+                                    </div>
+                                    
+                                  </div>
+                            </div>
+                            <a href="javascript:void(0)" id="btnAddPrice" class="productBtnStyle btnWidth btnColor">行追加</a>
+                        </td>
+
+                </tr>
+
+                <tr>
+                    <th class="tal">ポイント倍率</th>
+                    <td colspan="2">
+                        <div id="tablePoint" class="tableGrid">
+                                  <div class="rowh">
+                                    <div class="cellh">
+                                                                                              適用開始日
+                                    </div>
+                                    <div class="cellh">
+                                                                                              ポイント倍率
+                                    </div>
+                                  </div>
+                                  <div class="productRow">
+                                    <div class="cell">
+                                       <?php echo  $this->form->pointApplyStartDate; ?>
+                                    </div>
+                                    <script type="text/javascript">
+                                    	$( "#pointApplyStartDate" ).val('<?php echo date('Y/m/d');?>');
+                                    </script>
+                                    <div class="cell">
+                                        <?php echo  $this->form->magnificationPoint; ?>
+                                    </div>
+                                    <script type="text/javascript">
+                                    	$( "#magnificationPoint" ).val('1');
+                                    </script>
+                                    <div class="cell">&nbsp;
+                                      <a href="javascript:void(0)" onClick="delRow('tablePoint',this)" class="productBtnStyle btnWidth btnColor">削除</a>
+                                    </div>
+                                  </div>
+                            </div>
+
+                        <a href="javascript:void(0)" id="btnAddPoint" class="productBtnStyle btnWidth btnColor">行追加</a>
+                        </td>
+                </tr>
+
+                <tr>
+                    <th class="tal">コメント</th>
+                    <td colspan="2">
+                        <?php echo  $this->form->shippingCheck; ?>&nbsp;<label for="shippingCheck" class="optional"> 送料</label> <!-- ADD 20140429 Hieunm add label -->
+                        <span class='productRadio'>
+                        <?php echo  $this->form->shipping; ?>&nbsp;<?php echo  $this->form->shippingValue; ?>&nbsp;円
+                        <!-- ADD 20140429 Hieunm start -->
+                        <label for="shipping-4">
+	                     <input id="shipping-4" type="radio" name="shipping" value="4"
+	                     	<?php if ($this->product["shipping"] == 4) {echo "checked='checked'";} ?> >送料は別途お知らせ
+                     	</label><!-- ADD 20140429 Hieunm end -->
+                        </span><br/><br/>
+                        <?php echo  $this->form->stockCheck; ?>&nbsp;<label for="stockCheck" class="optional"> 在庫</label> <!-- ADD 20140429 Hieunm add label -->
+                        <span class='productRadio'>
+                        <?php echo  $this->form->stock; ?>&nbsp;<?php echo  $this->form->stockValue; ?>&nbsp;個
+                        </span>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th class="tal">仕入れ先</th>
+                    <td colspan="2">
+                        <?php echo  $this->form->supplierCode; ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="tal">商品カテゴリー</th>
+                    <td colspan="2">
+                         <div id="tableCategory" class="tableGrid">
+                              <div class="productRow">
+                                <div class="cell">
+                                  <?php echo  $this->form->categoryParent; ?>
+                                </div>
+
+                                <div class="cell">&nbsp; &gt; &nbsp;</div>
+                                <div class="cell">
+                                   <?php echo  $this->form->categoryChild; ?>
+                                </div>
+                                <div class="cell">&nbsp;
+                                <a href="javascript:void(0)" onClick="delRow('tableCategory',this)" class="productBtnStyle btnWidth btnColor">削除</a>
+                                </div>
+                              </div>
+                        </div>
+
+                        <a href="javascript:void(0)" id="btnAddCategory" class="productBtnStyle btnWidth btnColor">行追加</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th class="tal">詳細説明</th>
+                    <td colspan="2">
+                        <?php //echo  $this->form->productDetailInfo; ?>
+                        <?php //echo $this->ckeditor('productDetailInfo'); ?>
+                        <?php
+                        	$arrClassDetail = $this->arrClassDetail;
+                        	/* @var $mstClass Core_Models_MstClass */
+                        	foreach ($arrClassDetail as $key => $mstClass) {
+                        		echo "【" . $mstClass->getItemName() . "】";
+                        	?>
+                        	<textarea rows="" cols="" id="productDetailInfo_<?php echo $key; ?>" name="productDetailInfo_<?php echo $key; ?>" ></textarea>
+                        	<input type="hidden" name="productDetailInfoOrder_<?php echo $key; ?>" value="<?php echo  $mstClass->getItemOrder(); ?>">
+                        	<input type="hidden" name="productDetailClass_<?php echo $key; ?>" value="<?php echo  $mstClass->getItemCd(); ?>">
+                        	<br />
+                        	<?php
+                        		echo $this->ckeditor('productDetailInfo_' . $key);
+							}
+                        ?>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="numclass" value="<?php echo count($arrClassDetail);?>">
+        </form>
+    </div>
+</div>

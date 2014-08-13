@@ -1,0 +1,205 @@
+<style>
+table.content{
+  border: 2px solid #8DB4E3;
+  width: 90%;
+  margin: 0 auto;
+}
+table.content th{
+  border: 1px solid #8DB4E3;
+  border-bottom: 2px solid #8DB4E3;
+  color: blue;
+  font-style: normal;
+  text-align: center;
+  font-weight: normal;
+}
+table.content td{
+  border-left: 1px solid #8DB4E3;
+  border-right: 1px solid #8DB4E3;
+  border-bottom: 1px dotted #8DB4E3;
+}
+.serchInput{
+  color: #888888;
+    height: 25px;
+    line-height: 27px;
+    text-shadow: 1px 1px 0 #FFFFFF;
+
+}
+.searchLog{
+  background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: 2px 2px 4px #666666;
+    color: #000000;
+    font-weight: bold;
+    padding: 3px 10px 2px;
+    text-decoration: none;
+
+}
+.error{
+color: #F00;
+clear:left;
+display:block;
+text-align: left;
+margin-left:20px;
+}
+.invisible {
+    position: absolute;
+    left: -9999px;
+}
+.right{
+	float: right;
+}
+</style>
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+?>
+<input type="hidden" value="<?php echo $this->config['url_base']; ?>" id="url_base"/>
+<div id="main">
+    <form name="formQuoteDetail" id="formQuoteDetail" method="post" action="/admin/quote/save">
+    <input type="file" name="file" id="file" class="invisible"/>
+    <input type="hidden" value="" id="mode" name="mode"/>
+    <input type="hidden" value="<?php echo $this->user_id;?>" name="user_id"/>
+    <input type="hidden" value="<?php echo $this->quote_id;?>" name="quote_id"/>
+    <div>
+      <div class="col-6 col-xs-8 col-md-8 col-md-8 col-lg-8" style="width: 100%">
+        <div class="row title_tyle" >
+          <label class="pull-left"> 見積り詳細 </label>
+          <label>ユーザ名&nbsp;:&nbsp;<?php echo $this->username;?></label>
+          <?php if ($this->isDisplaySaveTempButton):?>
+         	<a href="javascript:void(0)" class="button2" style="color:#000000; line-height: 0px; padding: 12px 8px;" id="btnSaveTemp">一時保存</a>
+         <?php else: ?>
+         	<a href="javascript:void(0)" class="button2Disable" style="color:#AEA797; line-height: 0px; padding: 12px 8px;">一時保存</a>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div id="displayError" class="error" style=" "></div>
+      <div style=" clear:left; display:block; text-align: center;">
+        <table  class="content">
+          <tr>
+            <th >No.</th>
+            <th >商品</th>
+            <!-- <th >標準価格（税込）</th> -->
+            <th >販売価格（税抜）</th>
+            
+            <th >数量</th>
+            <th >ユーザからのコメント</th>
+            <!-- <th >見積り価格(税込)</th>
+            <th >前回の見積り価格(税込)</th> -->
+            <th >見積り価格(税抜)</th>
+            <th >前回の見積り価格(税抜)</th>
+          </tr>
+
+          <?php
+
+          $valid_until_date = "";
+          foreach ($this->quotations as $key => $value) {
+          ?>
+          <tr style="text-align: left; padding-left: 10px">
+            <td style=" padding:5px 10px;width:50px;" >
+            	<?php echo $value["detail_no"];?>
+                <input type="hidden" value="<?php echo $value['detail_no'];?>" name="detail_no[]"/>
+            </td>
+            <td style=" padding:5px 10px" >
+                <img alt="" src="<?php echo $this->config['url_base'] . $folderImage . $value["image_path"]; ?>"  height="100" > <br/>
+                <?php echo $value['product_name'];?><br/>
+                                          <b>&lt;<?php echo $value['product_no'];?>&gt;</b>
+                <input type="hidden" value="<?php echo $value['product_id'];?>" name="product_id[]"/>
+            </td>
+            <td style=" padding:5px 10px" >
+            	<span class="right">
+            		<?php echo number_format(Core_Util_Helper::nullEmptyToValue($value['price_product'], "0"))." 円";?>
+            	</span>
+
+            </td>
+            <td style=" padding:5px 10px;" title="">
+            	<span class="right">
+                <?php
+                	echo number_format(Core_Util_Helper::nullEmptyToValue($value['quantity'], "0") );
+                ?>
+            	</span>
+            </td>
+            <td style=" padding:5px 10px" title="">
+                <?php echo $value['comment'];?>
+            </td>
+            <td style=" padding:5px 10px;" title="">
+            	<span class="right">
+            		<input type="text" id="price" name="price[]" maxlength="15" class="txtNumber" style="padding: 1px" value="<?php echo $value['price_including_tax'];?>"/>&nbsp;円
+            	</span>
+            </td>
+            <td style=" padding:5px 10px;" title="">
+            	<span class="right">
+            		<?php echo is_numeric($value['quote_price_before'])?number_format($value['quote_price_before'])."円":"";?>
+            	</span>
+
+            </td>
+          </tr>
+          <?php
+              $valid_until_date = $value['valid_until_date'];
+          }
+          if(!isset($valid_until_date) || $valid_until_date==""){
+              $valid_until_date = date("Y-m-d",time());
+          }
+          ?>
+        </table>
+        <br/>
+        <table style="width:90%;margin: 0 auto;">
+          <tr>
+            <td style="width:70%">
+              <table class="content" style="float:left">
+                  <tr>
+                      <th style="text-align: left; width:100%;padding: 3px">
+                                                            連絡欄
+                      </th>
+                  </tr>
+                  <tr style=" padding-left: 10px">
+                    <td style="text-align: left;width:70%;padding: 3px">
+                      <?php echo nl2br($this->escape($this->remark == '' ? '&nbsp;' : $this->remark)) ; ?>
+                    </td>
+                  </tr>
+                </table>
+            </td>
+            <td>
+                 <table class="content" >
+                  <tr>
+                      <th style="text-align: center;">
+                                                見積り価格の有効期限
+                      </th>
+                  </tr>
+                  <tr style=" padding-left: 10px">
+                    <td style="text-align: center;">
+                      <input type="text" id="valid_until_date" name="valid_until_date" value="<?php echo $this->echoDate($valid_until_date,"Y/m/d"); ?>" style="width:100px; padding: 2px;"/>&nbsp;まで
+                    </td>
+                  </tr>
+                </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+            </td>
+            <td>
+              <a href="javascript:void(0)" class="button2" style="color:#E46C0A; margin-top :5px; text-decoration: none;" id="btnSaveQuote" name="btnSaveQuote">見積り金額を確定</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="height: 100px;">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    </form>
+
+<?php
+    $paginator = $this->paginator;
+    echo $paginator;
+  ?>
+</div>
+
+<script>
+//Add 20140516 Hieunm start
+$(function(){
+	$('.txtNumber').number( true, 0 );
+});
+//Add 20140516 Hieunm end
+</script>

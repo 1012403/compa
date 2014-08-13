@@ -1,0 +1,368 @@
+<style type="text/css">
+
+/* 03.user */
+#all .tac{
+ text-align:center !important;
+}
+#all .tal{
+ text-align:left !important;
+}
+#all .tar{
+ text-align:right !important;
+}
+.nwp{
+ white-space:nowrap;
+}
+#all #main #user{
+ padding:20px;
+}
+#all #main #user .graph2,
+#all #main #user .graph3{
+ border-top:1px solid #CCC;
+ border-right:1px solid #CCC;
+ font-size:16px;
+ font-family: ＭＳ Ｐゴシック;
+}
+#all #main #user .graph1{
+ width:1000px;
+ margin-left:70px;
+ border:1px solid #CCC;
+}
+#all #main #user .graph1 th{
+ border-bottom:1px solid #CCC;
+}
+#all #main #user .graph1 th,
+#all #main #user .graph1 td{
+ padding:8px;
+ font-size:0.8em;
+}
+#all #main #user .graph2 th{
+ text-align:center;
+}
+#all #main #user .graph2 th,
+#all #main #user .graph2 td,
+#all #main #user .graph3 th,
+#all #main #user .graph3 td{
+ border-bottom:1px solid #CCC;
+ border-left:1px solid #CCC;
+ padding:8px;
+ font-size:0.8em;
+}
+#all #main #user .graph1 th,
+#all #main #user .graph2 th,
+#all #main #user .graph3 th{
+ background:#F3F3F3;
+ /*width:20%;*/
+ white-space:nowrap;
+}
+#all #main #user .graph1 td input.long{
+ width:240px;
+}
+#all #main #user .graph1 td input.short{
+ width:50px;
+}
+#all #main #user .graph3 th strong,
+#all #main #user .graph3 td span{
+ color:#F00;
+}
+#all #main #user .graph3 td input.short{
+ width:60px;
+}
+#all #main #user .graph3 td input.middle{
+ width:200px;
+}
+#all #main #user .graph3 td input.long{
+ width:440px;
+}
+#all #main #user .graph3 td dl{
+ clear:both;
+}
+#all #main #user .graph3 td dt{
+ /*width:20%;*/
+ float:left;
+}
+#all #main #user .graph3 td dd{
+ width:70%;
+ float:left;
+}
+#all #main #user .graph3 td p.cl{
+ color:#F00;
+}
+#all #main #user .btn{
+ padding:20px 10px 10px 0;
+ text-align:center;
+}
+#all #main #user .btn input{
+ margin-left:10px;
+}
+#all #main #user .pagelist{
+ text-align:right;
+ padding:5px;
+}
+
+.searchLog {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-radius: 6px;
+	border-width: 0;
+	box-shadow: 2px 2px 4px #666666;
+	color: #558ED5;
+	font-weight: bold;
+	font-size: 13px;
+	padding: 5px 10px 5px;
+	text-decoration: none;
+}
+
+.searchLogDisable{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
+    border-width: 0;
+    box-shadow: 2px 2px 4px #666666;
+    font-weight: bold;
+    padding: 3px 10px 2px;
+    text-decoration: none;
+    color:#AEA797;
+}
+
+.searchLogDisable:hover {
+    text-decoration: none;
+    color:#AEA797;
+    cursor: default;
+}
+
+.searchLogDisable:active {
+    text-decoration: none;
+    color:#AEA797;
+    cursor: default;
+}
+
+/*  CSS for tooltip */
+
+a.tooltips {
+  position: relative;
+  display: inline;
+}
+a.tooltips span {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #000000;
+  width:350px;
+  text-align: left;
+  visibility: hidden;
+  border-radius: 3px;
+  padding: 5px;
+}
+a.tooltips span:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-top: 8px solid #000000;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+a:hover.tooltips span {
+  visibility: visible;
+  opacity: 0.9;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -76px;
+  z-index: 999;
+}
+
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+	  	if (id>0){
+	  		$('#searchFormId').append('<input type="hidden" name="page" value="' + id + '"/>');
+	  		$('#searchFormId').append('<input type="hidden" name="operateElementName" value="ページ"/>');
+	  		$('#searchFormId').submit();
+	  	}
+		return false;
+	});
+
+	$( ".linkSubmitForm" ).click(function() {
+  		$('#searchFormId').append('<input type="hidden" name="operateElementName" value="' + $(this).html() + '">');
+  		$('#searchFormId').submit();
+		//return false;
+	});
+
+	//export CSV Order
+	$('#exportCsvBtn').click(function(){
+		var username = $('#username').val();
+		var orderStatus = $('#orderStatus').val();
+
+		//window.location.href="<-?phpecho $this->url(array('action' => 'export','controller' =>'order', 'username' => '1', 'orderStatus' => '1')); ?>";
+		window.location.href="<?php echo $this->url(array('action' => 'export','controller' =>'order')); ?>" + '?username=' + username + '&orderStatus=' + orderStatus;
+	});
+
+	// import CSV Order
+    $('#importCsvBtn').click(function(){
+    	$('#fileUser').val("");
+		$('#fileUser').click();
+	});
+
+    $('#fileUser').change(function(){
+		$("#import_csv_form").ajaxForm({
+			success: function(data){
+				if (data == "true") {
+					alert("正常にインポートしました。");
+					location.href='/admin/order';
+				} else {
+					alert(data);
+				}
+				//location.href='/admin/order';
+			}
+		}).submit();
+	});
+
+});
+
+function isChecked(){
+	return $('.chkIdOrder:checked').length > 0;
+}
+
+
+function getIdChecked() {
+	var selectedIds = "";
+	$('.chkIdOrder:checked').each(function() {
+		if (selectedIds != "") {
+			selectedIds = selectedIds + ",";
+		}
+		selectedIds = selectedIds + $(this).val();
+	});
+	return selectedIds;
+}
+
+function updateStatus() {
+	if (isChecked()) {
+		var selectedIds = getIdChecked();
+		status = $('#orderStatusChange').val();
+		$('#selectedIds').val(selectedIds);
+		$('#orderStatusUpdate').val(status);
+		$('#formUpdateStatus').submit();
+	} else {
+		//showErrorMessage("1行を選択してください。");
+		alert("1行を選択してください。");
+	}
+}
+
+
+
+</script>
+
+ <div class="title_cate">
+	<?php $form = $this->form;
+		$url = $url = $this->url(array('action' => 'index','controller' =>'order'));
+	?>
+   <form id="searchFormId" action="<?php echo $url; ?>" method="post">
+   <div class="title_cate_bg" style="padding-left: 20px; padding-top: 0px; font-weight: bold; margin-bottom: 10px;">
+   <div>
+   		<span style="padding: 0px; margin-bottom: 20px; ">注文情報管理</span>
+   		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   		ユーザ名:
+   		<?php echo $form->username; ?>
+   		&nbsp;&nbsp;&nbsp;
+		注文状態:
+		 <?php echo $form->orderStatus; ?>
+
+		 
+			<!-- <input type="submit" value="検索"> -->
+			<!-- 
+			<a href="javascript:void(0);" class="searchLogDisable" style="position:static; left:590px; top:111px;  padding: 4px 15px 3px; margin-top: 1px;" >検索</a>
+			<a href="javascript:void(0);" class="searchLogDisable" style="position:static; ; left:660px; top:111px; padding: 4px 15px 3px; margin-left:5px; margin-top: 1px;">ＣＳＶ取込み</a>
+			<a href="javascript:void(0);" class="searchLogDisable" style="position:static; left:780px; top:111px; padding: 4px 15px 3px; margin-left:5px; margin-top: 1px;">ＣＳＶ出力</a>
+			 -->
+			<a href="javascript:void(0);" class="button2 linkSubmitForm" style="position:static; left:590px; top:111px;  padding: 2px 10px; margin-top: 1px;" >検索</a>
+			<a href="javascript:void(0);" class="button2" id="importCsvBtn" style="position:static; ; left:660px; top:111px; padding: 2px 10px; margin-left:5px; margin-top: 1px;">ＣＳＶ取込み</a>
+			<a href="javascript:void(0);" class="button2" id="exportCsvBtn" style="position:static; left:780px; top:100px; padding: 2px 10px; margin-left:5px;">ＣＳＶ出力</a>
+
+			
+		</div>
+   </div>
+   </form>
+	<!-- form import CSV -->
+	<form enctype="multipart/form-data" id="import_csv_form" method="post" action="/admin/order/importcsv">
+		<input type="file" name="fileUser" id="fileUser" class="invisible"/>
+	</form>
+</div>
+
+
+<div id="all" style="float: left;">
+  <div id="main">
+
+    <div id="user">
+
+      <table width="940" border="0" cellspacing="0" cellpadding="0" class="graph2">
+        <tr>
+            <th style="width: 30px; text-align: center;" >&nbsp;</th>
+            <th style="width: 80px;">&nbsp;</th>
+            <th>注文日時</th>
+            <th>注文状態</th>
+            <th>ユーザ名</th>
+            <th>納入先名</th>
+            <th>備考</th>
+        </tr>
+        <?php
+        $arrOrderInfo = $this->arrOrderInfo;
+        /* @var $orderInfo Core_Models_OrderInfo */
+        foreach ($arrOrderInfo as $key => $orderInfo):
+        ?>
+        <tr>
+            <td >
+            <?php if ($orderInfo->getOrderStatus() != Core_Util_Const::FINAL_ORDER_STATUS) :?>
+                <input type="checkbox" name="idOrder" value="<?php echo $this->escape($orderInfo->getOrderId()); ?>" class="chkIdOrder">
+            <?php endif; ?>
+                <?php //echo $this->escape($orderInfo->getOrderId()); ?>
+            </td>
+            <td style="text-align: center;">
+            	<a href="/admin/order/detail/id/<?php echo $orderInfo->getOrderId();?>" class="button2">詳細</a>
+            </td>
+
+            <td >
+                <?php echo $this->escape($orderInfo->getFormatedOrderDate()); ?>
+            </td>
+            <td >
+                <?php echo $orderInfo->getOrderStatusAsString();?>
+            </td>
+            <td >
+                <?php echo $this->escape($orderInfo->getUsername()); ?>
+            </td>
+            <td >
+                <?php echo $this->escape($orderInfo->getShippingDesName()); ?>
+            </td>
+            <td >
+
+                <a class="tooltips" href="javascript:void(0);" style="text-decoration: none;">
+                <?php echo $this->escape(substr($orderInfo->getRemark(), 0,50)); ?>
+                <?php if (strlen($orderInfo->getRemark()) > 50) echo "..."?>
+				<span><?php echo $this->escape($orderInfo->getRemark()); ?></span></a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <div style="margin-top: 10px;">
+    	<?php echo $form->orderStatusChange; ?>
+    	<!-- <input type="button" value="更新" onclick="updateStatus();" class="button"> -->
+    	<a href="javascript:void(0);" onclick="updateStatus();" class="button2">更新</a>
+    	<span>（選択した明細行の注文状態を更新します。）</span>
+    </div>
+    <?php $url = $this->url(array('action' => 'updatestatus','controller' =>'order')); ?>
+    <form action="<?php echo $url; ?>" method="post" id="formUpdateStatus">
+    	<input type="hidden" name="selectedIds" value="" id="selectedIds">
+    	<input type="hidden" name="orderStatus" value="" id="orderStatusUpdate">
+    </form>
+    </div>
+    <div style="float: left;">
+		<?php
+			$paginator = $this->paginator;
+			echo $paginator;
+		?>
+	</div>
+  </div>
+</div>
+

@@ -1,0 +1,117 @@
+
+
+<style>
+.spanBlue{
+	color:blue;
+	font-weight: bold;
+}
+
+.spanRed{
+	color:red;
+	font-weight: bold;
+}
+
+.tblContact td, th{
+	border-width: 1px;
+	border-color: #C0C0C0;
+	border-style: solid;
+}
+
+.tblContact th{
+	color: blue;
+}
+</style>
+
+<?php
+$url = $this->url(array('action' => 'index', 'controller' =>'contact'));
+?>
+<form action="<?php echo $url ?>" method="get" id="frmSearch">
+          <div class="row" style="padding-left:30px; padding-right: 50px">
+          		<div class="col-12 col-md-12 col-lg-6">
+					<div class="row title_tyle" >
+						<label class="pull-left">問い合わせ対応</label>
+					</div>          		
+	          	</div>
+	          	
+	          	<div class="col-12 col-md-12 col-lg-3">
+	          	<b>ユーザ名</b><input type="text" id="txtUsername" name="username" value="<?php echo $this->username?>">
+	          	<a id="searchBtn" class="button" href="#" style="color:black; font-weight:bold; width: 40px;">検索</a>
+	          	</div>
+	          	
+				<div class="col-12 col-md-12 col-lg-3">
+					<?php
+						$paginator = $this->paginator;
+						echo $paginator;
+					?>
+	          	</div>
+
+				  <table class="table tblContact">
+				    <tr>
+                        <th width="15%">
+	                    	<b>分類</b>
+                        </th>
+                        <th width="50%">
+	                    	<b>お問い合わせ内容　／　返答内容</b>
+                        </th>
+                        <th width="15%">
+	                    	<b>ユーザ名</b>
+                        </th>
+                        <th width="20%">
+	                    	<b>日時</b>
+                        </th>
+                    </tr>
+
+					<?php /* @var $contactInfo Core_Models_ContactInfo */ ?>
+					<?php foreach ($this->askContactInfo as $key => $contactInfo):?>
+                    <tr>
+                        <td>
+	                      	<?php echo $this->contactClassName[$contactInfo->getContactClass()]; ?>
+                        </td>
+                        <td>
+							<a class="spanBlue" style=" word-wrap: break-word; max-width: 600px; display: block;"
+							href="/admin/contact/viewdetail?contactId=<?php echo $contactInfo->getContactId() ?>">
+							<?php echo $contactInfo->getTitle(); ?></a>
+                        </td>
+                        
+                         <td>
+                         <b><?php echo $contactInfo->getUserName(); ?></b>
+                        </td>
+                        
+                        <td>
+	                      	<b>
+	                      	<?php $date = new DateTime( $contactInfo->getContactDateTime()); 
+	                      			echo date_format($date, 'Y/m/d H:i');?>
+		          					</b>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                  </table>
+          </div>
+          
+          <br/><br/>
+</form>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	$('#searchBtn').click(function(){
+		$('#frmSearch').append('<input type="hidden" name="operateElementType" value="0">');
+		$('#frmSearch').append('<input type="hidden" name="operateElementName" value="' + $(this).html() + '">');
+		submitForm();
+	});
+});
+
+function submitForm() {
+	$('#frmSearch').submit();
+}
+
+$(document).ready(function(){
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+	  	if (id>0){
+	  		$('#frmSearch').append("<input type=\"hidden\" id=\"page\" name=\"page\" value=\"" + id + "\">");
+	  		$('#frmSearch').submit();
+	  	}
+		return false;
+	});
+});
+</script>

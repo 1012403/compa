@@ -1,0 +1,649 @@
+<style>
+.spanBlue{
+	color:blue;
+	font-weight: bold;
+}
+
+.spanRed{
+	color:red;
+	font-weight: bold;
+}
+
+.cmbCondition{
+	width: 150px;
+	height: 23px;
+}
+
+.txtCondition{
+	width: 150px;
+	height: 23px;
+}
+
+.content{
+	width: 100%;
+	margin-left: 10px;
+
+}
+
+#tblSearch{
+	width: 100%;
+}
+
+#tblList{
+	border: 1px solid;
+	width: 98%;
+}
+
+#tblList th{
+	text-align: center;
+	border: 2px solid #72ABEE;
+	padding:5px;
+	color:blue;
+	background-color: rgb(222, 222, 222);
+
+}
+
+#tblList td{
+	padding:5px;
+	border: 2px solid #72ABEE;
+}
+
+.txtEdit{
+	width: 100%;
+}
+.invisible {
+    position: absolute;
+    left: -9999px;
+}
+
+.searchLog {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-radius: 6px;
+	border-width: 0;
+	box-shadow: 2px 2px 4px #666666;
+	color: #558ED5;
+	font-weight: bold;
+	font-size: 13px;
+	padding: 5px 10px 5px;
+	text-decoration: none;
+}
+
+</style>
+
+<?php
+$url = $this->url(array('action' => 'main', 'controller' =>'class'));
+?>
+
+<form action="<?php echo $url ?>" method="post" id="frmSearch">
+<input type="hidden" id="parentNameId" name="parentName" value="<?php if (isset($this->parentName)) echo $this->parentName;?>">
+<?php
+	$isCondNull = ($this->condition == null);
+	if(!$isCondNull){
+		$condition = $this->condition;
+	}
+?>
+
+          <div class="row title_tyle" style="margin-left:10px; width:39%; display: inline-block;">
+          		<!-- <div class="col-12 col-md-2 col-lg-4"> -->
+          		<div style="padding-left:10px;" >
+					<label class="pull-left">区分情報設定</label>
+	          	</div>
+
+	          	<!-- <div class="col-12 col-md-4 col-lg-6" style="text-align: left"> -->
+	            <div style="width:97%">
+	          		<select id="cmbParentClass" name="cmbParentClass" class="cmbCondition" onchange="onchangeCmbParent()">
+	          			<?php foreach ($this->arrParentClass as $parentClass){ ?>
+							<option value="<?php echo $parentClass->getItemCd() ?>" <?php  echo ((!$isCondNull && $parentClass->getItemCd() ==  $condition['item_type']) ? ' selected="selected" ' : '') ?>>
+								<?php echo $parentClass->getItemName() ?>
+							</option>
+						<?php } ?>
+	          		</select>
+	          	</div>
+	      </div>
+
+		<div style="display: inline-block; margin-left: 20px" >
+			<?php if (Core_Util_Helper::isReferAndMasterAdmin()): ?>
+				<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default; padding: 4px 12px;">ＣＳＶ取込み</a>
+				<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default; padding: 4px 12px; margin-left: 10px;">ＣＳＶ出力</a>
+			<?php else : ?>
+				<a id="importCsvBtn" class="button2" href="javascript:void(0);" style="padding: 4px 12px;">ＣＳＶ取込み</a>
+				<!-- <input type="file" name="file" id="file" class="invisible"/> -->
+				<a id="exportCsvBtn" class="button2" href="javascript:void(0);" style="padding: 4px 12px; margin-left: 10px;">ＣＳＶ出力</a>
+			<?php endif;?>
+		</div>
+
+	      <div class="content">
+	      	<table id="tblSearch">
+	      		<tr>
+	      			<td width="27%">
+	      				<span id="spanCmbCondition1">
+			      			<select id="cmbCondition1" name="cmbCondition1" class="cmbCondition">
+			      				<option value="item_cd" <?php echo ($isCondNull || ($condition['condition1'] == "item_cd" && $condition['valueCondition1'] !== '')) ? ' selected="selected" ' : '' ?>>区分</option>
+								<option value="item_name" <?php echo (!$isCondNull && $condition['condition1'] == "item_name") ? ' selected="selected" ' : '' ?>>区分名称</option>
+
+								<?php foreach ($this->arrCmbCondition as $id=>$value){
+			      					$isCmbCondition1Selected = false;
+		      						//if(($isCondNull && $id=='note1') || (!$isCondNull && $id==$condition['condition1'])){
+			      					if(!$isCondNull && $id==$condition['condition1'] && $condition['valueCondition1'] !== ''){
+											$isCmbCondition1Selected = true;
+									}
+			      				?>
+			      					<?php if($value != ''){ ?>
+										<option value="<?php echo $id ?>" <?php echo($isCmbCondition1Selected ? ' selected="selected" ' : '') ?>>
+											<?php echo $value ?>
+										</option>
+									<?php } ?>
+								<?php } ?>
+								<!--
+								<option value="item_cd" <-?php echo (!$isCondNull && $condition['condition1'] == "item_cd") ? ' selected="selected" ' : '' ?>>区分</option>
+								<option value="item_name" <-?php echo (!$isCondNull && $condition['condition1'] == "item_name") ? ' selected="selected" ' : '' ?>>区分名称</option>
+			          			-->
+			          		</select>
+		          		</span>
+		          		<input type="text" id="txtCondition1" name="txtCondition1" class="txtCondition" value="<?php  echo (!$isCondNull ? $condition['valueCondition1'] : '') ?>">
+	      			</td>
+	      			<td width="73%">
+	      				<span id="spanCmbCondition2">
+		      				<select id="cmbCondition2" name="cmbCondition2" class="cmbCondition">
+								<option value="item_cd" <?php echo (!$isCondNull && $condition['condition2'] == "item_cd") ? ' selected="selected" ' : '' ?>>区分</option>
+								<option value="item_name" <?php echo ($isCondNull || ($condition['condition2'] == "item_name" && $condition['valueCondition2'] !== '')) ? ' selected="selected" ' : '' ?>>区分名称</option>
+
+								<?php foreach ($this->arrCmbCondition as $id=>$value){
+		      						$isEchoSelected = false;
+		      						//if(($isCondNull && $id=='note2') || (!$isCondNull && $id==$condition['condition2'])){
+		      						if(!$isCondNull && $id==$condition['condition2'] && $condition['valueCondition2'] !== ''){
+											$isEchoSelected = true;
+									}
+		      					?>
+			      					<?php if($value != ''){ ?>
+										<option value="<?php echo $id ?>" <?php echo($isEchoSelected ? ' selected="selected" ' : '') ?>>
+											<?php echo $value ?>
+										</option>
+									<?php } ?>
+								<?php } ?>
+								<!--
+								<option value="item_name" <-?php echo (!$isCondNull && $condition['condition2'] == "item_name") ? ' selected="selected" ' : '' ?>>区分名称</option>
+								<option value="item_cd" <-?php echo (!$isCondNull && $condition['condition2'] == "item_cd") ? ' selected="selected" ' : '' ?>>区分</option>
+		          				-->
+		          			</select>
+		          		</span>
+		          		<input type="text" id="txtCondition2" name="txtCondition2" class="txtCondition"
+		          			   value="<?php  echo (!$isCondNull ? $condition['valueCondition2'] : '') ?>">
+		          		 <a id="searchBtn" class="button2" href="javascript:void(0);" style="padding: 4px 12px;">検索</a>
+	      			</td>
+	      		</tr>
+	      	</table>
+	      	<br/>
+	      	<div id="errorArea"	style="text-align: left; color: red;">
+	      	<?php echo $this->error; ?>
+	        </div>
+	      	<table id="tblList">
+	      		<tr>
+	      			<th width="3%"></th>
+	      			<th width="5%">区分</th>
+	      			<th width="21%">区分名称</th>
+	      			<th width="5%">並び順</th>
+	      			<th width="5%">表示</th>
+	      			<th id="thNote1" width="11%"><?php echo $this->arrCmbCondition['note1'];?></th>
+	      			<th id="thNote2" width="11%"><?php echo $this->arrCmbCondition['note2'];?></th>
+	      			<th id="thNote3" width="11%"><?php echo $this->arrCmbCondition['note3'];?></th>
+	      			<th id="thNote4" width="11%"><?php echo $this->arrCmbCondition['note4'];?></th>
+	      			<th id="thNote5" width="11%"><?php echo $this->arrCmbCondition['note5'];?></th>
+	      			<th width="11%">処理</th>
+	      		</tr>
+	      		<?php foreach ($this->arrClassItem as $classItem){?>
+	      		<?php $itemId = $classItem->getId(); ?>
+	      		<tr>
+	      			<td style="text-align: center;">
+	      				<?php if (Core_Util_Helper::isReferAndMasterAdmin()): ?>
+	      					<input type="checkbox" disabled="disabled">
+	      				<?php else : ?>
+	      					<input type="checkbox" id="<?php echo "chk-".$itemId ?>" name="<?php echo "chk-".$itemId ?>" value="<?php echo $itemId ?>" onclick="checkBox(<?php echo $itemId ?>)">
+	      				<?php endif;?>
+	      			</td>
+	      			<td id="<?php echo "tdItemCd-".$itemId ?>"><?php echo $classItem->getItemCd();?></td>
+	      			<td id="<?php echo "tdName-".$itemId ?>"><?php echo $classItem->getItemName();?></td>
+	      			<td id="<?php echo "tdOrder-".$itemId ?>" style="text-align: left"><?php echo $classItem->getItemOrder();?></td>
+	      			<td id="<?php echo "tdDispFlg-".$itemId ?>" style="text-align: center;"><?php echo $classItem->getDisplayFlg();?></td>
+	      			<td id="<?php echo "tdNote1-".$itemId ?>"><?php echo $classItem->getNote1();?></td>
+	      			<td id="<?php echo "tdNote2-".$itemId ?>"><?php echo $classItem->getNote2();?></td>
+	      			<td id="<?php echo "tdNote3-".$itemId ?>"><?php echo $classItem->getNote3();?></td>
+	      			<td id="<?php echo "tdNote4-".$itemId ?>"><?php echo $classItem->getNote4();?></td>
+	      			<td id="<?php echo "tdNote5-".$itemId ?>"><?php echo $classItem->getNote5();?></td>
+	      			<td id="<?php echo "tdBtn-".$itemId ?>" style="text-align: center;">
+	      				<?php if (Core_Util_Helper::isReferAndMasterAdmin()): ?>
+	      					<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">編集</a>
+	      				<?php else : ?>
+	      					<a id="<?php echo "btnEdit-".$itemId ?>" class="button2" onclick="clickEdit(<?php echo $itemId ?>);" href="javascript:void(0);" >編集</a>
+	      				<?php endif;?>
+	      			</td>
+	      		</tr>
+	      		<?php } ?>
+	      		<tr>
+	      			<td></td>
+	      			<td id="tdItemCd-0"></td>
+	      			<td id="tdName-0"></td>
+	      			<td id="tdOrder-0"></td>
+	      			<td id="tdDispFlg-0"></td>
+	      			<td id="tdNote1-0"></td>
+	      			<td id="tdNote2-0"></td>
+	      			<td id="tdNote3-0"></td>
+	      			<td id="tdNote4-0"></td>
+	      			<td id="tdNote5-0"></td>
+	      			<td id="tdBtn-0" style="text-align: center;">
+	      				<?php if (Core_Util_Helper::isReferAndMasterAdmin()): ?>
+	      					<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">編集</a>
+	      				<?php else : ?>
+	      					<a id="btnEdit-0" onclick="clickEdit(0)" class="button2" href="javascript:void(0);" >編集</a>
+	      				<?php endif;?>
+	      			</td>
+	      		</tr>
+	      	</table>
+	      <input type="hidden" id="actionName" name="actionName" value="">
+          <input type="hidden" id="hiddenId" name="hiddenId" value="">
+          <input type="hidden" id="hiddenItemType" name="hiddenItemType" value="<?php  echo (!$isCondNull ? $condition['item_type'] : $this->itemTypeFirst) ?>">
+          <input type="hidden" id="hiddenIdDelete" name="hiddenIdDelete" value="">
+	      	<div style="margin-top: 10px;">
+	      		<?php if (Core_Util_Helper::isReferAndMasterAdmin()): ?>
+	      			<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">削除</a>
+	      		<?php else : ?>
+	      			<a id="deleteBtn" class="button2" href="javascript:void(0);">削除</a>
+	      		<?php endif;?>
+	      	</div>
+          </div>
+</form>
+<form enctype="multipart/form-data" id="import_csv_form" method="post" action="/admin/class/importcsv">
+<input type="file" name="file" id="file" class="invisible"/>
+</form>
+<!--
+<form enctype="multipart/form-data" id="import_csv_form" method="post" action="/admin/class/importcsv">
+<div style="margin: 10px; position: fixed; top: 12%; left: 49%">
+	<a id="importCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ取込み</a>
+	<input type="file" name="file" id="file" class="invisible"/>
+	<a id="exportCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ出力</a>
+</div>
+</form>
+ -->
+
+<script type="text/javascript">
+var idxCurrent = -1;
+var arrIdDelete = [];
+var currentRecordItemCd = '';
+var currentRecordName = '';
+var currentRecordOrder = '';
+var currentRecordDispFlg = '';
+var currentRecordNote1 = '';
+var currentRecordNote2 = '';
+var currentRecordNote3 = '';
+var currentRecordNote4 = '';
+var currentRecordNote5 = '';
+
+ $(document).ready(function() {
+	 //search Btn
+	$('#searchBtn').click(function(){
+		$('#actionName').val('search');
+
+		var selectedText = $("#cmbParentClass option:selected").text();
+		$('#parentNameId').val(selectedText);
+
+		submitForm();
+	});
+	$('#importCsvBtn').click(function(){
+		$('#file').val("");
+		$('#file').click();
+	});
+
+	$('#file').change(function(){
+		$("#import_csv_form").ajaxForm({
+			success: function(data){
+				if (data == "true") {
+					alert("正常にインポートしました。");
+					location.href='/admin/class';
+				} else {
+					alert(data);
+				}
+			}
+		}).submit();
+	});
+
+
+	$('#exportCsvBtn').click(function(){
+		if ($('#parentNameId').val() == "") {
+			var selectedText = $("#cmbParentClass option:selected").text();
+			$('#parentNameId').val(selectedText);
+		}
+		$('#actionName').val('exportcsv');
+		submitForm();
+	});
+
+	//delete Btn
+	$('#deleteBtn').click(function(){
+		setArrIdDeleteToHidden();
+		$('#actionName').val('delete');
+		submitForm();
+	});
+});
+
+function submitForm() {
+	$('#frmSearch').submit();
+}
+
+function onchangeCmbParent(){
+
+	var selectedText = $("#cmbParentClass option:selected").text();
+	$('#parentNameId').val(selectedText);
+
+	$.ajax({
+		url: "<?php echo $this->url(array('action' => 'changeparent','controller' =>'class')); ?>",
+		type: "post",
+		data: { "parentCd": $('#cmbParentClass').val()},
+		success: function( strData ){
+			var comboOption = strData.split("-");
+
+			//combo 1 + th
+			var strCombo1='';
+			strCombo1 += '<select id="cmbCondition1" name="cmbCondition1" class="cmbCondition">';
+			var onselected = ' selected="selected" ';
+			for (var i = 0; i < comboOption.length; i++) {
+				/*
+				if(comboOption[i]!=''){
+		    		strCombo1 += '<option value="note'+ (i+1)+ '">' + comboOption[i] +'</option>';
+				}
+				*/
+				if(comboOption[i] == 'item_cd'){
+					strCombo1 += '<option value="'+ comboOption[i] + '"' + onselected + '>' + "区分" +'</option>';
+				} else if(comboOption[i] == 'item_name') {
+					strCombo1 += '<option value="'+ comboOption[i] + '">' + "区分名称" +'</option>';
+				} else {
+					if(comboOption[i]!=''){
+						// (i+1)=>(i-1) because note start from 1 (ex : note1) and value i must be subtract value of 'item_cd' and 'item_name' in array
+			    		strCombo1 += '<option value="note'+ (i-1)+ '">' + comboOption[i] +'</option>';
+					}
+				}
+			}
+			strCombo1 += '</select>';
+
+			//combo 2
+			var strCombo2='';
+			strCombo2 += '<select id="cmbCondition2" name="cmbCondition2" class="cmbCondition">';
+			for (var i = 0; i < comboOption.length; i++) {
+				/*
+				if(comboOption[i]!=''){
+		    		strCombo2 += '<option value="note'+ (i+1)+ '">' + comboOption[i] +'</option>';
+				}
+				*/
+				if(comboOption[i] == 'item_name'){
+					strCombo2 += '<option value="'+ comboOption[i] + '"' + onselected + '>' + "区分名称" +'</option>';
+				} else if(comboOption[i] == 'item_cd') {
+					strCombo2 += '<option value="'+ comboOption[i] + '">' + "区分" +'</option>';
+				} else {
+					if(comboOption[i]!=''){
+			    		strCombo2 += '<option value="note'+ (i-1)+ '">' + comboOption[i] +'</option>';
+					}
+				}
+			}
+			strCombo2 += '</select>';
+
+			$('#spanCmbCondition1').text('').append(strCombo1);
+			$('#spanCmbCondition2').text('').append(strCombo2);
+
+			//set selected
+			//$('#cmbCondition1').val('note1');
+			if(comboOption[0] != '' && comboOption[0] != 'item_cd' && comboOption[0] != 'item_name'){
+				$('#cmbCondition2').val('note2');
+				$('#cmbCondition1').val('note1');
+			}
+			/*
+			else{
+				$('#cmbCondition2').val('note1');
+				$('#cmbCondition1').val('note2');
+			}
+			*/
+			/*
+			if(comboOption[1] != '') {
+				$('#cmbCondition2').val('note1');
+				$('#cmbCondition1').val('note2');
+			}
+			*/
+
+			//change header
+			//changeHeader(comboOption);
+		}
+	});
+
+	//$('#txtCondition1').val('');
+	//$('#txtCondition2').val('');
+}
+
+//handle change text of table
+function changeHeader(comboOption){
+	for (var i = 0; i < 5; i++) {
+		$('#thNote'+(i+1)).text('').append(comboOption[i]);
+	}
+}
+
+//check btn edit
+function clickEdit(id){
+	$("#errorArea").empty();
+
+	//set control record to label
+	if(idxCurrent != -1){
+		changeTextToLabel('tdItemCd', 'tdItemCd', currentRecordItemCd);
+		changeTextToLabel('tdName', 'txtName', currentRecordName);
+		changeTextToLabel('tdOrder', 'txtOrder', currentRecordOrder);
+		changeTextToLabel('tdDispFlg', 'txtDispFlg', currentRecordDispFlg);
+		changeTextToLabel('tdNote1', 'txtNote1', currentRecordNote1);
+		changeTextToLabel('tdNote2', 'txtNote2', currentRecordNote2);
+		changeTextToLabel('tdNote3', 'txtNote3', currentRecordNote3);
+		changeTextToLabel('tdNote4', 'txtNote4', currentRecordNote4);
+		changeTextToLabel('tdNote5', 'txtNote5', currentRecordNote5);
+
+		 var inputBtnOk = $('<a id="btnEdit-' + idxCurrent +'" class="button2" onclick="clickEdit(' + idxCurrent + ');" href="javascript:void(0);" >編集</a>');
+		 $('#tdBtn-' + idxCurrent).text('').append(inputBtnOk);
+	}
+
+	//set idxRecord  = current record
+	idxCurrent = id;
+
+	//change control to text
+	changeLabelToText('tdItemCd', 'txtItemCd', id, 20);
+    changeLabelToText('tdName', 'txtName', id, 50);
+    changeLabelToText('tdOrder', 'txtOrder', id, 2);
+    //changeLabelToText('tdDispFlg', 'txtDispFlg', id, 1);
+    changeLabelToCheckBox('tdDispFlg', 'txtDispFlg', id);
+    changeLabelToText('tdNote1', 'txtNote1', id, 50);
+    changeLabelToText('tdNote2', 'txtNote2', id, 50);
+    changeLabelToText('tdNote3', 'txtNote3', id, 50);
+    changeLabelToText('tdNote4', 'txtNote4', id, 50);
+    changeLabelToText('tdNote5', 'txtNote5', id, 50);
+
+    currentRecordItemCd = $('#txtItemCd-' + id).val();
+    currentRecordName = $('#txtName-' + id).val();
+    currentRecordOrder = $('#txtOrder-' + id).val();
+    currentRecordDispFlg = $('#txtDispFlg-' + id).val();
+    currentRecordNote1 = $('#txtNote1-' + id).val();
+    currentRecordNote2 = $('#txtNote2-' + id).val();
+    currentRecordNote3 = $('#txtNote3-' + id).val();
+    currentRecordNote4 = $('#txtNote4-' + id).val();
+    currentRecordNote5 = $('#txtNote5-' + id).val();
+
+    var inputBtnOk = $('<a id="okBtn-' + id +'" class="button2" onclick="updateMstClass(' + id + ')" href="javascript:void(0);" >更新</a>');
+    $('#tdBtn-' + id).text('').append(inputBtnOk);
+
+    $('#txtOrder-' + id).ForceNumericOnly();
+}
+
+function changeLabelToText(tdId, txtId, id, maxlength){
+    var text = $('#' + tdId + '-' + id).text();
+    var imeMode = 'ime-mode:auto;';
+    //imeMode = 'ime-mode:disabled; -webkit-ime-mode:disabled;';
+    var input = $('<input class="txtEdit" name="' + txtId + '" id="' + txtId + '-' + id + '" value="' + text + '" maxlength="' + maxlength + + '" style="' + imeMode +'" />');
+    $('#' + tdId + '-' + id).text('').append(input);
+}
+
+function changeLabelToCheckBox(tdId, txtId, id){
+	var checked = 'checked';
+    var value = $('#' + tdId + '-' + id).text();
+
+    if (value < 1) {
+    	value = '0';
+    	checked = '';
+    } else {
+    	value = '1';
+    }
+
+    var input = $('<input type="checkbox" name="' + txtId + '" id="' + txtId + '-' + id + '" value="' + value + '" onchange="changeCmbDispFlg(' + id + ')" ' + checked + ' />');
+    $('#' + tdId + '-' + id).text('').append(input);
+}
+
+function changeCmbDispFlg(id){
+	$('#txtDispFlg-' + id).val('0');
+	if ($('#txtDispFlg-' + id).is(':checked')) {
+		$('#txtDispFlg-' + id).val('1');
+	}
+}
+
+function changeTextToLabel(tdId, txtId, oldValue){
+	//var text = $('#' + txtId + '-' + idxCurrent).val();
+	$('#' + tdId + '-' + idxCurrent).text('').append(oldValue);
+}
+
+//submit to update
+function updateMstClass(id){
+	if(!checkInput(id)){
+		return false;
+	}
+
+	$('#actionName').val('update');
+	$('#hiddenId').val(id);
+	submitForm();
+}
+
+
+//add to arr delete or remove
+function checkBox(id){
+	var value = $('#chk-' + id).val();
+	if ($('#chk-' + id).is(':checked')) {
+		arrIdDelete.push(value);
+	}
+	else{
+		arrIdDelete.splice(arrIdDelete.indexOf(value), 1);
+	}
+}
+
+//set id delete to hidden field
+function setArrIdDeleteToHidden(){
+	var value = '';
+	for(var i = 0; i<arrIdDelete.length; i++){
+		value += arrIdDelete[i] + '-';
+	}
+	$('#hiddenIdDelete').val(value);
+}
+
+//check input before submit
+function checkInput(id) {
+	var errorMsg = "";
+	var isFocus = false;
+
+	if(!checkLimitLength("txtItemCd-" + id, 20)){
+		//errorMsg += 'Length of ItemCd must lower than 20 characters.<br/>';
+		errorMsg += '区分に20桁以内で入力してください。<br/>';
+		if(!isFocus){
+			 $('#txtItemCd-' + id).select();
+		}
+		isFocus = true;
+	}
+
+	if(!checkLimitLength("txtName-" + id, 50)){
+		//errorMsg += 'Length of Name must lower than 50 characters.<br/>';
+		errorMsg += '区分名称に50桁以内で入力してください。<br/>';
+		if(!isFocus){
+			 $('#txtName-' + id).select();
+		}
+		isFocus = true;
+	}
+
+	if(!checkLimitLength("txtNote1-" + id, 50)){
+		//errorMsg += 'Length of Note1 must lower than 50 characters.<br/>';
+		errorMsg += '値１に50桁以内で入力してください。<br/>';
+		if(!isFocus){
+			 $('#txtNote1-' + id).select();
+		}
+		isFocus = true;
+	}
+
+	if(!checkLimitLength("txtNote2-" + id, 50)){
+		//errorMsg += 'Length of Note2 must lower than 50 characters.<br/>';
+		errorMsg += '値２に50桁以内で入力してください。<br/>';
+		if(!isFocus){
+			 $('#txtNote2-' + id).select();
+		}
+		isFocus = true;
+	}
+
+	if(!checkLimitLength("txtNote3-" + id, 50)){
+		//errorMsg += 'Length of Note3 must lower than 50 characters.<br/>';
+		errorMsg += '値３に50桁以内で入力してください。<br/>';
+		if(!isFocus){
+			 $('#txtNote3-' + id).select();
+		}
+		isFocus = true;
+	}
+
+	if(!checkLimitLength("txtNote4-" + id, 50)){
+		//errorMsg += 'Length of Note4 must lower than 50 characters.<br/>';
+		errorMsg += '値４に50桁以内で入力してください。<br/>';
+		if(!isFocus){
+			 $('#txtNote4-' + id).select();
+		}
+		isFocus = true;
+	}
+
+	if(!checkLimitLength("txtNote5-" + id, 50)){
+		//errorMsg += 'Length of Note5 must lower than 50 characters.<br/>';
+		errorMsg += '値５に50桁以内で入力してください。<br/>';
+		if(!isFocus){
+			 $('#txtNote5-' + id).select();
+		}
+		isFocus = true;
+	}
+
+	if(errorMsg != ""){
+		$("#errorArea").empty();
+		$("#errorArea").append(errorMsg);
+		return false;
+	}
+	return true;
+}
+
+
+function checkLimitLength(txtId, limit){
+	var value = $('#' + txtId).val();
+	if(value.length > limit){
+		return false;
+	}
+	return true;
+}
+
+//just allow input numeric
+jQuery.fn.ForceNumericOnly =
+	function()
+	{
+	    return this.each(function()
+	    {
+	        $(this).keydown(function(e)
+	        {
+	        	var key = e.charCode || e.keyCode || 0;
+	            if (e.shiftKey && (key != 35 && key != 36)) return false;
+	            return (
+	            	(key >= 112	&& key <= 127) ||
+	                key == 8	||
+	                key == 9 	||
+	                key == 46 	||
+	                (key >= 35 && key <= 40) ||
+	                (key >= 48 && key <= 57) ||
+	                (key >= 96 && key <= 105));
+	        });
+	    });
+	};
+</script>

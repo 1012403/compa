@@ -1,0 +1,86 @@
+<?php
+/* @var $shipping Core_Models_MstUserShipping */
+//$shipping = $this->shipping;
+
+$form = $this->form;
+?>
+<div class="title_col">
+  <div class="title_tyle title_search" >
+    <label class="pull-left">発送先</label>
+    <span>
+    </span>
+  </div>
+</div>
+<table class="content">
+  <tr>
+    <td class="first_col">発送先名<span style="color: red;">*</span></td>
+    <td>
+      <?php
+        echo $form->des_name;
+      ?>
+      <br class="error_des_name_cls"/>
+      <span class="error_des_name_cls" id='error_des_name_id' style='color:red;'></span>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_col">郵便番号<span style="color: red;">*</span></td>
+    <td>
+      <?php
+        echo $form->post_no;
+      ?>
+      <!-- <a href="javascript:void(0);" class="button2" style="color: black;" id="btnGetAddressId"
+        onclick="AjaxZip2.zip2addr('post_no','address1','address1');">住所検索</a> -->
+      <br class="error_post_no_cls"/>
+      <span class="error_post_no_cls" id='error_post_no_id' style='color:red;'></span>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_col">住所1<span style="color: red;">*</span></td>
+    <td>
+      <?php
+        echo $form->address1;
+      ?>
+      <br class="error_address1_cls"/>
+      <span id='error_address1_id' class="error_address1_cls" style='color:red;'></span>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_col">住所2</td>
+    <td>
+      <?php
+        echo $form->address2;
+      ?>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_col">電話番号</td>
+    <td>
+      <?php
+        echo $form->tel_no;
+      ?>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_col">ＦＡＸ番号</td>
+    <td>
+      <?php
+        echo $form->fax_no;
+      ?>
+    </td>
+  </tr>
+  <tr>
+    <td class="first_col">発送方法</td>
+    <td>
+      <?php
+        echo $form->shipping_method;
+      ?>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align: right;">
+      <a href="#" class="button2" style="color: black;" onclick="saveEditTempUserShipping(<?php echo $this->id; ?>);">変更</a>
+      <a href="#" class="button2" style="color: black;" onclick="deleteShipping(<?php echo $this->id; ?>);">削除</a>
+      <a href="#" class="button2" style="color: black;" onclick="closeUserShipping();">閉じる</a>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,51 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$( ".pagination a" ).click(function(event) {
+	  	var id = $(this).attr('id');
+	  	$(this).attr('id', '0');
+	  	$.ajax({
+			url: "<?php echo $this->config['url_base']?>/product/historyorder",
+			type: "post",
+			data: { "page": id, "id": <?php echo $this->id; ?>},
+			success: function( strData ){
+				if (strData != "null"){
+					$('#td_history_order').html(strData);
+				}
+			}
+		});
+	    return false;
+	});
+});
+</script>
+<?php 
+foreach ($this->producthis as $key =>$arr){
+		?>
+	<div class="row">
+		<div class="col-12 col-xs-12 col-md-3 col-md-3 col-lg-3 pull-left" >
+			<div>商品を探す</div>
+			<div>
+				<?php echo $arr['order']->getOrderDateTime(); ?>
+			</div>
+		</div>
+		<div class="col-12 col-xs-12 col-md-3 col-md-3 col-lg-3">
+			<div>標準価格（税込）</div>
+			<div><?php echo $arr['orderdetail']->getPriceIncludingTax(); ?> 円</div>
+		</div>
+		<div class="col-12 col-xs-12 col-md-1 col-md-1 col-lg-1">
+			<div>数量</div>
+			<div><?php echo $arr['orderdetail']->getQuantity(); ?></div>
+		</div>
+		<div class="col-12 col-xs-12 col-md-3 col-md-3 col-lg-3">
+			<div>注文金額</div>
+			<div>11111</div>
+		</div>
+		<div class="col-12 col-xs-12 col-md-2 col-md-2 col-lg-2">
+			<div>送料</div>
+			<div><?php echo $arr['orderdetail']->getShippingFee(); ?> 円</div>
+		</div>
+	</div>
+<?php } ?>
+
+<div>
+<?php echo $this->paginator;?>
+</div>

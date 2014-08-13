@@ -1,0 +1,143 @@
+.row {
+	margin: 3px 10px 3px 10px !important;
+}
+.row input{
+	padding-left: 3px;
+}
+.title {
+	display: table-row;
+	width: inherit;
+}
+.title_col{
+	width: 100%;
+}
+.title_tyle{
+	padding-left: 10px;
+	vertical-align: middle;
+}
+.title_search span{
+	display: inline-block;
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	padding-top: 5px;
+	padding-right: 10px;
+}
+.title_search span *{
+	display:inline-block;
+	float: left;
+	margin: 0px 5px; 
+}
+.title_search input, .title_search select{
+	height: 25px !important;
+}
+
+#txt_username {
+	width: 120px;
+}
+#sel_area {
+	width: 100px;
+}
+#sel_sales{
+	width: 120px;
+}
+.submit{
+	margin: 5px 0 0 5px;
+}
+#frmUserSearch{
+	margin-bottom: 10px;
+}
+input[type="button"], input[type="submit"]{
+	padding: 5px 10px;
+}
+.title_right a{
+	padding: 5px 10px;
+	text-decoration: none;
+	font-weight: bold;
+}
+.title_right a:hover{
+	text-decoration: none;
+}
+.title_right {
+	margin-top: 5px;
+	padding-top: 10px;
+	display: table-row;
+	white-space: nowrap;
+}
+.title_right span{
+	display: table-cell;
+	color: red;
+	padding-top: 7px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.right_detail span{
+	padding-left: 25px;
+}
+.right_detail span:last-child{
+	padding-right: 20px;
+}
+.title_right span input{
+	display: block;
+}
+span.add_button{
+	padding-left: 25px;
+	padding-right: 25px;
+}
+.row div input{
+	display: inline-block;
+}
+.row .pagination{
+	display:inline-block;
+	margin: 0px !important;
+	float: right;
+}
+td a{
+	display: block;
+	padding: 5px 3px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+}
+td a:hover{
+	text-decoration: none;
+}
+
+table.content{
+	border: 2px solid #8DB4E3;
+	width: 100%;
+	margin: 0 auto;
+}
+table.content th{
+	border: 1px solid #8DB4E3;
+	border-bottom: 2px solid #8DB4E3;
+	color: blue;
+	font-style: normal;
+	text-align: center;
+	font-weight: normal;
+	padding: 5px;
+}
+table.content td{
+	border-left: 1px solid #8DB4E3;
+	border-right: 1px solid #8DB4E3;
+	border-bottom: 1px dotted #8DB4E3;
+	padding: 5px;
+}
+.serchInput{
+    height: 25px;
+    line-height: 27px;
+    text-shadow: 1px 1px 0 #FFFFFF;
+    margin-left: 10px; 
+    margin-right: 10px;
+   
+}
+.searchLog{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
+    border-width: 0;
+    box-shadow: 2px 2px 4px #666666;
+    font-weight: bold;
+    padding: 3px 10px 2px;
+    text-decoration: none;
+    
+}

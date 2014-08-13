@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 11.3-b02 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: Zend SDK
+Bundle-SymbolicName: org.zend.sdk
+Bundle-Version: 1.0.0.0
+Bundle-Vendor: Zend Technologies
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.apache.commons.cli,org.zend.sdkcli,org.zend.sdkcli
+ .internal.commands,org.zend.sdkcli.internal.logger,org.zend.sdkcli.in
+ ternal.options,org.zend.sdkhelp.docs,org.zend.sdkhelp.repository,org.
+ zend.sdkhelp.validation,org.zend.sdklib,org.zend.sdklib.application,o
+ rg.zend.sdklib.event,org.zend.sdklib.internal.event,org.zend.sdklib.i
+ nternal.library,org.zend.sdklib.internal.mapping,org.zend.sdklib.inte
+ rnal.project,org.zend.sdklib.internal.repository,org.zend.sdklib.inte
+ rnal.repository.local,org.zend.sdklib.internal.target,org.zend.sdklib
+ .internal.utils,org.zend.sdklib.library,org.zend.sdklib.logger,org.ze
+ nd.sdklib.manager,org.zend.sdklib.mapping,org.zend.sdklib.mapping.val
+ idator,org.zend.sdklib.project,org.zend.sdklib.repository,org.zend.sd
+ klib.repository.site,org.zend.sdklib.target,org.zend.webapi.core,org.
+ zend.webapi.core.configuration,org.zend.webapi.core.connection.auth,o
+ rg.zend.webapi.core.connection.data,org.zend.webapi.core.connection.d
+ ata.values,org.zend.webapi.core.connection.dispatch,org.zend.webapi.c
+ ore.connection.request,org.zend.webapi.core.connection.response,org.z
+ end.webapi.core.connection.signature,org.zend.webapi.core.service,org
+ .zend.webapi.internal.core,org.zend.webapi.internal.core.connection,o
+ rg.zend.webapi.internal.core.connection.auth.signature,org.zend.webap
+ i.internal.core.connection.exception,org.zend.webapi.internal.core.co
+ nnection.request,org.zend.webapi.internal.core.connection.response
+Bundle-ClassPath: lib/commons-cli-1.2.jar,lib/log4j-1.2.16.jar,lib/org
+ .restlet.ext.xml.jar,lib/org.restlet.jar,lib/registry.jar,lib/zend-we
+ bapi.jar,.
+Bundle-NativeCode: lib/x86/ICE_JNIRegistry.dll; processor=x86; osname=
+ win32,   lib/x86_64/ICE_JNIRegistry.dll; processor=x86_64; osname=win
+ 32, *
+

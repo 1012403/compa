@@ -1,0 +1,174 @@
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;
+?>
+
+<?php if ($this->idcurnotice !== null):?>
+<script type="text/javascript">
+var slider1 = null;
+	$(document).ready(function(){
+		// Add 20140512 Hieunm start
+		$.ajaxSetup({
+			async: false
+			});
+		// Add 20140512 Hieunm end
+		setGetNoticeDataForTop('<?php echo $this->idcurnotice; ?>', '<?php echo $this->datenotice; ?>');
+		if ($('#lightSlider1 li').length > 1) {
+			slider1 = $("#lightSlider1").lightSlider({
+				slideWidth:1000,
+				pager:false
+			});
+		} else {
+			$(".btnpre1").hide();
+			$(".btnnext1").hide();
+		}
+	});
+
+	function nextSlider(index) {
+		if (index == 1) {
+			if (slider1 != null) {
+				slider1.goToNextSlide();
+			}
+		}
+	}
+	function preSlider(index) {
+		if (index == 1) {
+			if (slider1 != null) {
+				slider1.goToPrevSlide();
+			}
+		}
+	}
+</script>
+<style>
+.slider1_control {
+	width: 30px;
+	height: 30px;
+	background-color: #B5B5B5;
+	color: white;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.slider1_control:hover {
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	color: #B5B5B5;
+	border-style: solid;
+	border-color: #B5B5B5;
+	border-width: 1px;
+}
+
+.slider1_control a {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	color: white;
+}
+
+.slider1_pre_next {
+	float: left;
+	margin-top: 50px;
+	text-align: center;
+	padding-top: 0px;
+	padding-right: 3px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+}
+
+
+</style>
+<?php endif;?>
+<div style="margin-left:5px; width: 99.5%; float: left;">
+	<div style="width: 100%; float: left;">
+		<div style="">
+			<div class="title_cate" style="width: 100%;">
+				<div style="padding-left: 20px; padding-top: 6px; font-weight: bold;" class="title_cate_bg">
+					お知らせ編集
+				</div>
+			</div>
+			<div style="margin-bottom: 10px;">
+				<span id="statusId" style="font-weight: bold; color: blue;">&lt;新規作成&gt;</span>
+				<input type="text" value="2014/12/02" name="notice_date" id="notice_date" style="width: 80px;">
+				<!-- <input type="button" value="新規登録" onclick="newNotice();">
+				<input type="button" value="更新" onclick="checkDate();"> -->
+				<a href="javascript:newNotice();" class="button2" style="padding: 2px 6px; color:#558ED5; margin-left: 5px;">新規登録</a>
+				<a href="javascript:checkDate();" class="button2" style="padding: 2px 6px; color:#558ED5; margin-left: 5px;">更新</a>
+				<a href="javascript:deleteNotice();" class="button2" id="deleteNoticeBtn" style="padding: 2px 6px; color:#558ED5; margin-left: 5px; display: none;">削除</a>
+
+				<script type="text/javascript">
+				$( "#notice_date" ).datepicker({
+					dateFormat: "yy/mm/dd",
+					showAnim: "slideDown",
+					showOn: "button",
+					'autoclose': true,
+					buttonImage: "<?php echo $this->config['url_base']?>/images/calendar.gif",
+				    buttonImageOnly: true
+					});
+				$( "#notice_date" ).val('<?php echo date('Y/m/d');?>');
+				</script>
+			</div>
+
+			<div style="">
+				<textarea rows="" cols="" id="notice"></textarea>
+				<?php echo $this->ckeditor('notice');?>
+			</div>
+
+		</div>
+		<div style=" margin-top:10px;">
+			<div class="title_cate" style="width: 100%;">
+				<div style="padding-left: 20px; padding-top: 6px; font-weight: bold;" class="title_cate_bg">
+					おすすめ商品
+				</div>
+			</div>
+			<a href="javascript:preSlider(1);">
+				<div class="slider1_control slider1_pre_next btnpre1">
+					<span>&lt;</span>
+				</div>
+			</a>
+			<div style="width: 1000px; float: left;">
+			<ul style="list-style-type: none; " id="lightSlider1">
+					<li>
+					<?php
+	          			$arrFeatureProducts = $this->arrFeatureProducts;
+	          			$index = 0;
+	          			/* @var $product Core_Models_MstProduct */
+	          			foreach ($arrFeatureProducts as $key => $product) :
+	          			if ($index != 0 && ($index % 4) == 0 ) {
+							echo "</li><li>";
+						}
+						$index++;
+
+	          		?>
+
+					<div class="content_product_container">
+						<div class="img_bounder">
+          				<img alt="<?php echo $this->escape($product->getProductName());?>"
+          					src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb;?><?php if ($product->getImagePath()!=null) echo $product->getImagePath(); else echo $folderImage."no_images.jpg"?>
+          					<?php //echo $product->getImagePath();?>" width="60px;" onerror="imgError(this);">
+          				</div>
+          				<div class = "content_product_info">
+	          				<div class="content_product_name" style="text-align: right;">
+	          					<?php echo $this->escape($product->getProductName());?>
+          					</div>
+	          				<div class="content_product_no">
+	          					&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
+	          				</div>
+          				</div>
+          				<a style="float: left;" href="/admin/product/view/id/<?php echo $this->escape($product->getProductId());?>">
+          					<img alt="" class="detail_btn"
+	          				src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+	          			</a>
+          			</div>
+          			<?php endforeach; ?>
+          			</li>
+          		</ul>
+			</div>
+			<a href="javascript:nextSlider(1);">
+				<div style="padding-left: 3px; margin-left: 5px;"
+					class="slider1_pre_next slider1_control btnnext1">&gt;</div>
+			</a>
+		</div>
+	</div>
+</div>

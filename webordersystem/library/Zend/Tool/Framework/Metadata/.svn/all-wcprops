@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Tool/Framework/Metadata
+END
+Tool.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Tool/Framework/Metadata/Tool.php
+END
+Interface.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Tool/Framework/Metadata/Interface.php
+END
+Basic.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Tool/Framework/Metadata/Basic.php
+END
+Dynamic.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Tool/Framework/Metadata/Dynamic.php
+END
+Attributable.php
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Tool/Framework/Metadata/Attributable.php
+END

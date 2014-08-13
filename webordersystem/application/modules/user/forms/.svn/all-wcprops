@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Ishida02/!svn/ver/713/trunk/webordersystem/application/modules/user/forms
+END
+Login.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/557/trunk/webordersystem/application/modules/user/forms/Login.php
+END
+ChangePassword.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/15/trunk/webordersystem/application/modules/user/forms/ChangePassword.php
+END
+Contact.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/713/trunk/webordersystem/application/modules/user/forms/Contact.php
+END
+SendLink.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/Ishida02/!svn/ver/15/trunk/webordersystem/application/modules/user/forms/SendLink.php
+END

@@ -1,0 +1,284 @@
+<style>
+table.content {
+	border: 2px solid #8DB4E3;
+	width: 100%;
+	margin: 0 auto;
+}
+
+table.content th {
+	border: 1px solid #8DB4E3;
+	border-bottom: 2px solid #8DB4E3;
+	color: blue;
+	font-style: normal;
+	text-align: center;
+	font-weight: normal;
+}
+
+table.content td {
+	border-left: 1px solid #8DB4E3;
+	border-right: 1px solid #8DB4E3;
+	border-bottom: 1px dotted #8DB4E3;
+}
+
+.serchInput {
+	color: #888888;
+	height: 25px;
+	line-height: 27px;
+	text-shadow: 1px 1px 0 #FFFFFF;
+}
+
+.searchLog {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-radius: 6px;
+	border-width: 0;
+	box-shadow: 2px 2px 4px #666666;
+	color: #558ED5;
+	font-weight: bold;
+	padding: 3px 10px 2px;
+	text-decoration: none;
+}
+
+.featured_product_mark {
+	background-color: #FFFF99;
+	color: #984807;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 6px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	margin-left: 20px;
+	margin-top: -5px;
+-webkit-box-shadow: 1px 1px 2px 0px rgba(50, 50, 50, 0.5);
+-moz-box-shadow:    1px 1px 2px 0px rgba(50, 50, 50, 0.5);
+box-shadow:         1px 1px 2px 0px rgba(50, 50, 50, 0.5);
+}
+.invisible {
+    position: absolute;
+    left: -9999px;
+}
+</style>
+<?php
+$url = $this->url(array('action' => 'index','controller' =>'product'));
+$folderImageTemp = Core_Util_Helper::getImageProductFolderTemp();
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+<script type="text/javascript">
+$(document).ready(function(){
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+	  	if (id>0){
+	  		$('#frmSearch').append("<input type=\"hidden\" id=\"page\" name=\"page\" value=\"" + id + "\">");
+	  		$('#frmSearch').submit();
+	  	}
+		return false
+	});
+
+	$('#importCsvBtn').click(function(){
+		$('#file').val("");
+		$('#file').click(); 
+	});
+
+	$('#file').change(function(){
+		$("#formImport").ajaxForm({
+			success: function(data){
+				if (data == "true") {
+					alert("正常にインポートしました。");
+					location.href='/admin/product';
+				} else {
+					alert(data);
+				}
+			}
+		}).submit();
+	});
+
+
+	$('#exportCsvBtn').click(function(){
+		location.href = "/admin/product/export";
+	});
+
+	
+});
+</script>
+<?php
+    $displayNamespace = new Zend_Session_Namespace('Display');
+?>
+<div id="main">
+	<input type="hidden" value="<?php echo $this->config['url_base']; ?>"
+		id="url_base" />
+	<form method="post" action="<?php echo $url; ?>"
+		id="formViewListProduct">
+		<input type="hidden" value="" id="mode" name="mode" />
+		<div>
+			<div class="col-6 col-xs-8 col-md-8 col-md-8 col-lg-8"
+				style="width: 100%">
+				<div class="row title_tyle">
+					<label class="pull-left"> 商品一覧 </label>
+					<label>並び替え</label>
+					<select id="productSelectSort" name="productSelectSort">
+            	<?php $sorts = $this->sorts;
+	              if ($sorts != null && is_array($sorts)):
+	                foreach ( $sorts as $id => $sort ) :
+		                if (!isset($displayNamespace->sort)){
+		                 $displayNamespace->sort = $sort->getItemCd();
+		                }
+	              ?>
+                	<option value="<?php echo $sort->getItemCd();?>"
+							<?php //strcmp($displayNamespace->sort, $sort->getItemCd())==0
+							 if (strcmp($displayNamespace->sort, $sort->getItemCd())==0) echo " selected "?>><?php echo $sort->getItemName();?>
+					</option>
+              	<?php endforeach;
+              endif;?>
+          		</select>
+          		<?php if (Core_Util_Helper::isReferenceAdmin()):?>
+	          		<a href="javascript:void(0)" class="button2Disable" style="color: #AEA797; line-height: 0px; padding: 13px 10px;">新規登録</a> 
+					<a href="javascript:void(0)" class="button2Disable"  style="color: #AEA797; line-height: 0px; padding: 13px 10px;">ＣＳＶ取込み</a>
+          		<?php else: ?>
+	          		<a href="/admin/product/add" class="button2" style="color: #000000; line-height: 0px; padding: 13px 10px;">新規登録</a>
+					<label id="lblImportCsv" class="button2" for="file" style="color: #000000; line-height: 0px; padding: 13px 10px;">ＣＳＶ取込み</label>					
+					<!-- <a id="importCsvBtn" class="button2" href="javascript:void(0);" style="color: #000000; line-height: 0px; padding: 13px 10px;">ＣＳＶ取込み</a> -->
+				<?php endif;?>
+				</div>
+				<div style="margin-right: -15px;">
+        <?php
+		    $paginator = $this->paginator;
+		    echo $paginator;
+		?>
+		</div>
+
+			</div>
+			<div style="clear: left; display: block; text-align: center;">
+				<table class="content">
+					<tr>
+						<th></th>
+						<th style="width: 80px;"></th>
+						<th>商品画像</th>
+						<th>商品名／&lt;商品番号&gt;</th>
+						<th style="width: 140px;">標準価格(税込)</th>
+						<th>ポイント倍率</th>
+						<th style="width: 100px;">コメント</th>
+						<th>商品カテゴリー</th>
+					</tr>
+
+					<?php
+					foreach ($this->products as $key => $value) :
+					?>
+					<tr style="text-align: left; padding-left: 10px">
+						<td style="padding: 5px 10px">
+							<input type="checkbox" value="<?php echo $value['productId'];?>" name="chkInsertCategory[]">
+						</td>
+		            <?php
+			            $params = array(
+			            		"module"        => "admin",
+			            		"controller"    => "product",
+			            		"action"        => "view",
+			            		"id"        => $value['productId']
+			            );
+		            	$urlDetail = $this->url($params);
+		            ?>
+            <!-- <td style=" padding:5px 10px" ><a href="/admin/product/view?id=<?php echo $value['productId'];?>" class="searchLog" >詳細</a></td> -->
+						<td style="padding: 5px 10px; min-width: 70px;">
+						<a href="<?php echo $urlDetail;?>" class="button2">詳細</a>
+						</td>
+						<!-- MOD 20140429 Hieunm add min-width -->
+						<td style="padding: 5px 10px; text-align: center;">
+							<img id="imgUpload" alt=""
+								src="<?php echo $this->config['url_base']. $folderImageThumb . $value["imagePath"]; ?>" width="100" onerror="imgError(this);">	
+								<!-- MOD 20140512 Hieunm modify src -->
+						</td>
+						
+						<td valign="middle" style="padding: 5px 10px">	<!-- MOD 20140429 Hieunm add valign -->
+							<div style="float: left; word-wrap: break-word; max-width: 80%;">
+								<?php echo $this->escape($value['productName']);?>
+								<br />
+								<b>&lt;<?php echo$this->escape($value['productNo']);?>&gt;</b>
+							</div>
+							<!-- MOD 20140429 Hieunm add style -->
+			            	<a id="removeFeaturedProductId_<?php echo $value['productId'];?>" href="javascript:removeFeaturedProductById('<?php echo $value['productId'];?>');"><div style="float: right; margin-top: 3px" class="featured_product_mark"><b>☆おすすめ</b></div></a>	<!-- MOD 20140429 Hieunm add margin-top -->
+			            	<a id="addFeaturedProductId_<?php echo $value['productId'];?>" href="javascript:addFeaturedProductById('<?php echo $value['productId'];?>');"><div style="float: right; background-color: white; color: black;margin-top: 3px" class="featured_product_mark" ><b>おすすめへ</b></div></a>	<!-- MOD 20140429 Hieunm add margin-top -->
+			            	<?php if ($value['isFeaturedProduct']) :?>
+				            	<script type="text/javascript">
+									$('#addFeaturedProductId_<?php echo $value['productId'];?>').hide();
+									$('#removeFeaturedProductId_<?php echo $value['productId'];?>').show();
+								</script>
+			            	<?php else: ?>
+				            	<script type="text/javascript">
+									$('#removeFeaturedProductId_<?php echo $value['productId'];?>').hide();
+									$('#addFeaturedProductId_<?php echo $value['productId'];?>').show();
+								</script>
+            				<?php endif; ?>
+            			</td>
+						<td align="right" style="padding: 5px 10px" title="">
+							<?php
+			                if(isset($value['prices']) && count($value['prices'])>0){
+			                     echo number_format($value['prices'][0]['price'])." 円";
+			                }
+	                		?>
+                		</td>
+                		<!-- MOD 20140429 Hieunm add align -->
+						<td align="right" style="padding: 5px 10px" title=""><?php
+			                if(isset($value['points']) && count($value['points'])>0){
+			                     echo number_format($value['points'][0]['magnificationPoint'])." 倍";
+			                }
+			                ?>
+                		</td>					<!-- MOD 20140429 Hieunm add align -->
+						<td style="padding: 5px 10px" title="">
+							<?php
+			                    $str = $this->echoShipping($value["shippingCheck"],$value["shipping"], $value["shippingValue"]);
+			                    if($str!="") {
+									echo $str . "<br/>";
+								}
+			                ?>
+	                    	<?php
+	                    		echo $this->echoStock($value["stockCheck"],$value["stock"],$value["stockValue"])
+							?>
+						</td>
+						<td style="padding: 5px 10px" title="">
+							<?php
+	                        foreach ($value["categories"] as $item){
+	                            echo $item['categoryParentName'] . "＞  " . $item['categoryChildName'] . "<br/>";
+	                        }
+							?>
+                    	</td>
+					</tr>
+				<?php
+				endforeach;
+				?>
+					<tr>
+						<td colspan="7" style="text-align: left; padding-top: 10px; padding-bottom: 10px;">
+							<div class="productRow">
+							<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+								<select disabled="disabled" style="width: 150px; height: 23px;"></select> &gt; <select disabled="disabled" style="width: 150px; height: 23px;"></select>
+							<?php else:  ?>
+								<?php echo  $this->form->categoryParent; ?> &gt; <?php echo  $this->form->categoryChild; ?>
+							<?php endif;?>
+								<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+									<a href="javascript:void(0);" class="button2Disable"style="color: #AEA797;">追加</a>
+								<?php else : ?>
+									<a href="javascript:insertCategory()" class="button2"style="color: #000000;">追加</a>
+								<?php endif;?>
+								（選択した商品のカテゴリーへ追加します。）
+							</div>
+						</td>
+						<td style="text-align: right; padding-right: 10px;">
+								<?php if (Core_Util_Helper::isReferenceAdmin()): ?>
+									<a href="javascript:void(0)" class="button2Disable" style="color: #AEA797;">ＣＳＶ出力</a>
+								<?php else : ?>
+									<a href="javascript:void(0)" id="exportCsvBtn" class="button2" style="color: #000000;">ＣＳＶ出力</a>
+								<?php endif;?>
+							
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</form>
+	<form id="formImport" action="/admin/product/importcsv" method="post" enctype="multipart/form-data">
+		<input type="file" id="file" name="file" id="file" class="invisible"/>
+	</form>
+</div>

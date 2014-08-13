@@ -1,0 +1,114 @@
+@CHARSET "UTF-8";
+
+@media screen and (max-width: 767px) {
+  #listproduce{
+    padding:0;
+  }
+  #listproduce .row .row{
+    padding:0;
+  }
+  .title_tyle label.pull-left {
+  background-size:30px 30px!important;
+  padding: 0 0 0 28px!important;
+  }
+    #no_product{
+    display:none;
+  }
+  #no_product_mobile{
+    display:block!important;
+  }
+  #mobile_orderinfo{
+    display:none;
+  }
+  .tablet_trans_orderinfo{
+   top:-130px!important;
+  }
+   #mobile_point_ordercart_0, #mobile_point_ordercart_1, #mobile_point_ordercart_2{
+    display:block!important;
+    text-align: center;
+  }
+  #tablet_point_ordercart{
+    display:none;
+  }
+}
+@media screen and (min-width: 992px) {
+  .tablet_orderinfo table{
+    display:none;
+  }
+  #no_product_mobile{
+    display:none;
+  }
+   #mobile_point_ordercart_0, #mobile_point_ordercart_1, #mobile_point_ordercart_2{
+    display:none;
+  }
+  #listproduce .row> .tablet_title_orderinfo{
+ 	padding:0; 
+  }
+  #tablet_orderinfo_ship{
+  	display:none;
+  }
+  #listproduce .row > .dsk_ordercartionfo_padding{
+  	padding:0;
+  }
+}
+@media screen and (max-width: 992px) {
+  #mobile_point_ordercart_0, #mobile_point_ordercart_1, #mobile_point_ordercart_2{
+    display:none;
+  }
+   #no_product_mobile{
+    display:none;
+  }
+  #tblSummary {
+    width: 100%!important;
+  }
+  #tblProductInfo td {
+  padding-right: 10px;
+  }
+  #dsk_orderinfo{
+    display:none;
+  }
+  #tablet_orderinfo{
+    display:flex;
+
+  }
+  .dsk_orderinfo{
+    display:none;
+  }
+  .tablet_orderinfo{
+    display:block!important;
+    line-height: 1.5!important;
+    /*text-align:left!important;*/
+  }
+  .tablet_sum_ordercart{
+    padding-right:20px!important;
+  }
+  .tblOrder{
+    border-style:none!important;
+    height:100%!important;
+  }
+  .tablet_title_orderinfo{
+    display:none;
+  }
+  .tablet_trans_orderinfo{
+    float:right;
+    top:-145px;
+    padding-right:20px!important;
+    /*position:absolute;
+    left:70.5%;
+    padding:25px 0!important;
+    text-align:right;*/
+  }
+  #left_order{
+    display:none;}
+  .tr_point{
+    text-align: center;
+  }
+  .td_right{
+    text-align: right;
+  width: 50%;
+  }
+   .td_left{
+    text-align: left;
+  }
+
+}

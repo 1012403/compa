@@ -1,0 +1,116 @@
+<style>
+table.content{
+  border: 2px solid #8DB4E3;
+  width: 90%;
+  margin: 0 auto;
+}
+table.content th{
+  border: 1px solid #8DB4E3;
+  border-bottom: 2px solid #8DB4E3;
+  color: blue;
+  font-style: normal;
+  text-align: center;
+  font-weight: normal;
+}
+table.content td{
+  border-left: 1px solid #8DB4E3;
+  border-right: 1px solid #8DB4E3;
+  border-bottom: 1px dotted #8DB4E3;
+}
+.serchInput{
+  color: #888888;
+    height: 25px;
+    line-height: 27px;
+    text-shadow: 1px 1px 0 #FFFFFF;
+
+}
+.searchLog{
+  background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: 2px 2px 4px #666666;
+    color: #000000;
+    font-weight: bold;
+    padding: 3px 10px 2px;
+    text-decoration: none;
+
+}
+</style>
+<script type="text/javascript">
+<!--
+$(function(){
+	$('#btnQuoteSearch').click(function() {
+		$('#formManageQuote').append('<input type="hidden" name="operateElementName" value="検索"/>');
+        $("#formManageQuote").submit();
+	});
+});
+//-->
+</script>
+<div id="main">
+    <form method="post" action="/admin/quote" id="formManageQuote">
+    <input type="hidden" value="" id="mode" name="mode"/>
+    <div>
+      <div class="col-6 col-xs-8 col-md-8 col-md-8 col-lg-8" style="width: 100%">
+        <div class="row title_tyle" >
+        	<div>
+				<label class="pull-left"> 見積り依頼管理 </label>
+				<label>ユーザ名</label>
+				<?php echo $this->form->quotationUsername;?>
+				<label>見積り状態</label>
+				<?php echo $this->form->quotationStatus;?>
+				<label>営業担当者</label>
+				<?php echo $this->form->quotationSale;?>
+				<a href="javascript:void(0)" class="button2" style="height: 30px; line-height: 0px; padding-top: 15px; margin-top: 0px; color: #000000;" id="btnQuoteSearch">検索</a>
+			</div>
+      </div>
+      </div>
+      
+      <div style=" clear:left; display:block; text-align: center;">
+        <table  class="content">
+          <tr>
+            <th ></th>
+            <th >見積り依頼日時</th>
+            <th >見積り状態</th>
+            <th >ユーザ名</th>
+            <th >営業担当者</th>
+            <th >備考</th>
+          </tr>
+
+          <?php
+          /* @var $value Core_Models_OperationLogInfo*/
+          foreach ($this->quotations as $key => $value) {
+          ?>
+          <tr style="text-align: left; padding-left: 10px">
+            <td style=" padding:5px 10px;width:80px;" >
+            		<a style="text-decoration: none;" href="/admin/quote/detail?id=<?php echo $value['quotation_id'];?>&username=<?php echo $value['user_name'];?>&userid=<?php echo $value['user_id'];?>" class="button2" >詳細</a>
+            </td>
+            <td style=" padding:5px 10px" >
+                <?php echo $this->echoDate($value["quotation_date_time"],"Y/m/d H:m:i");?>
+            </td>
+            <td style=" padding:5px 10px" >
+                <?php echo $value['status_name'];?>
+            </td>
+            <td style=" padding:5px 10px" title="">
+                <?php echo $value['user_name'];?>
+            </td>
+            <td style=" padding:5px 10px" title="">
+                <?php echo $value['sale_name'];?>
+            </td>
+            <td style=" padding:5px 10px" title="">
+                <?php echo nl2br($this->escape($value['remark']));?>
+            </td>
+          </tr>
+          <?php
+          }
+          ?>
+        </table>
+  </div>
+
+    </div>
+    </form>
+
+<?php
+    $paginator = $this->paginator;
+    echo $paginator;
+  ?>
+</div>

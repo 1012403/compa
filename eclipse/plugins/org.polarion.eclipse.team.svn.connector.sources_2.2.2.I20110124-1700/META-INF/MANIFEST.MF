@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Version: 2.2.2.I20110124-1700
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.polarion.eclipse.team.svn.connector.sources; 
+ singleton=true
+
+

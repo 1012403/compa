@@ -1,0 +1,40 @@
+<?php 
+$data = $this->data;
+$idShipping = $data['idShipping'];
+
+?>
+
+<tr id="shipping_no_<?php echo $data['idShipping']; ?>" class="row_shipping_data" style="display: none;">
+	
+	<td class="colAddress">
+		<span id="des_name_disp_<?php echo $idShipping; ?>"><?php echo $this->escape($data['des_name']);?></span>
+		<input type="hidden" id="hidden_des_name_<?php echo $idShipping; ?>" name="hidden_des_name_<?php echo $idShipping; ?>" value="<?php echo $this->escape($data['des_name']);?>">
+	</td>
+	<td class="colZipCode">
+		<input type="hidden" id="hidden_shiping_no_<?php echo $idShipping; ?>" name="hidden_shiping_no_<?php echo $idShipping; ?>" value="">
+		<span id="post_no_disp_<?php echo $idShipping; ?>"><?php echo $this->escape($data['post_no']);?></span>
+		<input type="hidden" id="hidden_post_no_<?php echo $idShipping; ?>" name="hidden_post_no_<?php echo $idShipping; ?>" value="<?php echo $this->escape($data['post_no']);?>">
+	</td>
+	<td class="colAddress">
+		<span id="address1_disp_<?php echo $idShipping; ?>"><?php echo $this->escape($data['address1']);?></span>
+		<input type="hidden" id="hidden_address1_<?php echo $idShipping; ?>" name="hidden_address1_<?php echo $idShipping; ?>" value="<?php echo $this->escape($data['address1']);?>">
+		<input type="hidden" id="hidden_address2_<?php echo $idShipping; ?>" name="hidden_address2_<?php echo $idShipping; ?>" value="<?php echo $this->escape($data['address2']);?>">
+	</td>
+	<td class="colPhoneNumber">
+		<span id="tel_no_disp_<?php echo $idShipping; ?>"><?php echo $this->escape($data['tel_no']);?></span>
+		<input type="hidden" id="hidden_tel_no_<?php echo $idShipping; ?>" name="hidden_tel_no_<?php echo $idShipping; ?>" value="<?php echo $this->escape($data['tel_no']);?>">
+	</td>
+	<td class="colFaxNumber">
+		<span id="fax_no_disp_<?php echo $idShipping; ?>"><?php echo $this->escape($data['fax_no']);?></span>
+		<input type="hidden" id="hidden_fax_no_<?php echo $idShipping; ?>" name="hidden_fax_no_<?php echo $idShipping; ?>" value="<?php echo $this->escape($data['fax_no']);?>">
+	</td>
+	<td class="colShippingMethod">
+		<span id="shipping_method_disp_<?php echo $idShipping; ?>"><?php echo $this->escape($this->echoShippingMethod($data['shipping_method']));?></span>
+		<input type="hidden" id="hidden_shipping_method_<?php echo $idShipping; ?>" name="hidden_shipping_method_<?php echo $idShipping; ?>" value="<?php echo $this->escape($data['shipping_method']);?>">
+	</td>
+	<td>
+		<span>
+			<a href="javascript:openEditUserShipping(userId, '<?php echo $idShipping;?>');" class="button2" style="color: black;">編集</a>
+		</span>
+	</td>
+</tr>

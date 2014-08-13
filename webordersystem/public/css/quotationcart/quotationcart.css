@@ -1,0 +1,49 @@
+@CHARST "UTF-8";
+
+@media screen and (max-width: 767px) {
+  #dsk_img_quotationcart{
+    display:none;
+  }
+  .mobile_img_quotationcart{
+    display:block!important;
+    margin-top:-10px;
+  }
+  .tablet_productinfo{
+    width:100%!important;
+  }
+  .tablet_note_quotation{
+    position: relative!important;
+    margin-top:0px !important;
+  }
+  #mobile_quotation{
+    display:none;
+  }
+  #moible_price_quotation{
+    text-align: right;
+  }
+  #mobile_input_quotation{
+    text-align:center;
+    padding-left:15px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .img-responsive {
+    max-width: none;
+  }
+
+  .tablet_productinfo{
+    width:47%;
+  }
+  .tablet_note_quotation{
+    position: absolute;
+    right:0;
+    margin-right:18px;
+    margin-top:35px;
+
+
+  }
+  .tablet_number_quotation{
+    text-align: right;
+    padding-right:15px!important;
+  }
+}

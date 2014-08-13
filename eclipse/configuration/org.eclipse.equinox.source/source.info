@@ -1,0 +1,12 @@
+#encoding=UTF-8
+#version=1
+org.eclipse.php.core.parser.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.core.parser.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.core.source,2.2.1.v20101001-2300,plugins/org.eclipse.php.core.source_2.2.1.v20101001-2300.jar,-1,false
+org.eclipse.php.debug.core.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.debug.core.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.debug.daemon.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.debug.daemon.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.debug.ui.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.debug.ui.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.help.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.help.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.server.core.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.server.core.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.server.ui.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.server.ui.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.source,2.2.0.v20101001-2300,plugins/org.eclipse.php.source_2.2.0.v20101001-2300.jar,-1,false
+org.eclipse.php.ui.source,2.2.1.v20101001-2300,plugins/org.eclipse.php.ui.source_2.2.1.v20101001-2300.jar,-1,false

@@ -1,0 +1,240 @@
+<?php
+if (isset($this->success)){
+	if ('successEdit'===$this->success){
+		?>
+			<script type="text/javascript">
+			alert("正常に更新しました。");
+			window.location="<?php echo $this->config['url_base'];?>/admin/user/view?id=<?php echo $this->id;?>";
+			</script>
+		<?php 
+	}
+	if ('successAdd'===$this->success){
+		?>
+			<script type="text/javascript">
+			//alert("正常に保存!");
+			alert("正常に更新しました。");
+			window.location="<?php echo $this->config['url_base'];?>/admin/user/view?id=<?php echo $this->id;?>";
+			</script>
+		<?php 
+	}
+} else {
+?>
+
+		<?php
+				$form = $this->form;
+			?>
+<style>
+.error {
+	color: red;
+}
+</style>
+<form action="<?php echo $form->action;?>" method="post" id="user_form">
+<?php echo $form->mode;?>
+<div class="row" >
+<table><tr><td width="100%" >
+          	<div class="title_col">
+				<div class="title_tyle title_search" >
+					<label class="pull-left">ユーザ編集</label>
+					<span>
+					</span>
+				</div>
+			</div>
+</td><td class="title_right right_detail">
+		<span>
+		<?php echo $form->submit;?>
+		<a href="#" class="button2" onclick="submitUserForm();">更新</a>
+		</span>
+</td></tr>
+</table>
+</div>
+<?php
+echo $form->id;
+?>
+<script type="text/javascript">
+var userId = '<?php echo $form->id->getValue(); ?>';
+</script>
+<div class="row">
+	<div id="errorArea" style="color: red;">
+		<?php
+		$errs = $form->getMessages();
+		if (count($errs) > 0){
+			echo '<ul>';
+			foreach ($errs as $err){
+				foreach ($err as $key => $msg){
+					echo "<li>$msg</li>";
+				}
+			}
+			echo '</ul>';
+		} else if (isset($this->error)) {
+			echo $this->error;
+		} ?>
+	</div>
+		<table  class="content">
+			<tr>
+				<td class="first_col">ユーザ名<span class="error">*</span></td>
+				<td><?php echo $form->user_name;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">ユーザＩＤ<span class="error">*</span></td>
+				<td><?php echo $form->login_username?></td>
+			</tr>
+			<tr>
+				<td class="first_col">パスワード<span class="error">*</span></td>
+				<td><?php echo $form->login_password;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">メールアドレス<span class="error">*</span></td>
+				<td><?php echo $form->email;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">エリア<span class="error">*</span></td>
+				<td><?php echo $form->area_code?></td>
+			</tr>
+			<tr>
+				<td class="first_col">郵便番号<span class="error">*</span></td>
+				<td><?php echo $form->post_no;?> &nbsp;&nbsp; <?php //echo $form->address_search;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">住所１<span class="error">*</span></td>
+				<td><?php echo $form->address;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">住所２</td>
+				<td><?php echo $form->address2;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">電話番号</td>
+				<td><?php echo $form->tel_no;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">ＦＡＸ番号</td>
+				<td><?php echo $form->fax_no;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">営業担当者</td>
+				<td><?php echo $form->sales_id;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">ユーザ区分</td>
+				<td><?php echo $form->user_class;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">管理権限</td>
+				<td><?php echo $form->admin_class;?></td>
+			</tr>
+			<tr>
+				<td class="first_col">ポイント数／最終獲得日</td>
+				<td>
+					<?php echo $form->user_point;?> pt &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<?php 
+						if ($form->update_point_date->getValue() == "0000/00/00") { 
+							$form->update_point_date->setValue(null);
+						}
+					?>
+					<?php echo $form->update_point_date;?>
+				</td>
+			</tr>
+			
+			<tr>
+			<td class="first_col">発送先</td>
+			<td>
+				<span style="margin-top : 20px;">
+					<a href="#" class="button2" style="color: black;" onclick="openNewUserShipping();">新規作成</a>
+				</span>
+				<br />
+				<br />
+				<table>
+					<thead class="row_shipping_data">
+						<tr>
+							<th class="colAddress">発送先名</th>
+							<th class="colZipCode">郵便番号</th>
+							<th class="colAddress">住所</th>
+							<th class="colPhoneNumber">電話番号</th>
+							<th class="colFaxNumber">ＦＡＸ番号</th>
+							<th class="colShippingMethod">発送方法</th>
+							<th></th>
+						</tr>
+					</thead >
+					<?php 
+					$arrUserShipping = $this->arrUserShipping;
+					$arrUserShipping = Core_Util_Helper::nullToEmptyArray($arrUserShipping);
+					/* @var $userShipping Core_Models_MstUserShipping */
+					$startInd = 1;
+					foreach ($arrUserShipping as $key => $userShipping):
+						$startInd++;
+					?>
+						<script type="text/javascript">
+						increaseTotalShipping();
+						</script>
+						<tr id="shipping_no_<?php echo $startInd; ?>" class="row_shipping_data">
+							<td class="colAddress">
+								<span id="des_name_disp_<?php echo $startInd; ?>"><?php echo $this->escape($userShipping->getShippingDesName());?></span>
+								<input type="hidden" id="hidden_des_name_<?php echo $startInd; ?>" name="hidden_des_name_<?php echo $startInd; ?>" value="<?php echo $this->escape($userShipping->getShippingDesName() );?>">
+							</td>
+							<td class="colZipCode">
+								<input type="hidden" id="hidden_shiping_no_<?php echo $startInd; ?>" name="hidden_shiping_no_<?php echo $startInd; ?>" value="">
+								<span id="post_no_disp_<?php echo $startInd; ?>"><?php echo $this->escape($userShipping->getPostNo());?></span>
+								<input type="hidden" id="hidden_post_no_<?php echo $startInd; ?>" name="hidden_post_no_<?php echo $startInd; ?>" value="<?php echo $this->escape($userShipping->getPostNo());?>">
+							</td>
+							<td class="colAddress">
+								<span id="address1_disp_<?php echo $startInd; ?>"><?php echo $this->escape($userShipping->getAddress1());?></span>
+								<input type="hidden" id="hidden_address1_<?php echo $startInd; ?>" name="hidden_address1_<?php echo $startInd; ?>" value="<?php echo $this->escape($userShipping->getAddress1());?>">
+								<input type="hidden" id="hidden_address2_<?php echo $startInd; ?>" name="hidden_address2_<?php echo $startInd; ?>" value="<?php echo $this->escape($userShipping->getAddress2());?>">
+							</td>
+							<td class="colPhoneNumber">
+								<span id="tel_no_disp_<?php echo $userShipping->getShippingSeq(); ?>"><?php echo $this->escape($userShipping->getTelNo());?></span>
+								<input type="hidden" id="hidden_tel_no_<?php echo $startInd; ?>" name="hidden_tel_no_<?php echo $startInd; ?>" value="<?php echo $this->escape($userShipping->getTelNo());?>">
+							</td>
+							<td class="colFaxNumber">
+								<span id="fax_no_disp_<?php echo $startInd; ?>"><?php echo $this->escape($userShipping->getFaxNo());?></span>
+								<input type="hidden" id="hidden_fax_no_<?php echo $startInd; ?>" name="hidden_fax_no_<?php echo $startInd; ?>" value="<?php echo $this->escape($userShipping->getFaxNo());?>">
+							</td>
+							<td class="colShippingMethod">
+								<span id="shipping_method_disp_<?php echo $startInd; ?>"><?php echo $this->escape($this->echoShippingMethod($userShipping->getTransType()));?></span>
+								<input type="hidden" id="hidden_shipping_method_<?php echo $startInd; ?>" name="hidden_shipping_method_<?php echo $startInd; ?>" value="<?php echo $this->escape($userShipping->getTransType());?>">
+							</td>
+							<td>
+								<span>
+									<a href="#" class="button2" style="color: black;" onclick="openEditUserShipping(userId, '<?php echo $startInd; ?>');">編集</a>
+								</span>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+				<input type="hidden" value="<?php echo count($arrUserShipping);?>" name="totalShipping" id="idTotalShipping">
+			</td>
+		</tr>
+		 
+		</table>
+</div>
+</form>
+
+<?php }?>
+			
+			
+<?php if (Core_Util_Helper::isMasterAdmin()):?>			
+<script type="text/javascript">
+	$(document).ready(function(){
+		$( ".admin_class" ).prop( "disabled", true );
+		$( "#login_password" ).prop( "disabled", true );
+		
+	});
+</script>
+<?php endif; ?>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var onloadState = $('#user_form').serialize();
+	 	function doBeforeUnload() {
+	 		if($('#user_form').serialize() != onloadState) {
+	 	 		return "変更データが保存されません。このページから移動しますか。";
+	 		}
+		     else {
+			     e=null;
+		     }
+	 	}
+
+	 	window.onbeforeunload = doBeforeUnload;
+	});
+</script>
+

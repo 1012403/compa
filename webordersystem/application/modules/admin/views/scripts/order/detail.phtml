@@ -1,0 +1,563 @@
+<style type="text/css">
+
+/* 03.user */
+#all .tac {
+	text-align: center !important;
+}
+
+#all .tal {
+	text-align: left !important;
+}
+
+#all .tar {
+	text-align: right !important;
+}
+
+.nwp {
+	white-space: nowrap;
+}
+
+#all #main #user {
+	padding: 20px;
+}
+
+#all #main #user .graph2,#all #main #user .graph3 {
+	border-top: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+}
+
+#all #main #user .graph1 {
+	width: 1000px;
+	margin-left: 70px;
+	border: 1px solid #CCC;
+}
+
+#all #main #user .graph1 th {
+	border-bottom: 1px solid #CCC;
+}
+
+#all #main #user .graph1 th,#all #main #user .graph1 td {
+	padding: 8px;
+	font-size: 0.8em;
+}
+
+#all #main #user .graph2 th {
+	text-align: center;
+}
+
+#all #main #user .graph2 th,#all #main #user .graph2 td,#all #main #user .graph3 th,#all #main #user .graph3 td
+	{
+	border-bottom: 1px solid #CCC;
+	border-left: 1px solid #CCC;
+	padding: 8px;
+	font-size:13px;
+	font-family: ＭＳ Ｐゴシック;
+}
+
+#all #main #user .graph1 th,#all #main #user .graph2 th,#all #main #user .graph3 th
+	{
+	background: #F3F3F3;
+	/*width: 20%;*/
+	white-space: nowrap;
+}
+
+#all #main #user .graph1 td input.long {
+	width: 240px;
+}
+
+#all #main #user .graph1 td input.short {
+	width: 50px;
+}
+
+#all #main #user .graph3 th strong,#all #main #user .graph3 td span {
+	color: #F00;
+}
+
+#all #main #user .graph3 td input.short {
+	width: 60px;
+}
+
+#all #main #user .graph3 td input.middle {
+	width: 200px;
+}
+
+#all #main #user .graph3 td input.long {
+	width: 440px;
+}
+
+#all #main #user .graph3 td dl {
+	clear: both;
+}
+
+#all #main #user .graph3 td dt {
+	/*width: 20%;*/
+	float: left;
+}
+
+#all #main #user .graph3 td dd {
+	/*width: 70%;*/
+	float: left;
+}
+
+#all #main #user .graph3 td p.cl {
+	color: #F00;
+}
+
+#all #main #user .btn {
+	padding: 20px 10px 10px 0;
+	text-align: center;
+}
+
+#all #main #user .btn input {
+	margin-left: 10px;
+}
+
+#all #main #user .pagelist {
+	text-align: right;
+	padding: 5px;
+}
+
+.number_display {
+	text-align: right;
+	font-weight: bold;
+}
+</style>
+<?php
+/* @var $orderInfo Core_Models_OrderInfo */
+$orderInfo = $this->orderInfo;
+$folderImage = Core_Util_Helper::getImageProductFolder();
+?>
+<script type="text/javascript">
+var tax = 0;
+var orderNo = "<?php echo $orderInfo->getOrderId(); ?>";
+var currentIdEdit = "";
+function updateDetail(id) {
+	cancelEdit();
+	currentIdEdit = id;
+	$('#pro_price_tax_dis_' + id).hide();
+	$('#pro_quantity_dis_' + id).hide();
+	$('#pro_total_price_dis_' + id).hide();
+	$('#btn_edit_'+ id).hide();
+
+	var oldTotal = $('#pro_total_price_dis_' + id).html();
+
+	var price = $('#pro_price_tax_dis_' + id).html();
+	var quantity = $('#pro_quantity_dis_' + id).html();
+	price = price.replace(",","");
+	quantity = quantity.replace(",","");
+
+	$('#pro_price_tax_edit_' + id).val(price);
+	$('#pro_quantity_edit_' + id).val(quantity);
+
+	$('#pro_price_tax_edit_' + id).show();
+	$('#pro_quantity_edit_' + id).show();
+	$('#pro_total_price_dis_tmp_' + id).empty();
+	$('#pro_total_price_dis_tmp_' + id).append(oldTotal);
+	$('#pro_total_price_dis_tmp_' + id).show();
+	$('#btn_save_'+ id).show();
+
+	//$('#pro_price_tax_edit_' + id).focus();
+}
+
+function saveDetail(id) {
+	if (!checkDetailInput(id)) {
+		return;
+	}
+
+	var price = $('#pro_price_tax_edit_' + id).val();
+	var quantity = $('#pro_quantity_edit_' + id).val();
+	price = $.number(price);
+	quantity = $.number(quantity);
+
+	saveDetailAjax(orderNo, id, price, quantity);
+
+	displayNewVal(id);
+
+
+	$('#pro_price_tax_dis_' + id).show();
+	$('#pro_quantity_dis_' + id).show();
+	$('#pro_total_price_dis_' + id).show();
+	$('#btn_edit_'+ id).show();
+
+
+	$('#pro_price_tax_edit_' + id).hide();
+	$('#pro_quantity_edit_' + id).hide();
+	$('#pro_total_price_dis_tmp_' + id).hide();
+	$('#btn_save_'+ id).hide();
+
+	sumPriceTax();
+	sumFinal();
+
+}
+
+function checkDetailInput(id) {
+	var price = $('#pro_price_tax_edit_' + id).val();
+	if (isEmpty(price)) {
+		markError('pro_price_tax_edit_' + id);
+		showErrorMessage("1001",["「注文価格（税込）」"]);
+		return false;
+	}
+
+	if (isNotNumber(price)) {
+		markError('pro_price_tax_edit_' + id);
+		showErrorMessage("1002",["「注文価格（税込）」"]);
+		return false;
+	}
+
+	removeError('pro_price_tax_edit_' + id);
+
+	var quantity = $('#pro_quantity_edit_' + id).val();
+	if (isEmpty(quantity)) {
+		markError('pro_quantity_edit_' + id);
+		showErrorMessage("1001",["「数量」"]);
+		return false;
+	}
+
+	if (isNotNumber(quantity)) {
+		markError('pro_quantity_edit_' + id);
+		showErrorMessage("1002",["「数量」"]);
+		return false;
+	}
+
+	removeError('pro_quantity_edit_' + id);
+
+	return true;
+}
+
+function deleteDetail(detailNo) {
+
+	// saving
+	$.colorbox({
+		html:"<div style=\"text-align:center;\"><h3>保存しています。少しお待ちください。</h3> <br /> <img src=\"<?php echo $this->config['url_base'] ?>/images/web/ajax-loader.gif\"></div>",
+		closeButton : false,
+		scrolling : false,
+		escKey : false,
+		overlayClose : false,
+		transition : 'none',
+		speed : 100
+	});
+
+	$.ajax({
+		  url: "/admin/order/deletedetail",
+		  data: {
+			  detailNo: detailNo,
+			  orderId : orderNo,
+		  }
+		})
+		.done(function( data ) {
+			if (data == "true") {
+				$('#tr_detail_'+detailNo).remove();
+				sumPriceTax();
+				sumFinal();
+				$.colorbox.close();
+			} else {
+				alert("error");
+			}
+		});
+
+}
+
+function cancelEdit() {
+	if (currentIdEdit != "") {
+		var id = currentIdEdit;
+		$('#pro_price_tax_dis_' + id).show();
+		$('#pro_quantity_dis_' + id).show();
+		$('#btn_edit_'+ id).show();
+		$('#pro_total_price_dis_' + id).show();
+
+		$('#pro_price_tax_edit_' + id).hide();
+		$('#pro_quantity_edit_' + id).hide();
+		$('#pro_total_price_dis_tmp_' + id).hide();
+		$('#btn_save_'+ id).hide();
+	}
+}
+
+function displayNewVal(id) {
+	var price = $('#pro_price_tax_edit_' + id).val();
+	var quantity = $('#pro_quantity_edit_' + id).val();
+	var totalPrice = $('#pro_total_price_dis_tmp_' + id).html();
+	price = $.number(price);
+	quantity = $.number(quantity);
+
+	$('#pro_price_tax_dis_' + id).empty();
+	$('#pro_quantity_dis_' + id).empty();
+	$('#pro_price_tax_dis_' + id).append(price);
+	$('#pro_quantity_dis_' + id).append(quantity);
+	$('#pro_total_price_dis_' + id).empty();
+	$('#pro_total_price_dis_' + id).append(totalPrice);
+}
+
+function previewTotal(id) {
+	if (!checkDetailInput(id)) {
+		return;
+	}
+	var price = $('#pro_price_tax_edit_' + id).val();
+	var quantity = $('#pro_quantity_edit_' + id).val();
+
+	var sum = parseInt(price, 10) * parseInt(quantity, 10);
+	sum = $.number(sum);
+	$('#pro_total_price_dis_tmp_'+id).empty();
+	$('#pro_total_price_dis_tmp_'+id).append(sum);
+}
+
+function sumPriceTax() {
+	var sum = 0;
+	$(".price_tax").each(function(){
+		var val = $(this).html();
+		var re = new RegExp(",", 'g');
+		val = val.replace(re,"");
+		val = parseInt(val, 10);
+		val = val + Math.round( val * tax / 100); 
+		sum += val;
+	});
+
+	$('#all_total_price').empty();
+	$('#all_total_price').append($.number(sum));
+}
+
+function sumFinal() {
+	var allTotalShipping = $('#all_total_shipping').html();
+	var allTotalPrice = $('#all_total_price').html();
+	var usedPoint = $('#used_point').html();
+
+	allTotalShipping = removeAll(allTotalShipping, ",");
+	allTotalPrice = removeAll(allTotalPrice, ",");
+	usedPoint = removeAll(usedPoint, ",");
+
+	allTotalShipping = parseInt(allTotalShipping, 10);
+	allTotalPrice = parseInt(allTotalPrice, 10);
+	usedPoint = parseInt(usedPoint, 10);
+
+	var finalTotal = allTotalShipping + allTotalPrice - usedPoint;
+	$('#total_final_price').empty();
+	$('#total_final_price').append($.number(finalTotal));
+}
+
+function removeAll(str, rep) {
+	var re = new RegExp(rep, 'g');
+	re = str.replace(re,"");
+	return re;
+}
+
+function saveDetailAjax(orderNo, id, price, quantityVal) {
+
+	// saving
+	$.colorbox({
+		html:"<div style=\"text-align:center;\"><h3>保存しています。少しお待ちください。</h3> <br /> <img src=\"<?php echo $this->config['url_base'] ?>/images/web/ajax-loader.gif\"></div>",
+		closeButton : false,
+		scrolling : false,
+		escKey : false,
+		overlayClose : false,
+		transition : 'none',
+		speed : 100
+	});
+
+	$.ajax({
+		  url: "/admin/order/updatedetail",
+		  data: {
+			  detailNo: id,
+			  orderId : orderNo,
+			  priceTax : price,
+			  quantity : quantityVal
+		  }
+		})
+		.done(function( data ) {
+			if (data == "true") {
+				$.colorbox.close();
+			} else {
+				alert("error");
+			}
+		});
+}
+
+$(document).ready(function(){
+	sumPriceTax();
+	sumFinal();
+	 $(".txtJustNumber").keydown(function (e) {
+	        // Allow: backspace, delete, tab, escape, enter and .
+	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+	             // Allow: Ctrl+A
+	            (e.keyCode == 65 && e.ctrlKey === true) ||
+	             // Allow: home, end, left, right
+	            (e.keyCode >= 35 && e.keyCode <= 39)) {
+	                 // let it happen, don't do anything
+	                 return;
+	        }
+	        // Ensure that it is a number and stop the keypress
+	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+	            e.preventDefault();
+	        }
+	    });
+
+	
+		
+	$.ajax({
+		  url: "/admin/product/gettax"
+		})
+		.done(function( data ) {
+			tax = parseInt(data,10);
+		});
+
+});
+</script>
+<?php 
+/* @var $orderInfo Core_Models_OrderInfo */
+$orderInfo = $this->orderInfo;
+?>
+<div id="all" style="float: left;">
+<div class="title_cate" style="width: 730px; float: left; margin-left: 20px;">
+	<div style="float:left; padding-left: 20px; padding-top: 6px; font-weight: bold; " class="title_cate_bg">
+	注文詳細
+	</div>
+	<div style="float:left; padding-top: 6px; font-weight: bold; margin-left: 100px;">ユーザ名：<?php echo $this->escape($orderInfo->getUsername());?></div>
+</div>
+<div
+	style="float: right;
+		border-color: #B9CDE5; border-style: solid;
+		margin-right: 20px; margin-bottom: 5px; padding: 2px;">
+<div style="float: right; width: 80px;">
+	<div style="float: left;">合計送料</div><br />
+	<div style="float: left; text-align: right; width: 100%;"><span id="all_total_shipping">999,999,999</span>&nbsp;<span>円</span></div>
+</div>
+<div style="float: right; width: 100px; margin-right: 15px;">
+	<div style="float: left;">合計金額（税込）</div><br />
+	<div style="float: left; text-align: right; width: 100%;"><span id="all_total_price">999,999,999</span>&nbsp;<span>円</span></div>
+</div>
+
+</div>
+	<div id="main">
+		<div id="user">
+			<table width="940" border="0" cellspacing="0" cellpadding="0"
+				class="graph2">
+				<tr>
+					<th style="width: 50px;">No.</th>
+					<th>商品</th>
+					<th>仕入れ先名</th>
+					<th>注文価格（税抜） </th>
+					<th>数量</th>
+					<th>注文金額</th>
+					<th>送料</th>
+					<th>処理</th>
+				</tr>
+				<?php
+					
+					$isEdit = false;
+					if ($orderInfo != null) {
+						$isEdit = $orderInfo->getOrderStatus() != Core_Util_Const::FINAL_ORDER_STATUS;
+
+					}
+
+					$allTotalShipping = 0;
+					$arrDetailOrder = $this->arrOrderDetail;
+					/* @var $orderDetail Core_Models_OrderDetailInfo */
+					foreach ($arrDetailOrder as $key => $orderDetail):
+						$product = $orderDetail->getProduct();
+						$detailNo = $orderDetail->getDetailNo();
+						$allTotalShipping += $orderDetail->getShippingFee();
+				?>
+				<tr id="tr_detail_<?php echo $detailNo; ?>">
+					<td style="text-align: center;">1</td>
+					<td>
+					<?php
+						if ($product != null) :
+					?>
+						<div class="content_product_container" style="margin-left: 0px;">
+							<img alt="radius 110"
+								src="<?php echo $this->config['url_base'] ?><?php echo $folderImage; ?><?php echo $product->getImagePath(); ?>"
+								width="100px;">
+							<div class="content_product_info">
+								<div class="content_product_name" style="float: left;word-wrap: break-word;width: 135%"><?php echo nl2br($this->escape($product->getProductName())); ?></div>
+								<div class="content_product_no" style="float: left;word-wrap: break-word;width: 135%">&lt;<?php echo $this->escape($product->getProductNo()); ?>&gt;</div>
+							</div>
+						</div>
+						<?php endif; ?>
+					</td>
+					<td style="text-align: center;">
+						<span style="word-wrap: break-word;width: 135%"><?php echo nl2br($this->escape($orderDetail->getItemName())); ?></span>
+					</td>
+					<td  style="text-align: right;">
+						<div class="number_display">
+							<span ondblclick="updateDetail(<?php echo $detailNo; ?>);" id="pro_price_tax_dis_<?php echo $detailNo; ?>"><?php echo $this->formatNumber($orderDetail->getPrice()); ?></span>
+							<input type="text" name="price" id="pro_price_tax_edit_<?php echo $detailNo; ?>"
+							value="<?php echo $orderDetail->getPrice(); ?>" style="display: none;" size="12"  onblur="previewTotal(<?php echo $detailNo; ?>);" >
+							<script type="text/javascript">
+									$('#pro_price_tax_edit_<?php echo $detailNo; ?>').number( true, 0 );
+							</script>
+							<span>円</span>
+						</div>
+					</td>
+					<td >
+						<div class="number_display">
+							<input type="text" name="quntity" id="pro_quantity_edit_<?php echo $detailNo; ?>"
+							value="<?php echo $orderDetail->getQuantity(); ?>" style="display: none;" size="12" onblur="previewTotal(<?php echo $detailNo; ?>);">
+							<script type="text/javascript">
+								$('#pro_quantity_edit_<?php echo $detailNo; ?>').number( true, 0 );
+							</script>
+							<span ondblclick="updateDetail(<?php echo $detailNo; ?>);" id="pro_quantity_dis_<?php echo $detailNo; ?>"><?php echo $orderDetail->getQuantity(); ?></span>
+						</div>
+					</td>
+					<td >
+						<div class="number_display">
+							<span id="pro_total_price_dis_<?php echo $detailNo; ?>" class="price_tax">
+								<!-- <?php echo $this->formatNumber($orderDetail->getQuantity() * $orderDetail->getPriceIncludingTax()); ?> -->
+								<?php echo $this->formatNumber($orderDetail->getTotalPrice()); ?>
+							</span>
+							<span id="pro_total_price_dis_tmp_<?php echo $detailNo; ?>" style="display: none;">
+								<?php echo $this->formatNumber($orderDetail->getQuantity() * $orderDetail->getPriceIncludingTax()); ?>
+							</span>
+							<span>円</span>
+						</div>
+					</td>
+					<td >
+						<div class="number_display">
+							<span><?php echo $this->formatNumber($orderDetail->getShippingFee()); ?></span>
+							<span>円</span>
+						</div>
+					</td>
+					<td style="text-align: center; width: 100px;">
+						<?php if($isEdit):?>
+							<a href="javascript:void(0);" class="button2" onclick="updateDetail(<?php echo $detailNo; ?>);" id="btn_edit_<?php echo $detailNo; ?>">編集</a>
+							<a href="javascript:void(0);" class="button2" onclick="saveDetail(<?php echo $detailNo; ?>);" id="btn_save_<?php echo $detailNo; ?>" style="display: none;">更新</a>
+							<a href="javascript:void(0);" class="button2" onclick="deleteDetail(<?php echo $detailNo; ?>);" style="margin-top: 10px;">削除</a>
+						<?php endif; ?>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+
+			</table>
+
+			<script type="text/javascript">
+				$("#all_total_shipping").empty();
+				$("#all_total_shipping").html("<?php echo $this->formatNumber($allTotalShipping);?>");
+			</script>
+		</div>
+	</div>
+
+	<?php
+		$pointUsed = 0;
+		if ($orderInfo !== null) {
+			$pointUsed = $orderInfo->getUsedPoint();
+		}
+	?>
+
+	<div style="float: right;
+			border-color: #B9CDE5; border-style: solid;
+			margin-right: 20px; margin-bottom: 5px; width: 120px; padding: 2px;">
+		<div style="float: left;">請求金額</div><br />
+		<div style="float: left; text-align: right; width: 100%;">
+			<span id="total_final_price">999,999</span>&nbsp;
+			<span>円</span>
+		</div>
+	</div>
+
+
+	<div style="float: right;
+			border-color: #B9CDE5; border-style: solid;
+			margin-right: 20px; margin-bottom: 5px; width: 120px; padding: 2px;">
+		<div style="float: left;">ポイント利用</div><br />
+		<div style="float: left; text-align: right; width: 100%;">
+			<span id="used_point"><?php echo $this->formatNumber($pointUsed); ?></span>&nbsp;
+			<span>円</span>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,109 @@
+<script type="text/javascript">
+$(document).ready(function() {
+<?php
+	if (isset($this->errLogin)){
+		$flag=$this->errLogin;
+		if($flag=="1"){
+?>
+			setTimeout(function(){
+				$('#login_username').focus();
+				$('#login_username').select();
+				} ,500);
+		<?php
+		}
+	}else{
+?>
+		$('#login_username').focus();
+		<?php
+	}
+	?>
+
+});
+</script>
+
+<?php
+$url = $this->url(array('action' => 'login','controller' =>'login'));
+?>
+<div>
+	<div class=" col-xs-0 col-sm-2 col-md-3 col-lg-4" ></div>
+	<div class=" col-xs-12 col-sm-8 col-md-6 col-lg-4">
+		<div class="title_tyle" style="text-align: center; margin: 0 auto; padding-left: 10px;">
+		<div class="title_col" >
+			<label class="pull-left">ログイン</label>
+		</div>
+		</div>
+		<br/>
+		<br/>
+	
+		<div class="divLogin" style="text-align: center; margin: 0 auto;">
+		<form action="<?php echo $url ?>" method="post" id="formLogin">
+			<div class="row" style="padding-left: 20px;">
+				<div class="col-12">
+					<div id="errorArea"	style="text-align: left; color: red;">
+						<?php echo $this->err; ?>
+					</div>
+				</div>
+				<div class=" col-xs-12 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">ユーザＩＤ</div>
+				<div class=" col-xs-12 col-sm-9 col-md-9 col-lg-9 "  style="text-align: left;">
+					<?php echo $this->loginForm->login_username ?>
+				</div>
+				<div class="col-12">&nbsp;</div>
+				<div class=" col-xs-12 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">パスワード	</div>
+				<div class=" col-xs-12 col-sm-9 col-md-9 col-lg-9 " style="text-align: left;">
+					<?php echo $this->loginForm->login_password ?>
+				</div>
+				<div class="col-12">&nbsp;</div>
+				<div class=" col-xs-0 col-sm-3 col-md-3 col-lg-3 title" style="text-align: left;">&nbsp;</div>
+				<div class=" col-xs-11 col-sm-9 col-md-9 col-lg-9 " style="text-align: left;">
+					<?php echo $this->loginForm->check_login ?>&nbsp;&nbsp;&nbsp;&nbsp;ユーザIDとパスワードを保存
+				</div>
+				<div style="clear: both;"></div>
+				<div class="col-12">&nbsp;</div>
+				<div class="col-12">
+					<input	class="smallButton enterSubmit" id="submitButton" name="login" type="button" value="ログイン" />
+				</div>
+			</div>	
+			<br/>
+			<div style="clear: both;"></div>
+			<div class="col-xs-10 col-sm-10 col-md-12 col-lg-12" style="text-align: right; padding-bottom: 5px;">
+				<?php $linkChangePass = $this->url(array('action' => 'index','controller' =>'sendlink')); ?>
+				<a class="link"	style="color: #0000FF; text-decoration: underline; padding-right: 30px;"
+					href="<?php echo $linkChangePass ?>">パスワードを忘れた場合（再設定）
+				</a>
+			</div>
+				<br/> <br/>
+		</form>
+		</div>
+		
+		
+	</div>
+	<div class=" col-xs-0 col-sm-2 col-md-3 col-lg-4"></div>
+</div>
+
+
+
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	$('#login_username').focus().select();
+	
+	$('#submitButton').click(function(){
+		submitForm();
+	});
+
+	$("input").keypress(function(event) {
+	    if (event.which == 13) {
+	        event.preventDefault();
+			submitForm();
+	    }
+	});
+});
+
+function submitForm() {
+	if (checkLogin() == false) {
+		return;
+	}
+	$('#formLogin').submit();
+}
+
+</script>

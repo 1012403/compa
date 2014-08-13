@@ -1,0 +1,192 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$( ".deleteuser" ).click(function() {
+			if (!confirm('削除してもよろしいですか？')) {
+			    return false;
+			}
+		  	var cthis = $(this);
+		  	var id = cthis.attr('id');
+		  	$.ajax({
+						url: "<?php echo $this->config['url_base']?>/admin/user/delete",
+						type: "post",
+						data: { "id": id},
+						success: function( strData ){
+							if (strData == "true"){
+								alert("正常に削除しました。");
+								$('#userList').append('<form method="post" action="" id="deleteUserForm">'); 
+						        $('#deleteUserForm').append('<input type="hidden" name="AfterDelete" value="true"/>'); 
+						        $('#deleteUserForm').attr('action', '<?php echo $this->config['url_base']?>/admin/user/'); 
+						        $('#deleteUserForm').submit();
+							} else {
+								alert('削除することはできません。エラーがあります。');
+							}
+						}
+					});
+			return false;
+		});
+	});
+</script>
+
+
+<?php
+	$user = $this->user;
+	$muser = $user['user'];
+?>
+<div id="userList" class="row" >
+	<table>
+		<tr>
+			<td width="100%" >
+			<div class="title_col">
+					<div class="title_tyle title_search" >
+						<label class="pull-left">ユーザ詳細</label>
+					</div>
+				</div>
+			</td>
+			<td class="title_right right_detail">
+				<?php if (Core_Util_Helper::isReferenceAdmin()) : ?>
+					<span>
+						<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">編集</a>
+					</span>
+					<span>
+						<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">削除</a>
+					</span>
+				<?php else : ?>
+					<span>
+						<a class="button2" href="<?php echo $this->config['url_base']?>/admin/user/edit/id/<?php echo $muser->getUserId();?>" >編集</a>
+					</span>
+					<span>
+						<a class="button2 deleteuser" id="<?php echo $muser->getUserId();?>" href="<?php echo $this->config['url_base']?>/admin/user/delete?id=<?php echo $muser->getUserId();?>" >削除</a>
+					</span>
+				<?php endif; ?>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="row">
+	<table  class="content">
+		<tr>
+			<td class="first_col">ユーザ名</td>
+			<td><?php echo $muser->getUserName();?></td>
+		</tr>
+		<tr>
+			<td class="first_col">ユーザＩＤ</td>
+			<td><?php echo $muser->getLoginUserName();?></td>
+		</tr>
+		<tr>
+			<td class="first_col">メールアドレス</td>
+			<td><?php echo $muser->getEmail();?></td>
+		</tr>
+		<tr>
+			<td class="first_col">エリア</td>
+			<td>
+				<?php $flag=true;
+				foreach ($this->area_code as $area_code){
+					if ($area_code->getItemCd() == $muser->getAreaCode()){
+						echo $area_code->getItemName();
+						$flag=false;
+						break;
+					}
+				}
+				if ($flag) echo $muser->getAreaCode();
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td class="first_col">郵便番号</td>
+			<td><?php echo $muser->getPostNo();?></td>
+		</tr>
+		<tr>
+			<td class="first_col">住所１</td>
+			<td style="word-wrap: break-word; max-width: 600px"><?php echo nl2br($muser->getAddress());?></td>
+		</tr>
+		<tr>
+			<td class="first_col">住所２</td>
+			<td style="word-wrap: break-word; max-width: 600px"><?php echo nl2br($muser->getAddress2());?></td>
+		</tr>
+		<tr>
+			<td class="first_col">電話番号</td>
+			<td><?php echo $user['tel_no'];?></td>
+		</tr>
+		<tr>
+			<td class="first_col">ＦＡＸ番号</td>
+			<td><?php echo $user['fax_no'];?></td>
+		</tr>
+		<tr>
+			<td class="first_col">営業担当者</td>
+			<td><?php echo $user['sales_name'];?></td>
+		</tr>
+		<tr>
+			<td class="first_col">ユーザ区分／管理権限</td>
+			<td>
+			<?php 
+				$isEcho = false;
+				if ($muser->getUserClass() != null){
+					$isEcho = true;
+					echo $user['user_type_name'];
+				}
+				
+				if ($muser->getAdminFlg() != null /*&& $muser->getAdminFlg() != 0*/){
+					if ($isEcho) { echo " ／ "; }
+					echo $user['admin_type_name'];
+				}
+			?>
+			</td>
+		</tr>
+		<tr>
+			<td class="first_col">ポイント数／最終獲得日</td>
+			<td>
+			<?php if ($muser->getUserPoint() != null){
+				echo "ポイント： ". number_format($muser->getUserPoint())."pt";
+				if ($muser->getUpdatePointDate() != null && $muser->getUpdatePointDate() != "0000/00/00" && $muser->getUpdatePointDate() != "0000-00-00") {
+					echo " ／ " . str_replace("-", "/", $muser->getUpdatePointDate());
+				}
+			}?>
+			</td>
+		</tr>
+		<tr>
+			<td class="first_col">発送先</td>
+			<td>
+				<table>
+					<thead>
+						<tr>
+							<th class="colAddress">発送先名</th>
+							<th class="colZipCode">郵便番号</th>
+							<th class="colAddress">住所</th>
+							<th class="colPhoneNumber">電話番号</th>
+							<th class="colFaxNumber">ＦＡＸ番号</th>
+							<th class="colShippingMethod">発送方法</th>
+						</tr>
+					</thead>
+					<?php 
+					$arrUserShipping = $this->arrUserShipping;
+					/* @var $userShipping Core_Models_MstUserShipping */
+					foreach ($arrUserShipping as $key => $userShipping):
+					?>
+						<tr>
+							<td class="colAddress">
+								<?php echo $this->escape($userShipping->getShippingDesName());?>
+							</td>
+							<td class="colZipCode">
+								<?php echo $this->escape($userShipping->getPostNo());?>
+							</td>
+							<td class="colAddress">
+								<?php echo $this->escape($userShipping->getAddress1());?>
+							</td>
+							<td class="colPhoneNumber">
+								<?php echo $this->escape($userShipping->getTelNo());?>
+							</td>
+							<td class="colFaxNumber">
+								<?php echo $this->escape($userShipping->getFaxNo());?>
+							</td>
+							<td class="colShippingMethod">
+								<?php echo $this->escape($this->echoShippingMethod($userShipping->getTransType()));?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+			</td>
+		</tr>
+		
+	</table>
+</div>

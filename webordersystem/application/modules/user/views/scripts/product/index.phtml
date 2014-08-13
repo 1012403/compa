@@ -1,0 +1,411 @@
+<link href="<?php echo $this->config['url_base'] ?>/css/product/productList.css" rel="stylesheet">
+<script type="text/javascript">
+	var ajaxdone = false;
+	var tylelist = "<?php echo $this->tylelist;?>"; 
+	function onChangeQuantity(proId){
+		var txtName = "#txtQuantity-" + proId;
+		var cmbName = "#cmbQuantity-" + proId;
+		$(txtName).val($(cmbName).val());
+	}
+	function changedisplay(){
+		if (ajaxdone == true) {
+			return;
+		}
+		ajaxdone = true;
+		$.ajax({
+			url: "<?php echo $this->url(array('action' => 'changedisplay','controller' =>'product')); ?>",
+			type: "post",
+			data: { "tylelist": tylelist},
+			complete: function(){
+				location.reload();
+			}
+		});
+	}
+	$(document).ready(function(){
+		$("#selectsort").change(function() {
+			var val = $(this).val();
+			$.ajax({
+				url: "<?php echo $this->url(array('action' => 'changesort','controller' =>'product')); ?>",
+				type: "post",
+				data: { "val": val, "tylelist": tylelist},
+				success: function( strData ){
+					location.reload();
+				}
+			});
+		});
+		$( ".unlike" ).click(function() {
+		  	var cthis = $(this);
+		  	var id = cthis.attr('id');
+		  	$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updatelike','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "tyle":"1", "tylelist": tylelist},
+						success: function( strData ){
+							if (strData == "true"){
+								//cthis.hide();
+								$(".unlike[id=\""+id+"\"]").hide();
+								$(".like[id=\""+id+"\"]").show();
+							}
+						}
+					});
+			return false;
+		});
+		$( ".like" ).click(function() {
+		  	var cthis = $(this);
+		  	var id = cthis.attr('id');
+		  	$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updatelike','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "tyle":"0", "tylelist": tylelist},
+						success: function( strData ){
+							if (strData == "true"){
+								//cthis.hide();
+								$(".like[id=\""+id+"\"]").hide();
+								$(".unlike[id=\""+id+"\"]").show();
+							}
+						}
+					});
+			return false;
+		});
+		$('input[id|="txtQuantity"]').click(function() {
+			$(this).ForceNumericOnly();
+         });
+		$( ".addorder" ).click(function() {
+		  	var cthis = $(this);
+		  	var id = cthis.attr('id');
+		  	var quantity = $('input[id="txtQuantity-'+id+'"]').val();
+		  	var quanRes = $("#quanRes-" + id).val();
+		  	if (!jQuery.isNumeric( quantity )){
+			  	return false;
+		  	}
+		  	$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updateordercartinfo','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "quantity":quantity, "tylelist": tylelist, "quanRes": quanRes},
+						success: function( strData ){
+							if (strData != "null"){
+								$("#numberorder").html(strData);
+							}
+							location.href='/ordercart/';
+						}
+					});
+
+
+		});
+		$( ".addquotes" ).click(function() {
+		  	var cthis = $(this);
+		  	var id = cthis.attr('id');
+		  	var quantity = $('input[id="txtQuantity-'+id+'"]').val();
+		  	if (!jQuery.isNumeric( quantity )){
+			  	return false;
+		  	}
+		  	$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updatequotationcartinfo','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "quantity":quantity, "tylelist": tylelist},
+						success: function( strData ){
+							if (strData != "null"){
+								$("#numberquotes").html(strData);
+							}
+							location.href='/quotationcart/';
+						}
+					});
+			return false;
+		});
+
+		$( ".todetail" ).click(function() {
+		  	var id = $(this).attr('id');
+
+		  	var data = $('#frmSearch').serialize();
+			var url = '<?php echo $this->config['url_base']?>/product/detail?'+data+'&id='+id;
+			window.location.href=url;
+		});
+
+		$( ".product-xs" ).click(function() {
+		  	var id = $(this).attr('id');
+
+		  	var data = $('#frmSearch').serialize();
+			var url = '<?php echo $this->config['url_base']?>/product/detail?'+data+'&id='+id;
+			window.location.href=url;
+		});
+
+		setTimeout(function(){
+			$.colorbox.close();
+		},500);
+	});
+	jQuery.fn.ForceNumericOnly =
+		function()
+		{
+		    return this.each(function()
+		    {
+		        $(this).keydown(function(e)
+		        {
+		            var key = e.charCode || e.keyCode || 0;
+		            if (e.shiftKey && (key != 35 && key != 36)) return false;
+		            return (
+		            	(key >= 112	&& key <= 127) ||
+		                key == 8	||
+		                key == 9 	||
+		                (key >= 35 && key <= 40) ||
+		                (key >= 48 && key <= 57) ||
+		                (key >= 96 && key <= 105));
+		        });
+		    });
+		};
+</script>
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+          <div class="row" >
+          	<div class="col-6 col-xs-12 col-sm-12 col-md-8 col-lg-8 title_col">
+				<div class="row title_tyle" >
+					<div class="col-4 col-xs-12 col-sm-6 col-md-4 col-lg-4 title_col">
+						<label class="pull-left"><?php echo $this->title_label;?></label>
+					</div>
+
+					<div class="col-8 col-xs-12 col-sm-6 col-md-8 col-lg-8 title_col">
+						<?php
+
+							$displayNamespace = new Zend_Session_Namespace('Display');
+							$classsumary = "sortbutton";
+							$classimage = "sortinsetbutton";
+							if (!isset($displayNamespace->display)){
+								$displayNamespace->display = Core_Util_Const::DISPLAY_SUMMARY;
+							}
+							if (strcmp($displayNamespace->display, Core_Util_Const::DISPLAY_SUMMARY) == 0){
+								$classsumary = "sortinsetbutton";
+								$classimage = "sortbutton";
+							}
+							if (!isset($displayNamespace->sort))
+							{
+								$displayNamespace->sort = Core_Util_Const::SORT_DEFAULT;
+							}
+							?>
+						<a href="" class="<?php echo $classsumary;?>" onclick="<?php if (strcmp($classsumary, "sortinsetbutton")!=0) echo "changedisplay();"; else echo "return false;";?>">一覧</a>
+						<a href="" class="<?php echo $classimage;?>" onclick="<?php if (strcmp($classimage, "sortinsetbutton")!=0) echo "changedisplay();"; else echo "return false;";?>">画像</a>
+						<label for="selectsort">並び替え</label>
+						<select id="selectsort" name="selectsort">
+						<?php $sorts = $this->sorts;
+							if ($sorts != null && is_array($sorts)):
+								foreach ( $sorts as $sort ) :
+							?>
+								<option value="<?php echo $sort->getItemCd();?>"
+								<?php if (strcmp($displayNamespace->sort, $sort->getItemCd())==0) echo " selected "?>><?php echo $sort->getItemName();?></option>
+							<?php endforeach;
+							endif;?>
+	          			</select>
+	          		</div>
+				</div>
+          	</div>
+          	<div class="col-6 col-xs-12 col-sm-12 col-md-4 col-lg-4 title_col pagination-wrapper" class="title_col">
+          	<?php
+          		echo $this->paginator;
+			?>
+          	</div>
+          </div>
+<?php
+$d=0;
+$rowcount = 4;
+$endindex=count($this->m_products)-1;
+foreach ( $this->m_products as $key => $pro ) :
+	$product = $pro['product'];
+	if (strcmp($displayNamespace->display, Core_Util_Const::DISPLAY_SUMMARY)==0){
+	?>
+	<div class="row">
+		<div class="col-6 col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			<table class="table">
+				<tr>
+					<!-- MOD 20140512 Hieunm modify src of img tag below-->
+					<td width="95px">
+						<img 
+							class="product product-sm-md-lg" 
+							onerror="imgError(this);" 
+							src="<?php echo $this->config['url_base']?><?php if ($product->getImagePath()!=null) echo $folderImageThumb . $product->getImagePath(); else echo $folderImage . "no_images.jpg"?>" class="img-responsive"/>
+						<span class="product-xs" id="<?php echo $product->getProductId();?>">
+							<img class="product"
+								onerror="imgError(this);"
+								src="<?php echo $this->config['url_base']?><?php if ($product->getImagePath()!=null) echo $folderImageThumb . $product->getImagePath(); else echo $folderImage . "no_images.jpg"?>"
+								class="img-responsive"/>
+						</span>
+					</td>
+					<td>
+						<h5><?php echo $product->getProductName();?></h5>
+						<!-- <div class="product-no"><b>商品番号 </b></div> -->
+
+						<span><b>&lt;<?php echo$product->getProductNo();?>&gt;</b></span>
+
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2">
+					<span>
+						<a class="todetail" href="#" id="<?php echo $product->getProductId();?>" >
+						<img src="<?php echo $this->config['url_base']?>/images/web/btn_detail.jpg" />
+						</a>
+					</span>
+					<span id="spanLikeUnlikeSmMdLg">
+						<?php if ($pro['like'] != null) {?>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike">☆お気に入り</a>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like" style="display:none;">お気に入りへ</a>
+						<?php } else { ?>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike" style="display:none;">☆お気に入り</a>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like">お気に入りへ</a>
+						<?php } ?>
+					</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="col-6 col-xs-12 col-sm-12 col-md-3 col-lg-3 brief-md-lg" style="word-wrap: break-word"> <!-- MOD 20140429 Hieunm add style -->
+			<p> <?php echo nl2br($product->getProductBrief());?> </p>
+		</div>
+
+		<div class="col-6 col-xs-12 col-sm-3 col-md-3 col-lg-3 price">
+			<?php if ($pro['price'] != null) {?>
+				<span> <b>販売価格（税抜）</b>
+				</span> <span class="number"> <b><?php echo $pro['price'];?>円</b>
+			<?php }?>
+			<!-- MOD 20140416 Hieunm start -->
+			<?php if ($pro['quotation_id'] != null && $pro['is_valid_until_date'] != '0') { ?>
+					</span> <span> <b>お見積り価格（税抜） </b>
+					<?php if ($pro['price1'] != null && $pro['status'] != '1') {?>
+					</span> <span class="number"> <b><?php echo $pro['price1'];?>円</b>
+					<?php } else {?>
+					</span> <span class="number"> <b><?php echo Core_Util_Const::QUOTATION_INFO_WAIT;?></b>
+					<?php }?>
+			<?php }?>
+			<!-- MOD 20140416 Hieunm end -->
+			</span> <span class="end">
+			<?php
+
+			 if ($product->getShippingDisplayFlag()==1){
+					if ($pro['shipping_item_name'] != null) {
+						echo "【".$pro['shipping_item_name'];
+						if ($product->getShippingClass() == Core_Util_Const::SHIPPING_CLASS_3){
+							echo $product->getShippingFee()."円";
+						}
+						echo "】 ";
+						if ($product->getStockDisplayFlag()==1 && $pro['stock_item_name'] != null){
+							echo " / ";
+						}
+					}
+				}
+				if ($product->getStockDisplayFlag()==1){
+					if ($pro['stock_item_name'] != null) {
+						echo "【".$pro['stock_item_name'];
+						if ($product->getStockClass() == Core_Util_Const::STOCK_CLASS_3){
+							echo $product->getStockQty()."個";
+						}
+						echo "】 ";
+					}
+				}?>
+			</span>
+		</div>
+
+		<div class="col-6 col-xs-8 col-sm-3 col-md-3 col-lg-3 price price-resp">
+			<span> <b>数量</b>
+			</span>
+			<select id="<?php echo 'cmbQuantity-'.$product->getProductId(); ?>"
+								style="height: 22px; width: 100px"
+								onfocus="this.selectedIndex = -1";
+								<?php 
+									if ('1' == $product->getQuantityRestriction()){
+									echo 'disabled="true"'	;
+									}
+								?>
+								onchange="onChangeQuantity(<?php echo $product->getProductId() ?>);">
+						  		<?php for($i=1; $i<=10; $i++){ ?>
+							    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+							    <?php } ?>
+						 	 </select> <input type="text"
+								id="<?php echo 'txtQuantity-'.$product->getProductId() ?>"
+								name="<?php echo 'txtQuantity-'.$product->getProductId() ?>"
+								onkeydown="if (event.keyCode == 13) return false;"
+								onblur="onBlurTxt(<?php echo $product->getProductId() ?>);"
+								value="1"
+								<?php if ('1' == $product->getQuantityRestriction()){
+									echo 'disabled="true"'	;
+								}
+								 ?>
+								style="color:blue; font-weight:bold ;border-width: 0px; border-left-width: 1px; height: 20px; width: 82px; margin-left: -104px; text-align: right; padding-right: 5px;">
+								<br/>
+			<a href="#" id="<?php echo $product->getProductId(); ?>" class="button order addorder">注文カートへ入れる</a>
+			<br><a href="#" id="<?php echo $product->getProductId(); ?>" class=" button quotes addquotes" >見積りカートへ入れる</a>
+			<?php 
+				echo '<input type="hidden" name ="quanRes-'.$product->getProductId().'"'
+				.' id ="quanRes-'.$product->getProductId().'"'
+				.' value = "'.$product->getQuantityRestriction().'"/>'  	;	
+			 ?>		
+		</div>
+
+		<div class="col-6 col-xs-12 col-sm-12 brief-sm">
+			<?php echo nl2br($product->getProductBrief());?>
+		</div>
+	</div>
+	<hr/>
+	<?php } else {
+		if ($d % $rowcount == 0){
+			echo '<div class="row">';
+		}
+		?>
+		<div class="col-6 col-sm-4 col-xs-8 col-lg-3 ">
+			<table class="table">
+				<tr>
+					<!-- MOD 20140512 Hieunm modify src of img tag below-->
+					<td width="95px">
+						<img class="product product-sm-md-lg"
+						onerror="imgError(this);"
+						src="<?php echo $this->config['url_base']?><?php if ($product->getImagePath()!=null) echo $folderImageThumb . $product->getImagePath();else echo $folderImage . "no_images.jpg"?>" 
+						class="img-responsive">
+					<!-- ADD 20140513 Hieunm start -->
+					<span class="product-xs" id="<?php echo $product->getProductId();?>">
+						<img class="product"
+							onerror="imgError(this);"
+							src="<?php echo $this->config['url_base']?><?php if ($product->getImagePath()!=null) echo $folderImageThumb . $product->getImagePath(); else echo $folderImage . "no_images.jpg"?>"
+							class="img-responsive"/>
+					</span>
+					<!-- ADD 20140513 Hieunm end -->
+					</td>
+					<td>
+						<h5><?php echo $product->getProductName();?></h5>
+						<!-- <div class="product-no"><b>商品番号 </b> </div>&nbsp; -->
+						<span><b>&lt;<?php echo$product->getProductNo();?>&gt;</b></span>
+
+					</td>
+
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span>
+						<a class="todetail" href="#" id="<?php echo $product->getProductId();?>" >
+						<img src="<?php echo $this->config['url_base']?>/images/web/btn_detail.jpg" />
+						</a>
+					</span>
+						<span id="spanLikeUnlikeSmMdLg">
+						<?php if ($pro['like'] != null) {?>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike">☆お気に入り</a>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like" style="display:none;">お気に入りへ</a>
+						<?php } else { ?>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike" style="display:none;">☆お気に入り</a>
+							<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like">お気に入りへ</a>
+						<?php } ?>
+						</span>
+
+					</td>
+				</tr>
+
+			</table>
+		</div>
+	<?php
+		if ($d % $rowcount == 3 || $d == $endindex){
+			echo '</div>
+	<hr/>';
+		}
+		$d++;
+	} ?>
+        <?php endforeach; ?>
+
+

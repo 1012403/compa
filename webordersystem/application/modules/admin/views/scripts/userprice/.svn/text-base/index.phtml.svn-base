@@ -1,0 +1,288 @@
+<style>
+td {
+	text-align: left;
+	vertical-align: top;
+}
+
+tr td:last-child {
+	text-align: center;
+}
+
+tr.rowedit input[type="text"] {
+	display: none;
+}
+
+div.row.errorupdate {
+	color: red;
+	font-weight: bold;
+	text-align: left;
+}
+
+input[type="submit"] {
+	padding-top: 0px !important;
+}
+.right{
+	float: right;
+}
+
+.invisible {
+	position: absolute;
+	left: -9999px;
+}
+</style>
+<script>
+  $(document).ready(function(){
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+	  	if($("#export").length > 0) {
+			$("#export").remove();
+		}
+	  	if (id>0){
+	  		$('#frmUserPriceSearch').append("<input type=\"hidden\" id=\"page\" name=\"page\" value=\"" + id + "\">");
+	  		$('#frmUserPriceSearch').submit();
+	  	}
+		return false;
+	});
+	$( ".btnSearchUserPrice" ).click(function() {
+		if($("#export").length > 0) {
+			$("#export").remove();
+		}
+	  	$('#frmUserPriceSearch').append("<input type=\"hidden\" name=\"operateElementType\" value=\"0\">");
+	  	$('#frmUserPriceSearch').append("<input type=\"hidden\" name=\"operateElementName\" value=\"" + $(this).val() + "\">");
+	  	$('#frmUserPriceSearch').submit();
+	  	
+		return false;
+	});
+	$('.editprice').click(function() {
+		var button = $(this);
+	  	var id = $(this).attr('id');
+	  	if ($(this).html() == '編集'){
+		  	$(this).html('更新');
+		  	$('#price'+id).show();
+		  	$('#date'+id).show();
+		  	$('#spanprice'+id).hide();
+		  	$('#spandate'+id).hide();
+		  	$('#label'+id).hide();
+	  	} else {
+	  		var user_id = $('#user_id'+id).val();
+	  		var product = $('#product'+id).val();
+	  		var price = $('#price'+id).val();
+	  		var date = $('#date'+id).val();
+		  	$.ajax({
+				url: "<?php echo $this->url(array('action' => 'updateprice','controller' =>'userprice')); ?>",
+				type: "post",
+				data: { "user_id": user_id, "product_id":product, "price":price, "date":date},
+				success: function( strData ){
+					$('.errorupdate').html(strData);
+					if (strData == ''){
+						button.html('編集');
+				  		var number = $('#price'+id).val();
+					  	$('#spanprice'+id).html (formatNumber(number));
+					  	$('#spanprice'+id).show();
+					  	$('#spandate'+id).html($('#date'+id).val());
+					  	$('#spandate'+id).show();
+					  	$('#label'+id).show();
+					  	$('#price'+id).hide();
+					  	$('#date'+id).hide();
+					} else {
+						$('#price'+id).focus();
+						$('#price'+id).select();
+					}
+				}
+			});
+	  	}
+		return false;
+	});
+	function formatNumber(number){
+		var res=number.split("");
+  		while (res.length % 3 != 0) {
+			res.unshift("");
+		}
+		var numberformat = res[0];
+		for (var index = 1; index < res.length; index++) {
+			if (index % 3 == 0){
+				numberformat += ",";
+			}
+			numberformat += res[index];
+		}
+  		return numberformat;
+	}
+
+	//export SCV user
+	$('#exportCsvBtn').click(function(){
+		$('#frmUserPriceSearch').append("<input type=\"hidden\" id=\"export\" name=\"export\" value=\"1\">");
+	  	$('#frmUserPriceSearch').submit();
+	});
+
+	// import CSV
+    $('#importCsvBtn').click(function(){
+    	$('#fileUserProd').val("");
+		$('#fileUserProd').click();
+	});
+
+	$('#fileUserProd').change(function(){
+		$("#import_csv_form").ajaxForm({
+			success: function(data){
+				if (data == "true") {
+					alert("正常にインポートしました。");
+					location.href='/admin/userprice';
+				} else {
+					alert(data);
+				}
+				
+			}
+		}).submit();
+	});
+
+		
+  });
+</script>
+
+<?php
+$url = $this->url ( array (
+		'action' => 'index',
+		'controller' => 'userprice' 
+) );
+
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;
+?>
+<form action="<?php echo $url ?>" method="post" id="frmUserPriceSearch">
+	<div class="row">
+		<table>
+			<tr>
+				<td width="100%">
+					<div class="title_col">
+						<div class="title_tyle title_search">
+							<label class="pull-left"> ユーザ商品単価 </label> 
+							<span> 
+								<label for="txt_username">ユーザ名</label> 
+								<input type="text" id="txt_username" name="txt_username" value="<?php echo $this->txt_username;?>">
+								<label for="txt_login_username">ユーザＩＤ</label> 
+								<input type="text" id="txt_login_username" name="txt_login_username" value="<?php echo $this->txt_login_username;?>">
+							</span>
+							<span>&nbsp;</span>
+						</div>
+					</div>
+				</td>
+				<td class="title_right">
+					<span style="display: inline-block; width: 40px;">&nbsp;</span>
+					<?php if(Core_Util_Helper::isReferenceAdmin()):?>
+						<span> 
+							<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">ＣＳＶ取込み</a>
+						</span> 
+						<span>
+							<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">ＣＳＶ出力</a>
+						</span>
+					<?php else : ?>
+					
+						<span>
+							<a id="importCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ取込み</a>
+						</span>
+						<span>
+							<a id="exportCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ出力</a>
+						</span>
+					
+					<?php endif;?>
+				</td>
+			</tr>
+			<tr>
+				<td class="title_search">
+					<span>
+						<label for="txt_product_name">商品名</label>
+						<input type="text" id="txt_product_name" name="txt_product_name" value="<?php echo $this->txt_product_name;?>">
+						<span></span>
+						<input type="submit" class="searchLog button btnSearchUserPrice" value="検索" />
+					</span>
+				</td>
+				<td>
+				<div>
+					<?php echo $this->paginator; ?>
+				</div>
+			</tr>
+		</table>
+	</div>
+</form>
+
+<!-- form import CSV -->
+<form enctype="multipart/form-data" id="import_csv_form" method="post" action="/admin/userprice/importcsv">
+	<input type="file" name="fileUserProd" id="fileUserProd" class="invisible"/>
+</form>
+
+<div class="row errorupdate"></div>
+<div class="row">
+	<table class="content">
+		<tr>
+			<th style="width: 15%">ユーザ名</th>
+			<th style="width: 15%">ユーザＩＤ</th>
+			<th style="width: 100px">商品画像</th>
+			<th>商品名／&lt;商品番号&gt;</th>
+			<!-- <th style="width: 12%">標準価格(税込)</th>
+			<th style="width: 12%">見積り単価(税込)</th> -->
+			<th style="width: 12%">販売価格（税抜）</th>
+			<th style="width: 12%">見積り単価(税抜)</th>
+			
+			<th style="width: 12%">有効期間</th>
+			<th width="70px">処理</th>
+		</tr>
+			<?php
+			foreach ( $this->userprices as $key => $userprice ) {
+				$user = $userprice ['user'];
+				$upj = $userprice ['upj'];
+				$product = $userprice ['product'];
+				?>
+			<tr class="rowedit">
+				<td>
+					<input type="hidden" id="user_id<?php echo $key;?>" value="<?php echo $user->getUserId();?>" /> 
+					<input type="hidden" id="product<?php echo $key;?>" value="<?php echo $product->getProductId();?>" />
+					<?php echo $this->escape($user->getUserName());?>
+				</td>
+				<td>
+					<?php echo $this->escape($user->getLoginUserName());?>
+				</td>
+				<td>
+					<img width="100px" height="100px" onerror="imgError(this);"
+						src="<?php echo $this->config['url_base']?><?php echo $folderImageThumb; ?><?php if ($product->getImagePath()!=null) echo $product->getImagePath(); else echo $folderImage."no_images.jpg"?>" />
+				</td>
+				
+				<td>
+					<?php echo $this->escape($product->getProductName());?>
+					<br>
+					<?php if (Core_Util_Helper::isNotEmpty($product->getProductNo())):?>
+					<b>&lt;<?php echo $product->getProductNo();?>&gt;</b>
+					<?php endif;?>
+				</td>
+				<td >
+					<span class="right"><?php echo Core_Util_Helper::nullToZero($userprice['mpp_price']);?> 円</span>
+				</td>
+				<td>
+					<div class="right">
+					<span id="spanprice<?php echo $key;?>" > <?php echo Core_Util_Helper::nullToZero($userprice['price_format']);?></span>
+					<span id="label<?php echo $key;?>" > 円</span> 
+					</div>
+					<input type="text" id="price<?php echo $key;?>" value="<?php echo Core_Util_Helper::nullToZero($upj->getPrice());?>">
+				</td>
+				
+				<td>
+					<span id="spandate<?php echo $key;?>"> <?php echo $upj->getValidUntilDate();?></span>
+					<input type="text" class="hasDatepicker" id="date<?php echo $key;?>" value="<?php echo $upj->getValidUntilDate();?>">
+				</td>
+				<td align="center" valign="middle">
+					<?php if(Core_Util_Helper::isReferenceAdmin()):?>
+						<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;" >編集</a>
+					<?php else : ?>
+						<a id="<?php echo $key;?>" class="button2 editprice" href="javascript:void(0);" >編集</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php
+			}
+			?>		
+		</table>
+		<script>
+				$('.hasDatepicker').datepicker({
+					'format': 'yyyy/mm/dd',
+					'autoclose': true
+				});
+		</script>
+</div>

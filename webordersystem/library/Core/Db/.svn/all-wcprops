@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/Ishida02/!svn/ver/1197/trunk/webordersystem/library/Core/Db
+END
+Persistent.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Ishida02/!svn/ver/993/trunk/webordersystem/library/Core/Db/Persistent.php
+END
+MstUserDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Ishida02/!svn/ver/1187/trunk/webordersystem/library/Core/Db/MstUserDb.php
+END
+ContentsDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Ishida02/!svn/ver/15/trunk/webordersystem/library/Core/Db/ContentsDb.php
+END
+QuotationInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/Ishida02/!svn/ver/1126/trunk/webordersystem/library/Core/Db/QuotationInfoDb.php
+END
+QuotationCartInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/481/trunk/webordersystem/library/Core/Db/QuotationCartInfoDb.php
+END
+OrderInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Ishida02/!svn/ver/1103/trunk/webordersystem/library/Core/Db/OrderInfoDb.php
+END
+OrderCartInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/Ishida02/!svn/ver/481/trunk/webordersystem/library/Core/Db/OrderCartInfoDb.php
+END
+FeaturedProductDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/605/trunk/webordersystem/library/Core/Db/FeaturedProductDb.php
+END
+MstProductDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/Ishida02/!svn/ver/1197/trunk/webordersystem/library/Core/Db/MstProductDb.php
+END
+NoticeInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Ishida02/!svn/ver/471/trunk/webordersystem/library/Core/Db/NoticeInfoDb.php
+END
+MstUserShippingDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/1074/trunk/webordersystem/library/Core/Db/MstUserShippingDb.php
+END
+MstProductPriceDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/1078/trunk/webordersystem/library/Core/Db/MstProductPriceDb.php
+END
+UserFavoriteProductDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/428/trunk/webordersystem/library/Core/Db/UserFavoriteProductDb.php
+END
+MstClassDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Ishida02/!svn/ver/1177/trunk/webordersystem/library/Core/Db/MstClassDb.php
+END
+OperationLogInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/918/trunk/webordersystem/library/Core/Db/OperationLogInfoDb.php
+END
+QuotationDetailInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/986/trunk/webordersystem/library/Core/Db/QuotationDetailInfoDb.php
+END
+QuotationCartDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/Ishida02/!svn/ver/175/trunk/webordersystem/library/Core/Db/QuotationCartDb.php
+END
+MstCategoryDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Ishida02/!svn/ver/1165/trunk/webordersystem/library/Core/Db/MstCategoryDb.php
+END
+OrderDetailInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/1192/trunk/webordersystem/library/Core/Db/OrderDetailInfoDb.php
+END
+OrderCartDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Ishida02/!svn/ver/175/trunk/webordersystem/library/Core/Db/OrderCartDb.php
+END
+UserProductJoinDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/1104/trunk/webordersystem/library/Core/Db/UserProductJoinDb.php
+END
+ContactInfoDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/Ishida02/!svn/ver/672/trunk/webordersystem/library/Core/Db/ContactInfoDb.php
+END
+MstProductExtraDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/745/trunk/webordersystem/library/Core/Db/MstProductExtraDb.php
+END
+Adapter.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Core/Db/Adapter.php
+END
+MailTemplateDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Ishida02/!svn/ver/868/trunk/webordersystem/library/Core/Db/MailTemplateDb.php
+END
+MstMagnificationDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/1078/trunk/webordersystem/library/Core/Db/MstMagnificationDb.php
+END
+ProductCategoryJoinDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/196/trunk/webordersystem/library/Core/Db/ProductCategoryJoinDb.php
+END

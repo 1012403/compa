@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Ishida02/!svn/ver/1110/trunk/webordersystem/application/layouts
+END
+layout_error.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/852/trunk/webordersystem/application/layouts/layout_error.phtml
+END
+layout_front.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/1110/trunk/webordersystem/application/layouts/layout_front.phtml
+END
+layout_login.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/633/trunk/webordersystem/application/layouts/layout_login.phtml
+END
+layout_admin.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/265/trunk/webordersystem/application/layouts/layout_admin.phtml
+END
+layout_admin_2.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/941/trunk/webordersystem/application/layouts/layout_admin_2.phtml
+END
+layout_files.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Ishida02/!svn/ver/314/trunk/webordersystem/application/layouts/layout_files.phtml
+END

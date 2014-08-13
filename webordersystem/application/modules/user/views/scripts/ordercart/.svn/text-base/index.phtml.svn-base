@@ -1,0 +1,430 @@
+<?php
+$url = $this->url(array('action' => 'main','controller' =>'ordercart'));
+?>
+
+<style>
+<!--
+#tblProductInfo td {
+  padding-right: 10px
+}
+
+.spanBlue {
+  color: blue;
+  font-weight: bold;
+}
+
+.spanRed {
+  color: red;
+  font-weight: bold;
+}
+
+.txtQuantity {
+  color: blue;
+  font-weight: bold;
+  border-width: 0px;
+  border-left-width: 1px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.title_tyle label.pull-left {
+  background-image: url("../images/1_transparent.png ");
+  background-size: 50px;
+  color: fuchsia;
+  padding: 0 0 0 50px;
+}
+
+#tblSummary {
+  width: 100%;
+  border: solid 2px #B9CDE5;
+}
+
+.right {
+  text-align: right;
+}
+-->
+</style>
+<!-- Css -->
+<link
+  href="<?php echo $this->config['url_base'] ?>/css/ordercart/ordercart.css"
+  rel="stylesheet">
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+<form action="<?php echo $url ?>" method="post" id="formOrderCart">
+  <div class="col-xs-12 col-sm-12 col-lg-12" id="listproduce">
+
+      <?php
+      /* @var $product Core_Models_MstProduct */
+      //summary price and ship fee
+      $totalPrice = 0;
+      $totalShipFee = 0;
+      $totalPoint = 0;
+      foreach ($this->arrProducts as $id => $product){
+        $totalProductPrice = $product->getPrice() * $product->getOrderQuantity();
+        $totalPrice += $totalProductPrice;
+
+        $pointOfProduct = $totalProductPrice * ($this->pointRate / 100) * $product->getMagnificationPoint();
+        $totalPoint += $pointOfProduct;
+
+        if($product->getShippingDisplayFlag() == Core_Util_Const::SHIPPING_DISPLAY_FLG_YES && $product->getShippingClass() == Core_Util_Const::SHIPPING_CLASS_HAS_FEE){
+          $totalShipFee += $product->getShippingFee();
+        }
+      }
+      ?>
+      <div class="row">
+      <div class="col-6 col-xs-12 col-md-8 col-md-8 col-lg-8">
+        <div class="row title_tyle">
+          <label class="pull-left">注文内容確認</label>（今回の獲得ポイント: <label
+            class="spanRed" id="lblTotalPoint"><?php echo number_format($totalPoint, 0)?></label>
+          <label class="spanRed">&nbsp;pt</label>） <input type="hidden"
+            id="hiddenTotalPoint" name="hiddenTotalPoint"
+            value="<?php echo $totalPoint?>" />
+        </div>
+      </div>
+      <div class="col-6 col-xs-12 col-md-4 col-lg-4">
+        <table class="table" id="tblSummary">
+          <tr id="dsk_ordercart">
+            <td width="72%">
+              <table class="tablet_money_ordercart">
+                <tr>
+                  <td id="total_mobile"><span class="spanBlue"> 合計金額（税抜） <br /></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="right"><label class="spanRed " id="lblTotalPrice">
+                        <?php echo number_format($totalPrice,0)?>
+                      </label> <label class="spanRed">円</label></td>
+                </tr>
+              </table>
+
+            </td>
+            <td>
+              <table class="tablet_money_ordercart" style="float: right;">
+                <tr>
+                  <td id="total_mobile"><span class="spanBlue ">合計送料 </span></td>
+                </tr>
+                <tr>
+                  <td class="right">
+                   <span class="spanBlue"><?php echo number_format($totalShipFee, 0)?>&nbsp;円</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+
+
+          <tr id="tablet_ordercart">
+            <td width="70%"><span class="spanBlue"> 合計金額（税抜） <br /></span> <span
+              class="spanBlue">合計送料 <br /></span></td>
+
+            <td width="30%" class="tablet_totalvalue_ordercart" ><span
+              class="spanRed"><label id="lblTotalPrice"><?php echo number_format($totalPrice,0)?></label>
+                <label class="spanRed">&nbsp;円</label></br></span> <span
+              class="spanBlue right"><label><?php echo number_format($totalShipFee, 0)?>&nbsp;円</label></span>
+            </td>
+
+          </tr>
+        </table>
+      </div>
+    </div>
+       <?php
+              /* @var $product Core_Models_MstProduct */
+              foreach ( $this->arrProducts as $id => $product ) {
+                $proId = $product->getProductId ();
+                $totalUnitPrice = $product->getPrice () * $product->getOrderQuantity ();
+                $pointRate = $this->pointRate;
+                ?>
+      <div class="row">
+      <div class="col-6 col-xs-12 col-sm-3 col-lg-4">
+        <table id="tblProductInfo ">
+
+          <tr>
+            <td rowspan="3" id="dsk_img_ordercart" style="padding-right: 5px;">
+              <a class="button"
+              onclick="onClickDeleteRow(<?php echo $proId; ?>);"
+              style="text-align: center; width: 40px; cursor: pointer;">削除</a>
+            </td>
+            <!-- MOD 20140512 Hieunm modify src of img tag below-->
+            <td rowspan="2" style="padding-right: 5px;"><img
+              onerror="imgError(this);"
+              src="<?php echo $folderImageThumb. $product->getImagePath() ?>"
+              class="img-responsive" style="height: 79px"></td>
+            <td><?php echo $product->getProductName(); ?></td>
+          </tr>
+
+          <tr>
+            <td id="no_product"><b>&lt;<!-- 商品番号&nbsp;&nbsp;&nbsp; -->
+                <?php echo$product->getProductNo(); ?>&gt;</b></td>
+            <td id="no_product_mobile"><b>&lt;<?php echo$product->getProductNo(); ?>&gt;</b>
+            </td>
+          </tr>
+
+        </table>
+
+      </div>
+      <div class="col-6 col-xs-3 col-sm-1 col-lg-2 tablet_img_ordercart"
+        style="display: none">
+
+        <table id="tblProductInfo" class="table_tblProductInfo_ordercart">
+          <tr>
+            <td><a class="button tablet_img_ordercart"
+              onclick="onClickDeleteRow(<?php echo $proId; ?>);"
+              style="text-align: center; width: 40px; cursor: pointer;">削除</a>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+      <div class="col-6 col-xs-3 col-sm-2 col-lg-2">
+        <table>
+
+          <tr>
+            <td id="price_mobile"><span class="spanBlue">注文価格（税抜）</span></td>
+          </tr>
+
+          <tr class="tablet_tr_value_ordercart right">
+            <td><span class="spanBlue "><?php echo number_format($product->getPrice(), 0).' 円'; ?></span>
+              <input type="hidden" id="<?php echo 'hiddenPrice-'.$proId ?>"
+              value="<?php echo $product->getPrice() ?>"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-6 col-xs-4 col-sm-2 col-lg-2">
+        <table>
+
+          <tr>
+            <td class="tablet_quality_ordercart"><span class="spanBlue">数量</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td><select id="<?php echo 'cmbQuantity-'.$proId ?>"
+              style="height: 22px; width: 80px"
+              onfocus="this.selectedIndex = -1"
+              <?php 
+          		if ($product->getQuantityRestriction() == '1'){
+          			echo 'disabled="true"'	;
+          		}
+          	  ?>
+              onchange="onChangeQuantity(<?php echo $proId ?>);">
+                    <?php for($i=1; $i<=10; $i++){ ?>
+                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                    <?php } ?>
+                  </select> <input type="text"
+              id="<?php echo 'txtQuantity-'.$proId ?>"
+              name="<?php echo 'txtQuantity-'.$proId ?>"
+              <?php 
+				if ($product->getQuantityRestriction() == '1'){
+					echo 'disabled="true"'	;
+				}
+			  ?>
+              onkeydown="if (event.keyCode == 13) return false;"
+              onblur="onBlurTxt(<?php echo $proId ?>);"
+              value="<?php echo $product->getOrderQuantity(); ?>"
+              class="txtQuantity"
+              style="margin-left: -84px; height: 17px; width: 62px; padding-top: 0px">
+            </td>
+            <!-- MOD 20140422 Hieunm (height, padding) -->
+          </tr>
+        </table>
+
+      </div>
+
+      <div class="col-6 col-xs-2 col-sm-2 col-lg-2">
+        <table class="tablet_money_ordercart">
+          <tr>
+            <td id="total_mobile"><span class="spanBlue">&nbsp;&nbsp;注文金額（税抜）</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="right"><span style="color: red; font-weight: bold">
+                &nbsp;&nbsp; <label class="totalUnitPrice "
+                id='<?php echo 'lblTotalUnitPrice-'.$proId ?>'>
+                    <?php echo number_format($totalUnitPrice, 0) ?> 円</label>
+            </span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-6 col-xs-3 col-sm-2 col-lg-2 tablet_trans_ordercart">
+        <table style="width: 100%">
+          <tr>
+            <td><span class="spanBlue"
+              style="float: right; margin-right: 10px;">送料 </span></td>
+          </tr>
+          <tr>
+            <td><span class="spanBlue right"
+              style="float: right; margin-right: 10px;">
+                <?php
+                  if($product->getShippingDisplayFlag() == Core_Util_Const::SHIPPING_DISPLAY_FLG_YES && $product->getShippingClass() == Core_Util_Const::SHIPPING_CLASS_HAS_FEE){
+                    echo number_format($product->getShippingFee(), 0).' 円';
+                  }
+                  else{
+                    echo '0 円';
+                  }
+                ?>
+                </span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <hr>
+    <input type="hidden" class="hiddenMagnificationPoint"
+      id='<?php echo 'hiddenMagnificationPoint-'.$proId ?>'
+      name='<?php echo 'hiddenUnitPoint-'.$proId ?>'
+      value="<?php echo $product->getMagnificationPoint() ?>" />
+      <?php } ?>
+
+      <?php if(count($this->arrProducts) != 0){ ?>
+      <div
+      style="text-align: right; padding-right: 15px; padding-left: 15px;">
+      <a class="button order table_order_ordercart"
+        style="text-align: center; width: 100px; cursor: pointer;"
+        onclick="nextStep()">注文手続きへ</a>
+    </div>
+      <?php }?>
+      <br />
+  </div>
+
+  <input type="hidden" id="hiddenPointRate" name="hiddenPointRate"
+    value="<?php echo $this->pointRate ?>" /> <input type="hidden"
+    id="actName" name="actionName" value="" /> <input type="hidden"
+    id="proId" name="productId" value="" />
+
+</form>
+
+<script>
+  // onload
+  $(document).ready(function() {
+    $( "#listproduce" ).find( ".txtQuantity" ).each(function(){
+      $(this).ForceNumericOnly();
+    });
+  });
+
+  //next step
+  function nextStep(){
+    setHiddenActionName('viewOrderCartInfo');
+  }
+
+  //setHiddenActionName
+  function setHiddenActionName(actionName){
+    $("#actName").val(actionName);
+    $("#formOrderCart").submit();
+  }
+
+  //onClickDeleteRow
+  function onClickDeleteRow(productId){
+    $("#proId").val(productId);
+    setHiddenActionName('deleteRow');
+  }
+
+  //onChangeQuantity
+  function onChangeQuantity(proId){
+    var txtName = "#txtQuantity-" + proId;
+    var cmbName = "#cmbQuantity-" + proId;
+    $(txtName).val($(cmbName).val());
+    onBlurTxt(proId);
+  }
+
+  //lost focus txtQuantity
+  function onBlurTxt(proId){
+    calTotalPrice(proId);
+  }
+
+  //calTotalPrice
+  function calTotalPrice(proId){
+    var totalPrice = replaceFormat($('#lblTotalPrice').text());
+    var totalPoint = $('#hiddenTotalPoint').val();
+    var hiddenPointRate = $('#hiddenPointRate').val();
+
+    var quantity = $("#txtQuantity-" + proId).val();
+    var unitPrice = $("#hiddenPrice-" + proId).val();
+    var magnificationPoint = $("#hiddenMagnificationPoint-" + proId).val();
+
+    var totalUnitPrice = replaceFormat($("#lblTotalUnitPrice-" + proId).text());
+
+
+    //minus price of changed item
+    totalPriceOld = parseInt(totalPrice) - parseInt(totalUnitPrice);
+    totalPointOld = parseFloat(totalPoint) - parseFloat(totalUnitPrice * hiddenPointRate * magnificationPoint);
+
+    //update new price
+    $('#lblTotalUnitPrice-' + proId).text(addCommas(quantity * unitPrice));
+    totalUnitPrice = replaceFormat($("#lblTotalUnitPrice-" + proId).text());
+
+    //plus to total
+    totalPriceNew = parseInt(totalPriceOld) + parseInt(totalUnitPrice);
+    totalPointNew = parseFloat(totalPointOld) + parseFloat(totalUnitPrice * hiddenPointRate * magnificationPoint);
+
+    $('#lblTotalPrice').text(addCommas(totalPriceNew));
+    $('#hiddenTotalPoint').val(totalPointNew);
+    $('#lblTotalPoint').text(addCommas(Math.round(totalPointNew).toFixed(0)));
+  }
+
+  //check input
+  function checkInput(){
+    var checkAll = true;
+
+    $( "#listproduce" ).find( ".txtQuantity" ).each(function(){
+      if(!checkIsNumeric($(this).val())){
+        alert('Quantity is invalid.');
+        $(this).focus();
+        $(this).select();
+        checkAll = false;
+      }
+    });
+
+    return checkAll;
+  }
+
+  // check is numeric
+  function checkIsNumeric(value) {
+    if($.trim(value).length > 0 && $.isNumeric(value) == false) {
+      return false;
+    }
+    return true;
+  }
+
+  //just allow input numeric
+  jQuery.fn.ForceNumericOnly =
+    function()
+    {
+        return this.each(function()
+        {
+            $(this).keydown(function(e)
+            {
+              var key = e.charCode || e.keyCode || 0;
+                if (e.shiftKey && (key != 35 && key != 36)) return false;
+                return (
+                  (key >= 112	&& key <= 127) ||
+                    key == 8	||
+                    key == 9 	||
+                    key == 46 	||
+                    (key >= 35 && key <= 40) ||
+                    (key >= 48 && key <= 57) ||
+                    (key >= 96 && key <= 105));
+            });
+        });
+    };
+
+  //add comma spec
+  function addCommas(nStr)
+  {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+  }
+
+  //replaceFormat
+  function replaceFormat(strInput){
+    return strInput.split(',').join('');
+  }
+</script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<base
+	href="<?php echo $this->config["url_base"] . $this->baseUrl() . '/'; ?>" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link
+	href="<?php echo $this->config['url_base'] ?>/css/common/css/common.css"	rel="stylesheet" type="text/css" />
+<link
+	href="<?php echo $this->config['url_base'] ?>/css/user/default.css"	rel="stylesheet" type="text/css" />
+<link
+	href="<?php echo $this->config['url_base'] ?>/css/user/login.css"	rel="stylesheet" type="text/css" />
+
+<link
+	href="<?php echo $this->config['url_base'] ?>/css/style.css"	rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->config['url_base'] ?>/css/colorbox/colorbox.css"	rel="stylesheet" type="text/css" />
+	
+<script src="<?php echo $this->config['url_base'] ?>/js/jquery-1.11.0.js"	type="text/javascript"></script>
+<script src="<?php echo $this->config['url_base']?>/js/validate.js"	type="text/javascript"></script>
+<script src="<?php echo $this->config['url_base']?>/js/commonUtil.js"	type="text/javascript"></script>
+<script src="<?php echo $this->config['url_base']?>/js/user.js"	type="text/javascript"></script>
+<script src="<?php echo $this->config['url_base'] ?>/js/jquery.colorbox.js"	type="text/javascript"></script>
+<link rel="shortcut icon" href="<?php echo $this->config['url_base'] ?>/images/favicon.ico" />
+
+<title>エラー</title>
+</head>
+<body style="background: none;">
+
+	<div style="margin-top: 35px; margin-left: 0 auto; margin-right: 0 auto;">
+	<?php echo $this->layout()->content; ?>
+	</div>
+</body>
+</html>

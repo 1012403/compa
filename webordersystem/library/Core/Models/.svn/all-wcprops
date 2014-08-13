@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Ishida02/!svn/ver/1193/trunk/webordersystem/library/Core/Models
+END
+ProductCategoryJoin.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Ishida02/!svn/ver/154/trunk/webordersystem/library/Core/Models/ProductCategoryJoin.php
+END
+MstUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Ishida02/!svn/ver/1188/trunk/webordersystem/library/Core/Models/MstUser.php
+END
+Contents.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Core/Models/Contents.php
+END
+QuotationInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/369/trunk/webordersystem/library/Core/Models/QuotationInfo.php
+END
+QuotationCartInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/369/trunk/webordersystem/library/Core/Models/QuotationCartInfo.php
+END
+OrderCartInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Ishida02/!svn/ver/304/trunk/webordersystem/library/Core/Models/OrderCartInfo.php
+END
+OrderInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Ishida02/!svn/ver/1158/trunk/webordersystem/library/Core/Models/OrderInfo.php
+END
+CsvAgent.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/Ishida02/!svn/ver/1026/trunk/webordersystem/library/Core/Models/CsvAgent.php
+END
+FeaturedProduct.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/605/trunk/webordersystem/library/Core/Models/FeaturedProduct.php
+END
+MstProduct.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/Ishida02/!svn/ver/1193/trunk/webordersystem/library/Core/Models/MstProduct.php
+END
+Domain.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Ishida02/!svn/ver/149/trunk/webordersystem/library/Core/Models/Domain.php
+END
+NoticeInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Ishida02/!svn/ver/331/trunk/webordersystem/library/Core/Models/NoticeInfo.php
+END
+MstUserShipping.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/863/trunk/webordersystem/library/Core/Models/MstUserShipping.php
+END
+MasterModel.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/Ishida02/!svn/ver/331/trunk/webordersystem/library/Core/Models/MasterModel.php
+END
+MstProductPrice.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/1192/trunk/webordersystem/library/Core/Models/MstProductPrice.php
+END
+MstClass.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/Ishida02/!svn/ver/1086/trunk/webordersystem/library/Core/Models/MstClass.php
+END
+OperationLogInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/626/trunk/webordersystem/library/Core/Models/OperationLogInfo.php
+END
+QuotationDetailInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Ishida02/!svn/ver/987/trunk/webordersystem/library/Core/Models/QuotationDetailInfo.php
+END
+MstCategory.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/Ishida02/!svn/ver/1074/trunk/webordersystem/library/Core/Models/MstCategory.php
+END
+OrderDetailInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/1193/trunk/webordersystem/library/Core/Models/OrderDetailInfo.php
+END
+UserProductJoin.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/Ishida02/!svn/ver/1099/trunk/webordersystem/library/Core/Models/UserProductJoin.php
+END
+ContactInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/Ishida02/!svn/ver/481/trunk/webordersystem/library/Core/Models/ContactInfo.php
+END
+MstProductExtra.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Ishida02/!svn/ver/578/trunk/webordersystem/library/Core/Models/MstProductExtra.php
+END
+MailTemplate.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/Ishida02/!svn/ver/489/trunk/webordersystem/library/Core/Models/MailTemplate.php
+END
+MstMagnification.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Ishida02/!svn/ver/1078/trunk/webordersystem/library/Core/Models/MstMagnification.php
+END

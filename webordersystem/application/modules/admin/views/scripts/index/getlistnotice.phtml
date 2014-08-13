@@ -1,0 +1,7 @@
+<?php 
+	$arrNotice = $this->arrNotice;
+	/* @var $notice Core_Models_NoticeInfo */ 
+	foreach ($arrNotice as $key => $notice):
+?>
+	<a href="javascript:setGetNoticeDataForTop(<?php echo $notice->getNoticeId(); ?>, '<?php echo $notice->getUpdateDate(); ?>');"><?php echo $notice->getUpdateDate(); ?></a><br />
+<?php endforeach; ?>

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Http
+END
+CookieJar.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Http/CookieJar.php
+END
+UserAgent.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Http/UserAgent.php
+END
+Client.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Http/Client.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Http/Exception.php
+END
+Response.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Http/Response.php
+END
+Cookie.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Http/Cookie.php
+END

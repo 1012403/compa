@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SmsValidation
+END
+ValidatedNumber.php
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SmsValidation/ValidatedNumber.php
+END
+ValidateResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SmsValidation/ValidateResponse.php
+END
+SendValidationKeywordResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SmsValidation/SendValidationKeywordResponse.php
+END
+InvalidateResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SmsValidation/InvalidateResponse.php
+END
+GetValidatedNumbersResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/Ishida02/!svn/ver/9/trunk/webordersystem/library/Zend/Service/DeveloperGarden/Response/SmsValidation/GetValidatedNumbersResponse.php
+END

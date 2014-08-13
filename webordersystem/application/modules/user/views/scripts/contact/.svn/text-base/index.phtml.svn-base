@@ -1,0 +1,257 @@
+<style>
+<!--
+.spanBlue{
+	color:blue;
+	font-weight: bold;
+}
+
+.spanRed{
+	color:red;
+	font-weight: bold;
+}
+
+.tblContact td, th{
+	border-width: 1px;
+	border-color: #C0C0C0;
+	border-style: solid;
+}
+
+.tblContact th{
+	color: blue;
+}
+.contact-small{
+	display:none;
+}
+
+.table-contact-small{
+    	display: none;
+}
+
+@media screen and (max-width: 768px) {
+  	.contact-small{
+  		display: block;
+  	}
+  	.contact{
+  		display: none;
+  	}
+  	.table-contact{
+    	display: none;
+  	}
+  	.table-contact-small{
+    	display: table;
+  	}
+  	textarea{
+  		width:100%;
+  	}
+}
+
+
+</style>
+
+<?php
+$url = $this->url(array('action' => 'contact', 'controller' =>'contact'));
+?>
+<form action="<?php echo $url ?>" method="post" id="frmSearch">
+			<div class="row" style="padding-left:10px; padding-right: 10px">
+	          	<div class="col-sm-12 col-xs-12 col-12 col-md-12 col-lg-12">
+					<div class="row title_tyle" >
+						<label class="pull-left">お問い合わせ入力</label>
+					</div>
+	          	</div>
+					<div class="col-sm-12 col-xs-12 col-12 col-sm-12 col-lg-12">
+					   <div id="errorArea"style="text-align: left; color: red;">
+					   	<?php 
+					   		//echo $this->error;
+					   	?>
+					  </div>
+					  <div id="errorcontent"style="text-align: left; color: red;">
+					   	<?php 
+					   		echo $this->error;
+					   	?>
+					  </div>
+					
+	                 <div class="contact"> <span class="spanBlue" >分類</span>
+	                  <?php echo $this->contactForm->contact_class ?>
+	                  </div>
+	                 <div class="contact-small"> <span class="spanBlue" >分類</span>
+	                 <?php echo $this->contactForm->contact_class_small ?>
+	                 </div>
+	                  
+	                 <br/><br/>
+	                  	
+	                  <span class="spanBlue">タイトル</span>
+	                  <?php echo $this->contactForm->contact_title ?>
+
+					  <br/>
+					  <span class="spanBlue">内容</span>
+					<div style="">
+					<?php
+					//$iphone = strstr($_SERVER['HTTP_USER_AGENT'],'iPhone');
+					//$ipod = strstr($_SERVER['HTTP_USER_AGENT'],'iPod');
+					//$iPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+					$android = stripos( strtolower($_SERVER['HTTP_USER_AGENT']),'android');
+					
+					if( $android !== false ) { //|| $iphone ||$ipod || $isiPad
+						//echo $this->ckeditor('notice');
+						echo $this->contactForm->contact_content;
+					} else{
+					?>
+					<textarea rows="" cols="" id="notice" name="notice" value=""></textarea>
+					<?php 
+						echo $this->ckeditor('notice');
+					} 
+					?>
+					</div>
+	                  <span>
+	                      <a id="submitButton" class="button" href="#" style="color:black; font-weight:bold; width: 140px;">送信</a>
+	                  </span>
+	              </div>
+           </div>
+
+		  <br/>
+          <div class="row" style="padding-left:10px; padding-right: 10px">
+          		<div class="col-12 col-md-12 col-lg-12">
+					<div class="row title_tyle" >
+						<label class="pull-left">お問い合わせ履歴</label>
+					</div>          		
+	          	</div>
+				<div class="col-12 col-md-12 col-lg-3">
+					<?php
+						$paginator = $this->paginator;
+						echo $paginator;
+					?>
+	          	</div>
+				<div>
+				  <table class="table tblContact table-contact" >
+				    <tr >
+                        <th width="20%">
+	                    	<b>分類</b>
+                        </th>
+                        <th width="60%">
+	                    	<b>お問い合わせ内容　／　返答内容</b>
+                        </th>
+                        <th width="20%">
+	                    	<b>日時</b>
+                        </th>
+                    </tr>
+
+					<?php /* @var $contactInfo Core_Models_ContactInfo */ ?>
+					<?php foreach ($this->askContactInfo as $key => $contactInfo):?>
+                    <tr>
+                        <td>
+	                      	<?php echo $this->contactClassName[$contactInfo->getContactClass()]; ?>
+                        </td>
+                        <td style="word-wrap: break-word; max-width: 100px;">
+							<a class="spanBlue" style=" display: block;"
+							 href="/contact/viewdetail?contactId=<?php echo $contactInfo->getContactId() ?>"><?php echo $contactInfo->getTitle(); ?></a>
+                        </td>
+                        <td>
+	                      		<b>
+	                      		<?php $date = new DateTime( $contactInfo->getContactDateTime()); echo date_format($date, 'Y/m/d H:i');?>
+	                      		
+	                      		</b>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                  </table>
+                 </div>
+                 <div>
+                  <table  class="table  table-contact-small">
+                  <?php foreach ($this->askContactInfo as $key => $contactInfo):?>
+                   <tr>
+                        <th style= "border-width: 3px 3px 2px;border-bottom: dotted;border-color: #C0C0C0">
+	                      	<div style="color:black;"><?php echo $this->contactClassName[$contactInfo->getContactClass()]; ?></div>
+                        </th>
+                   </tr>
+                   <tr >    
+                        <th style="  word-wrap: break-word; max-width: 300px; 
+                        	border-bottom: dotted; border-top: dotted; border-width: 2px 3px 2px ;border-color: #C0C0C0">
+							<a class="spanBlue" style=" display: block;"
+							 href="/contact/viewdetail?contactId=<?php echo $contactInfo->getContactId() ?>"><?php echo $contactInfo->getTitle(); ?></a>
+                        </th>
+                   </tr>
+                   <tr>
+                        <th style ="border-width: 2px 3px 3px;border-top: dotted;border-color: #C0C0C0">
+	                      		<b><div style= "color:black;">
+	                      			<?php $date = new DateTime( $contactInfo->getContactDateTime()); echo date_format($date, 'Y/m/d H:i');?>
+	                      		</div></b>
+                        </th>
+                   </tr>
+                    <?php endforeach; ?>
+                  </table>
+                 </div>
+          </div>
+          
+          <br/><br/>
+</form>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	$('#submitButton').click(function(){
+		submitForm();
+	});
+
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+	  	if (id>0){
+	  		$('#frmSearch').append("<input type=\"hidden\" id=\"page\" name=\"page\" value=\"" + id + "\">");
+	  		$('#frmSearch').submit();
+	  	}
+		return false;
+	});
+});
+
+$('#contact_class_small').change(function(){
+		var selectVal = $('#contact_class_small').val();
+		$("input[name=contact_class][value=" + selectVal + "]").attr('checked', 'checked');
+});
+	
+function submitForm() {
+	if (checkContactInput() == false) {
+		return;
+	}
+
+	$('#frmSearch').submit();
+}
+
+function checkContactInput() {
+	var contactTitle = $("#contact_title").val();
+	var contact_area = $("#contact_content").val();
+	var errorMsg = "";
+	var isFocus = false;
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+	if ($.trim(contactTitle) == "") {
+		errorMsg += "タイトルは必ず入力してください。<br/>";
+		if(!isFocus){
+			$('#contact_title').focus();
+			isFocus = true;
+		}
+	}
+	if(isAndroid) {
+		if ($.trim(contact_area) == "") {
+			errorMsg += "内容は必ず入力してください。<br/>";
+			if(!isFocus){
+				$('#contact_content').focus();
+				isFocus = true;
+			}
+		}
+	} else{
+		var contactContent = CKEDITOR.instances.notice.getData();
+		if ($.trim(contactContent) == "") {
+			errorMsg += "内容は必ず入力してください。<br/>";
+			if(!isFocus){
+				CKEDITOR.instances.notice.focus();
+				isFocus = true;
+			}
+		}
+	}
+	if(errorMsg != ""){
+		$("#errorArea").empty();
+		$("#errorArea").append(errorMsg);
+		return false;
+	}
+	return true; 
+}
+
+</script>

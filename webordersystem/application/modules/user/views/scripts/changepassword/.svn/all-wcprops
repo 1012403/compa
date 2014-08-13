@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/Ishida02/!svn/ver/928/trunk/webordersystem/application/modules/user/views/scripts/changepassword
+END
+reseterror.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/Ishida02/!svn/ver/15/trunk/webordersystem/application/modules/user/views/scripts/changepassword/reseterror.phtml
+END
+reset.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/Ishida02/!svn/ver/15/trunk/webordersystem/application/modules/user/views/scripts/changepassword/reset.phtml
+END
+index.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/Ishida02/!svn/ver/928/trunk/webordersystem/application/modules/user/views/scripts/changepassword/index.phtml
+END

@@ -1,0 +1,5 @@
+#Wed Oct 24 14:48:35 ICT 2012
+-Xms=40m,40m
+eclipse.userDefined\:-Xms=512m
+-Xmx=384m,256m
+eclipse.userDefined\:-Xmx=1024m

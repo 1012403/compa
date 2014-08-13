@@ -1,0 +1,647 @@
+<?php
+$url = $this->url(array('action' => 'main','controller' =>'ordercart'));
+?>
+<link href="<?php echo $this->config['url_base'] ?>/css/ordercart/ordercartinfo.css" rel="stylesheet">
+<style>
+<!--
+.tblOrder {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #B9CDE5;
+  height: 100px;
+  text-align: right;
+}
+
+.tblOrderTitle {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #B9CDE5;
+  text-align: center;
+}
+
+#tblProductInfo td {
+  text-align:left;
+  padding-right: 10px
+}
+
+#tblCustomerInfo tr {
+  height: 50px
+}
+
+#tblCustomerInfo td {
+  border: solid 2px #B9CDE5;
+  padding-left: 10px;
+}
+
+#tblCustomerInfo .txtInput {
+  height: 25px;
+  width: 98%;
+}
+
+.spanBlue{
+  color:blue;
+  font-weight: bold;
+}
+
+.spanRed{
+  color: red;
+  font-weight: bold;
+}
+
+.title_tyle label.pull-left{
+  background-image: url("../images/1_transparent.png ");
+  background-size: 50px;
+  color:fuchsia;
+  padding: 0 0 0 50px;
+}
+
+#tblSummary{
+  width: 100%;
+  border: solid 2px #B9CDE5;
+}
+.right{
+text-align: right;
+}
+-->
+</style>
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
+?>
+<form action="<?php echo $url ?>" method="post" id="formOrderCart">
+  <div class="row row-offcanvas row-offcanvas-right">
+    <div class="col-xs-12 col-sm-12 col-lg-12" id="listproduce">
+
+      <?php
+          /* @var $product Core_Models_MstProduct */
+      //summary price and ship fee
+      $totalPrice = 0;
+      $totalShipFee = 0;
+      $totalPoint = 0;
+      $totalPriceTax=0;
+          foreach ($this->arrProducts as $id => $product){
+        $totalProductPrice = $product->getPrice() * $product->getOrderQuantity();
+        $totalPrice += $totalProductPrice;
+        $pointOfProduct = $totalProductPrice * ($this->pointRate / 100) * $product->getMagnificationPoint();
+        $totalPoint += $pointOfProduct;
+
+        $totalProductPriceTax = $product->getPriceIncludingTax() * $product->getOrderQuantity();
+        $totalPriceTax += $totalProductPriceTax;
+        //$pointOfProduct = $totalProductPriceTax * ($this->pointRate / 100) * $product->getMagnificationPoint();
+        //$totalPoint += $pointOfProduct;
+
+
+        if($product->getShippingDisplayFlag() == Core_Util_Const::SHIPPING_DISPLAY_FLG_YES && $product->getShippingClass() == Core_Util_Const::SHIPPING_CLASS_HAS_FEE){
+          $totalShipFee += $product->getShippingFee();
+        }
+      }
+      ?>
+      <div class="row" >
+              <div class="col-6 col-xs-12 col-md-12 col-lg-8">
+          <div class="row title_tyle " >
+              <label class="pull-left">注文手続き</label>（今回の獲得ポイント:
+              <label class="spanRed" id="lblTotalPoint"><?php echo number_format($totalPoint, 0)?></label>
+              <label class="spanRed">&nbsp;pt</label>）
+          </div>
+              </div>
+              <div class="col-6 col-xs-12 col-md-12 col-lg-4 dsk_ordercartionfo_padding">
+                <table class="table " id="tblSummary">
+                  <tr id="dsk_orderinfo">
+              <td width="50%" >
+                <span class="spanBlue">合計金額（税抜） </span><br/>
+                <div class="right" style="margin-right: 6px;">
+                 <label class="spanRed right" id="lblTotalPrice"><?php echo number_format($totalPrice,0)?></label>
+                 <label class="spanRed">円</label>
+                </div>
+
+              </td >
+              <td width="50%" class="right">
+                <span class="spanBlue">合計送料<br/>
+                  <label id="lblTotalShipFee"><?php echo number_format($totalShipFee, 0)?></label>&nbsp;円</span>
+              </td>
+            </tr>
+                  <tr id="tablet_orderinfo_ship">
+                    <td width="72%">
+                      <span class="spanBlue">合計金額（税抜）</span><br/>
+                      <span class="spanBlue">合計送料 </span>
+
+                    </td>
+                    <td width="28%" style="text-align: right;">
+                      <span class="spanRed">
+                        <label id="lblTotalPrice">
+                          <?php echo number_format($totalPrice,0)?>
+                        </label>
+                        <label class="spanRed">&nbsp;円</label>
+                      </span>
+                      <span class="spanBlue">
+                        <label id="lblTotalShipFee"><?php echo number_format($totalShipFee, 0)?></label>&nbsp;円
+                      </span>
+                    </td>
+                  </tr>
+          </table>
+              </div>
+            </div>
+    <div class="row">
+          <div class="tablet_title_orderinfo">
+        <div class="col-6 col-sm-12 col-lg-4 tblOrderTitle">
+          <span class="spanBlue">商品</span>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-2 tblOrderTitle">
+          <span class="spanBlue">注文価格（税抜）</span>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-2 tblOrderTitle">
+          <span class="spanBlue">数量</span>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-2 tblOrderTitle">
+          <span class="spanBlue">注文金額（税抜） </span>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-2 tblOrderTitle">
+          <span class="spanBlue">送料</span>
+        </div>
+      </div>
+      </div>
+       <?php
+          /* @var $product Core_Models_MstProduct */
+          foreach ($this->arrProducts as $id => $product){
+        $proId = $product->getProductId();
+      ?>
+    <div class="row">
+          <div class="col-6 col-sm-12 col-xs-12 col-lg-4 tblOrder">
+        <table id="tblProductInfo">
+          <tr>
+            <!-- MOD 20140512 Hieunm modify src of img tag below-->
+            <td rowspan="2">
+              <img onerror="imgError(this);" src="<?php echo '..' . $folderImageThumb . $product->getImagePath() ?>"
+              class="img-responsive" style="height: 79px" >
+            </td>
+            <td><?php echo $product->getProductName(); ?></td>
+          </tr>
+          <tr>
+                    <td id="no_product"><b>&lt;<?php echo$product->getProductNo(); ?>&gt;</b></td>
+                    <td id="no_product_mobile"><b>&lt;<?php echo$product->getProductNo(); ?>&gt;</b></td>
+          </tr>
+        </table>
+      </div>
+
+          <div class="col-6 col-sm-6 col-xs-4 col-lg-2 tblOrder tablet_orderinfo" style="line-height: 600%;" >		<!-- MOD 20140422 Hieunm (style) -->
+             <table style="width: 100%; text-align:left;">
+                  <tr id="mobile_orderinfo">
+                    <td>
+                        <span class="spanBlue">注文価格（税込）   注文価格（税抜）</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                <span class="spanBlue"><?php echo number_format($product->getPrice(), 0); ?>&nbsp;円</span>
+                    </td>
+                  </tr>
+              </table>
+            <span id="dsk_orderinfo" class="spanBlue"><?php echo number_format($product->getPrice(), 0); ?>&nbsp;円</span>
+      </div>
+
+          <div class="col-6 col-sm-6 col-xs-4 col-lg-2 tblOrder tablet_orderinfo" style="line-height: 600%;">		<!-- MOD 20140422 Hieunm (style) -->
+            <table style="width: 100%; text-align:center">
+                <tr id="mobile_orderinfo">
+                  <td>
+                    <span class="spanBlue">数量</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+              <span class="spanBlue"><?php echo number_format($product->getOrderQuantity(), 0); ?></span>
+                  </td>
+                </tr>
+            </table>
+            <span id="dsk_orderinfo" class="spanBlue"><?php echo number_format($product->getOrderQuantity(), 0); ?></span>
+      </div>
+
+          <div class="col-6 col-sm-6 col-xs-4 col-lg-2 tblOrder tablet_orderinfo tablet_sum_ordercart" style="line-height: 600%;">		<!-- MOD 20140422 Hieunm (style) -->
+              <table style="width: 100%">
+                  <tr id="mobile_orderinfo">
+                    <td>
+                        <span class="spanBlue">注文金額（税抜）</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                <span style="color: red; font-weight: bold" class="right">
+                <?php echo number_format($product->getPrice() * $product->getOrderQuantity(), 0)?>&nbsp;円
+                </span>
+                    </td>
+                  </tr>
+              </table>
+              <span id="dsk_orderinfo" style="color: red; font-weight: bold"><?php echo number_format($product->getPrice() * $product->getOrderQuantity(), 0)?>&nbsp;円</span>
+      </div>
+
+          <div class="col-6 col-sm-6 col-xs-4 col-lg-2 tblOrder tablet_trans_orderinfo tablet_orderinfo" style="line-height: 600%;">		<!-- MOD 20140422 Hieunm (style) -->
+            <table style="width: 100%">
+                <tr>
+                    <td align="right">
+                      <span class="spanBlue">送料</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+              <span class="spanBlue">
+                <?php
+                if($product->getShippingDisplayFlag() == Core_Util_Const::SHIPPING_DISPLAY_FLG_YES && $product->getShippingClass() == Core_Util_Const::SHIPPING_CLASS_HAS_FEE){
+                    echo number_format($product->getShippingFee(), 0).' 円';
+                  }
+                  else{
+                    echo '0 円';
+                  }
+                ?>
+              </span>
+                    </td>
+                </tr>
+            </table>
+            <span id="dsk_orderinfo" class="spanBlue">
+              <?php
+              if($product->getShippingDisplayFlag() == Core_Util_Const::SHIPPING_DISPLAY_FLG_YES && $product->getShippingClass() == Core_Util_Const::SHIPPING_CLASS_HAS_FEE){
+                  echo number_format($product->getShippingFee(), 0).' 円';
+                }
+                else{
+                  echo '0 円';
+                }
+              ?>
+            </span>
+      </div>
+    </div>
+      <?php } ?>
+
+      <br/>
+      <hr/>
+      <br/>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-5" id="left_order"></div>
+
+        <div class="col-12 col-sm-12 col-lg-7 col-xs-12" style="text-align: center">
+          <table id="tablet_point_ordercart">
+              <tr align="left" class="tr_point">												<!-- MOD 20140422 Hieunm -->
+          <td colspan="2" style="width: 50%"><label class="spanBlue">ポイント利用</label> （利用可能なポイント <label id="lblTotalUserPointRest" class="spanRed"><?php echo number_format($this->userPoint, 0,'.', ',')?></label><label class="spanRed">&nbsp;pt</label>）<br/></td>
+          <!-- <td style="width: 50%"></td> -->						<!-- DEL 20140422 Hieunm -->
+        </tr>
+        <tr align="left">												<!-- MOD 20140422 Hieunm -->
+                  <td width="20%" class="td_right">											<!-- MOD 20140422 Hieunm -->
+              <select id="cmbPoint" name="cmbPoint" style="height:20px; width: 100px" onchange="onChangeCmbPoint();">
+                  <option value="1">利用しない</option>
+                  <option value="2">一部利用する</option>
+                  <option value="3">全て利用する</option>
+               </select>
+                   <input type="text" id="txtPoint" name="txtPoint" style="height:20px; width: 100px; text-align:right" onblur="onBlurTxtPoint();">
+                   <script type="text/javascript">
+                     $('#txtPoint').blur(function(){
+                       $('#txtPoint').number( true, 0 );
+                     });
+
+                 </script>
+                 <label class="spanRed">&nbsp;pt&nbsp;</label><br/>		<!-- MOD 20140422 Hieunm -->
+                     <div id="errorArea" style="text-align: right; color: red;"></div>
+               </td>
+               <td class="td_left">
+                <span class="spanBlue">総合計金額（税込）</span>
+                <span style="color: red; font-weight: bold"><label id="lblTotalPriceRest"><?php echo number_format($totalPriceTax + $totalShipFee, 0)?></label>&nbsp;円</span>
+              </td>
+        </tr>
+            <!-- ADD 20140425 Hieunm start -->
+        <tr align="left">
+          <td>
+             <div id="errorArea" style="text-align: left; color: red;"> </div>
+           </td>
+          <td></td>
+        </tr>
+            <!-- ADD 20140425 Hieunm end -->
+      </table>
+        <div id="mobile_point_ordercart_0" >
+          <label class="spanBlue">ポイント利用</label> （利用可能なポイント <label id="lblTotalUserPointRest" class="spanRed"><?php echo number_format($this->userPoint, 0,'.', ',')?></label><label class="spanRed">&nbsp;pt</label>）<br/>
+        </div>
+        <div id="mobile_point_ordercart_1" >
+          <select id="cmbPoint" name="cmbPoint" style="height:20px; width: 100px" onchange="onChangeCmbPoint();">
+                      <option value="1">利用しない</option>
+                      <option value="2">一部利用する</option>
+                      <option value="3">全て利用する</option>
+                   </select>
+                   <input type="text" id="txtPoint" name="txtPoint0" style="height:20px; width: 100px; text-align:right" onblur="onBlurTxtPoint();">
+                   <label class="spanRed">&nbsp;pt&nbsp;</label><br/>		<!-- MOD 20140422 Hieunm -->
+                   <div id="errorArea" style="text-align: right; color: red;"> </div>
+        </div>
+        <div id="mobile_point_ordercart_2" >
+          <span class="spanBlue">総合計金額（税込）</span>
+          <span style="color: red; font-weight: bold">
+          <label id="lblTotalPriceRest"><?php echo number_format($totalPriceTax + $totalShipFee, 0)?></label>&nbsp;円</span>
+        </div>
+        </div>
+      </div>
+
+      <br/>
+          <table id="tblCustomerInfo" style="border: solid 2px #B9CDE5;" width="100%">
+            <tr>
+          <td>発送先</td>
+          <!-- MOD 20140515 Hieunm start-->
+          <!-- <td><input type="text" id="txtAddress" name="txtAddress" class="txtInput"></td> -->
+          <td>
+            <span id="spanCmbShippingDes" style="float: left;">
+              <select id="cmbShippingDes" name="cmbShippingDes" onchange="onchangeCmbShippingDes()"
+                  style="height:25px; width: 200px; margin-top: 12px; margin-bottom: 12px" >
+                <?php
+                  foreach ($this->arrShippingDes as $shippingDes) {
+                    $shippingSeq = $shippingDes->getShippingSeq();
+                    $shippingDesName = $shippingDes->getShippingDesName();
+                ?>
+                <option value="<?php echo $shippingSeq;?>"><?php echo $shippingDesName;?></option>
+                <?php
+                  }
+                ?>
+              </select>
+              <?php
+                foreach ($this->arrShippingDes as $shippingDesTemp) {
+                  $shippingSeqTemp = $shippingDesTemp->getShippingSeq();
+                  $transTypeTemp = $shippingDesTemp->getTransType();
+              ?>
+              <input type="hidden" id="hidTransType_<?php echo $shippingSeqTemp; ?>" name= "a" value="<?php echo $transTypeTemp;?>" />
+              <?php
+                }
+              ?>
+            </span>
+            <div style="float: left; margin-top: 5px; margin-left: 20px;" id="id_address_disp">
+            住所:〒333-6666 60 Hai Bà Trưng
+            <br />
+            電話番号:9996663333
+            </div>
+          </td>
+          <!-- MOD 20140515 Hieunm end-->
+        </tr>
+        <tr>
+          <td width="25%">発送方法</td>
+          <!-- MOD 20140515 Hieunm start -->
+          <!-- <td><input type="text" id="txtShippingType" name="txtShippingType" class="txtInput" ></td> -->
+          <td>
+            <span id="spanCmbTransType">
+              <select id="cmbTransType" name="cmbTransType"
+                  style="height:25px; width: 200px; margin-top: 12px; margin-bottom: 12px" >
+                <?php
+                  foreach ($this->arrTransType as $transType) {
+                    $itemCd = $transType->getItemCd();
+                    $itemName = $transType->getItemName();
+                ?>
+                <option value="<?php echo $itemCd;?>" <?php echo ($this->transTypeDefaultLoad == $itemCd) ? ' selected="selected" ' : '';?>><?php echo $itemName;?></option>
+                <?php
+                  }
+                ?>
+              </select>
+            </span>
+          </td>
+          <!-- MOD 20140515 Hieunm end -->
+        </tr>
+
+        <tr>
+          <td>発送日時指定</td>
+          <!-- MOD 20140515 Hieunm start -->
+          <!-- <td><input type="text" id="txtShippingHopeDate" name="txtShippingHopeDate" class="txtInput"></td> -->
+          <td><input type="text" id="txtShippingHopeDate" name="txtShippingHopeDate"
+                 style="width: 120px; padding-left: 3px" class="clsShippingHopeDate" data-date-format="yyyy/mm/dd">
+          </td>
+          <!-- MOD 20140515 Hieunm end-->
+        </tr>
+
+        <tr>
+          <!-- MOD 20140513 Hieunm start-->
+          <td style="vertical-align: middle;">ユーザ情報</td>
+          <!-- <td> -->
+          <td>
+            <!--
+            <-?php echo $this->userLogin->getLoginUsername() ?><br/>
+            <-?php echo $this->userLogin->getAreaCode() ?><br/>
+            <-?php echo $this->userLogin->getPostNo() ?><br/>
+            <-?php echo $this->userLogin->getAddress() ?><br/>
+            -->
+            <div style="float: left; margin-top: 5px; margin-left: 20px;">
+            住所：〒<?php echo $this->userLogin->getPostNo() ?> <?php echo $this->userLogin->getAddress(); ?>
+            <br />
+            電話番号：<?php echo $this->userLogin->getTelNo();?>
+            </div>
+          </td>
+          <!-- MOD 20140513 Hieunm end-->
+        </tr>
+      </table>
+      <input type="hidden" id="iduser_hid" name="iduser_hid" value="<?php echo $this->userLogin->getUserId();?>">
+
+      <br/>
+      <div style="text-align: right; padding-right: 20px">
+      <a class="button order" style="text-align:center; width:100px; cursor: pointer;" onclick="insertOrder()" >注文確定</a>
+      </div>
+    </div>
+
+  </div>
+  <hr />
+  <input type="hidden" id="actName" name="actionName" value="" />
+  <input type="hidden" id="hiddenBonusPoint" name="hiddenBonusPoint" value="" />
+  <input type="hidden" id="hiddenTotalUserPoint" name="hiddenTotalUserPoint" value="<?php echo $this->userPoint ?>" />
+</form>
+
+<script>
+  var totalPrice = replaceFormat($("#lblTotalPrice").text());
+  var totalShipFee = replaceFormat($("#lblTotalShipFee").text());
+  var allTotal = parseInt(totalPrice) + parseInt(totalShipFee);
+
+  // onload
+  $(document).ready(function() {
+    $('#txtPoint').ForceNumericOnly();
+    $('#txtPoint').val(0);
+
+    onChangeCmbPoint();
+
+    // ADD 20140516 Hieunm start
+    // Init datepicker for txtShippingHopeDate field
+    $('.clsShippingHopeDate').datepicker();
+    $('#txtShippingHopeDate').datepicker('update', getCurrentDateAsString());
+
+    $('#txtShippingHopeDate').on('change', function(ev){
+      $('#txtShippingHopeDate').datepicker('hide');
+    });
+    // ADD 20140516 Hieunm end
+
+    onchangeCmbShippingDes();
+  });
+
+  //insertOrder
+  function insertOrder(){
+    var minPoint = $('#hiddenTotalUserPoint').val() > allTotal ? allTotal : $('#hiddenTotalUserPoint').val();
+
+    // ADD 20140421 Hieunm start
+    if($.trim($("#txtPoint").val()) == ''){
+      $('#errorArea').html("");
+
+      $("#errorArea").append("空白以外値を入力してください。"); //Point input is not blank
+      $("#txtPoint").focus();
+      $("#txtPoint").select();
+      return false;
+    }
+
+    if(!$.isNumeric($.trim($("#txtPoint").val()))){
+      $('#errorArea').html("");
+
+      $("#errorArea").append("数字の値で入力してください。");	//Point input must be number
+      $("#txtPoint").focus();
+      $("#txtPoint").select();
+      return false;
+    }
+
+    if($.trim($("#txtPoint").val()) < 0){
+      $('#errorArea').html("");
+
+      $("#errorArea").append("0以上の値で入力してください。");	//Point input must be large than 0
+      $("#txtPoint").focus();
+      $("#txtPoint").select();
+      return false;
+    }
+    // ADD 20140421 Hieunm end
+
+    // MOD 20140421 Hieunm start
+    //if($("#txtPoint").val() > minPoint){
+    if($.trim($("#txtPoint").val()) > parseInt(minPoint)){
+      $('#errorArea').html("");
+    // MOD 20140421 Hieunm end
+
+      $("#errorArea").append("ユーザが持っているポイント以下の値で入力してください。 <br/>（利用可能なポイント " + minPoint + " pt）"); //Point input must be lower than ...
+      $("#txtPoint").focus();
+      $("#txtPoint").select();
+      return false;
+    }
+
+ 	// ADD 20140804 Locpht start
+    var dateInput = $('#txtShippingHopeDate').val();
+    
+    var today = new Date();   
+    var currentDate = today.getFullYear() + "/" + (today.getMonth()+ 1) + "/" + today.getDate();
+
+    if( Date.parse(dateInput) < Date.parse(currentDate)){
+    	$('#errorArea').html("");
+    	
+     	$("#errorArea").append("発送日時指定に、現在の日付以降の値で入力して下さい。"); 
+        $("#txtShippingHopeDate").focus();
+        $("#txtShippingHopeDate").select();
+        return false;
+    }
+    // ADD 20140804 Locpht end
+    
+    $("#actName").val('insertOrder');
+    $("#hiddenBonusPoint").val(replaceFormat($("#lblTotalPoint").text()));
+    $("#formOrderCart").submit();
+  }
+
+  //lost focus txtPoint
+  function onBlurTxtPoint(){
+    // MOD 20140422 Hieunm start
+    //var totalPoint = $("#hiddenTotalUserPoint").val();
+    var totalPoint = parseInt($("#hiddenTotalUserPoint").val());
+    //khoahd$("#lblTotalPriceRest").text(addCommas(allTotal));
+    $("#lblTotalUserPointRest").text(addCommas(parseInt(totalPoint)));
+    // MOD 20140422 Hieunm end
+    var minPoint = totalPoint > allTotal ? allTotal : totalPoint;
+    if($("#txtPoint").val() > minPoint){
+      return false;
+    }
+
+    var inputPoint = 0;
+    if($("#txtPoint").val().trim() != ''){
+      inputPoint = parseInt($("#txtPoint").val());
+    }
+
+    // ADD 20140422 Hieunm start
+    if(inputPoint < 0){
+      return false;
+    }
+
+    if(isNaN(parseInt(totalPoint) - inputPoint) || isNaN(allTotal - inputPoint)){
+      return false;
+    }
+    // ADD 20140422 Hieunm start
+
+    //khoahd$("#lblTotalPriceRest").text(addCommas(allTotal - inputPoint));
+    $("#lblTotalUserPointRest").text(addCommas(parseInt(totalPoint) - inputPoint));
+  }
+
+  //add comma spec
+  function addCommas(nStr)
+  {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+  }
+
+  function onChangeCmbPoint(){
+    // ADD 20140421 Hieunm start
+    $('#errorArea').html("");
+    // ADD 20140421 Hieunm end
+    value = $('#cmbPoint').val();
+    if(value == '1'){
+      $("#txtPoint").attr("disabled", true);
+      $("#txtPoint").val(0);
+    }
+    if(value == '2'){
+      $("#txtPoint").removeAttr("disabled");
+      $("#txtPoint").val('0');
+      $("#txtPoint").focus();
+    }
+    if(value == '3'){
+      $("#txtPoint").removeAttr("disabled");
+      $("#txtPoint").val($('#hiddenTotalUserPoint').val() > allTotal ? allTotal : $.number($('#hiddenTotalUserPoint').val()));
+      $("#txtPoint").focus();
+    }
+
+    onBlurTxtPoint();
+  }
+
+  //just allow input numeric
+  jQuery.fn.ForceNumericOnly =
+    function()
+    {
+        return this.each(function()
+        {
+            $(this).keydown(function(e)
+            {
+              var key = e.charCode || e.keyCode || 0;
+                if (e.shiftKey && (key != 35 && key != 36)) return false;
+                return (
+                  (key >= 112	&& key <= 127) ||
+                    key == 8	||
+                    key == 9 	||
+                    (key >= 35 && key <= 40) ||
+                    (key >= 48 && key <= 57) ||
+                    (key >= 96 && key <= 105));
+            });
+        });
+    };
+
+  //replaceFormat
+  function replaceFormat(strInput){
+    return strInput.split(',').join('');
+  }
+
+  function onchangeCmbShippingDes(){
+    var hidTransType = '#hidTransType_' + $('#cmbShippingDes').val();
+    var hidTransTypeVal = $(hidTransType).val();
+    $("#cmbTransType option[value='" + hidTransTypeVal + "']").attr("selected","selected");
+    var iduser = $('#iduser_hid').val();
+    var id = $('#cmbShippingDes').val();
+
+
+    $.ajax({
+      url: "/ordercart/getaddress",
+      type: "post",
+      data: { "id": id, "userid" : iduser},
+      success: function( strData ){
+        $('#id_address_disp').empty();
+        $('#id_address_disp').append(strData);
+      }
+    });
+
+  }
+</script>

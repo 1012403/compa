@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Ishida02/!svn/ver/1197/trunk/webordersystem/application/modules/admin/views/scripts/product
+END
+view.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Ishida02/!svn/ver/1193/trunk/webordersystem/application/modules/admin/views/scripts/product/view.phtml
+END
+edit.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Ishida02/!svn/ver/1197/trunk/webordersystem/application/modules/admin/views/scripts/product/edit.phtml
+END
+delete.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/Ishida02/!svn/ver/176/trunk/webordersystem/application/modules/admin/views/scripts/product/delete.phtml
+END
+ckfinder.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/Ishida02/!svn/ver/173/trunk/webordersystem/application/modules/admin/views/scripts/product/ckfinder.phtml
+END
+add.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Ishida02/!svn/ver/1197/trunk/webordersystem/application/modules/admin/views/scripts/product/add.phtml
+END
+test.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/Ishida02/!svn/ver/320/trunk/webordersystem/application/modules/admin/views/scripts/product/test.phtml
+END
+index.phtml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/Ishida02/!svn/ver/1169/trunk/webordersystem/application/modules/admin/views/scripts/product/index.phtml
+END

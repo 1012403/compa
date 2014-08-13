@@ -1,0 +1,203 @@
+<style>
+.invisible {
+	position: absolute;
+	left: -9999px;
+}
+</style>
+  <script>
+  $(document).ready(function(){
+	$( ".pagination a" ).click(function() {
+	  	var id = $(this).attr('id');
+		if($('#export').length > 0) {
+			$('#export').remove();
+		}
+	  	if (id>0){
+	  		$('#frmUserSearch').append("<input type=\"hidden\" id=\"page\" name=\"page\" value=\"" + id + "\">");
+	  		$('#frmUserSearch').submit();
+	  	}
+		return false;
+	});
+
+	$( "a.linkToSubmit").click(function() {
+		if($('#export').length > 0) {
+			$('#export').remove();
+		}
+  		$('#frmUserSearch').append("<input type=\"hidden\" name=\"operateElementType\" value=\"0\">");
+  		$('#frmUserSearch').append("<input type=\"hidden\" name=\"operateElementName\" value=\"" + $(this).html() + "\">");
+  		$('#frmUserSearch').submit();
+		return false;
+	});
+
+	//export SCV user
+	$('#exportCsvBtn').click(function(){
+		$('#frmUserSearch').append("<input type=\"hidden\" id=\"export\" name=\"export\" value=\"1\">");
+  		$('#frmUserSearch').submit();
+	});
+
+	// import CSV
+    $('#importCsvBtn').click(function(){
+    	$('#fileUser').val("");
+		$('#fileUser').click();
+	});
+
+	$('#fileUser').change(function(){
+		$("#import_csv_form").ajaxForm({
+			success: function(data){
+				if (data == "true") {
+					alert("正常にインポートしました。");
+					location.href='/admin/user';
+				} else {
+					alert(data);
+				}
+				
+			}/* ,
+		      error: function (xhr, ajaxOptions, thrownError) {
+		          alert(xhr.status);
+		          alert(thrownError);
+		        } */
+		}).submit();
+	});
+  });
+</script>
+
+<?php
+$url = $this->url(array('action' => 'index','controller' =>'user'));
+?>
+<form action="<?php echo $url ?>" method="post" id="frmUserSearch"> 
+<div class="row" >
+<table><tr><td width="100%" >
+          	<div class="title_col">
+				<div class="title_tyle title_search" >
+					<label class="pull-left"> ユーザ情報管理 </label>
+					<span>
+						<label for="txt_username">ユーザ名</label>
+						<input type="text" id="txt_username" name="txt_username" style="line-height: normal !important;" value="<?php echo $this->txt_username;?>">
+						<label for="txt_username">エリア</label>
+						<select id="sel_area" name="sel_area">
+							<option></option>
+							<?php 
+							foreach ($this->area_code as $area_code){?>
+							<option value="<?php echo $area_code->getItemCd();?>"
+							<?php if ($this->sel_area == $area_code->getItemCd()) {
+								echo "selected";
+							}?>><?php echo $area_code->getItemName();?></option>
+							<?php }?>
+						</select>
+					</span>
+					<span>&nbsp;</span>
+				</div>
+			</div>
+</td><td class="title_right">
+		<?php if (Core_Util_Helper::isReferAndMasterAdmin()) : ?>
+			<span class="add_button">
+				<a class="button2Disable" href="javascript:void(0)" style="text-decoration: none; color:#AEA797; cursor: default;">新規登録</a></span>
+			<span>
+				<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">ＣＳＶ取込み</a>
+			</span>
+			<span>
+				<a class="button2Disable" href="javascript:void(0);" style="text-decoration: none; color:#AEA797; cursor: default;">ＣＳＶ出力</a>
+			</span>
+		<?php else : ?>
+			<span class="add_button">
+				<a class="button2" href="<?php echo $this->config['url_base']?>/admin/user/edit?mode=add">新規登録</a></span>
+			<span>
+				<a id="importCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ取込み</a>
+			</span>
+			<span>
+				<a id="exportCsvBtn" class="button2" href="javascript:void(0);">ＣＳＶ出力</a>
+			</span>
+		<?php endif; ?>
+</td></tr>
+<tr>
+<td class="title_search">
+	<span>
+		<label for="txt_telno">電話番号</label>
+		<input type="text" id="txt_telno" name="txt_telno" value="<?php echo $this->txt_telno;?>">
+		<label for="sel_sales">営業担当者</label>
+		<select id="sel_sales" name="sel_sales">
+			<option></option>
+			<?php
+
+			foreach ($this->managerusers as $user){?>
+			<option value="<?php echo $user->getUserId();?>"
+			<?php if ($this->sel_sales == $user->getUserId()) {
+				echo "selected";
+			}?>><?php echo $user->getUserName();?></option>
+			<?php }?>
+		</select>
+	</span>
+</td>
+<td >
+	<div>
+		<!-- <input type="submit"  class="searchLog submit" value="検索"/> -->
+		<a class="button2 linkToSubmit" href="#" style="margin-top: 2px;">検索</a>
+		<?php echo $this->paginator; ?>
+	</div>
+</tr>
+</table>
+</div>
+</form>
+<!-- form import CSV -->
+<form enctype="multipart/form-data" id="import_csv_form" method="post" action="/admin/user/importcsv">
+	<input type="file" name="fileUser" id="fileUser" class="invisible"/>
+</form>
+<div class="row">
+		<table  class="content">
+			<tr>
+				<th width="70px">&nbsp;</th>
+				<th style="width:12%">ユーザ名</th>
+				<th style="width:12%">ユーザＩＤ</th>
+				<th style="width:10%">エリア</th>
+				<th>住所</th>
+				<th style="width:12%">電話番号</th>
+				<th style="width:12%">営業担当者</th>
+				<th style="width:12%">備考</th>
+			</tr>
+			
+			<?php
+			foreach ($this->users as $key => $user) {
+				$muser = $user['user'];
+			?>
+			<tr>
+				<td align="center" valign="middle">
+					<a class="button2" href="<?php echo $this->config['url_base']?>/admin/user/view/id/<?php echo $muser->getUserId();?>">詳細</a></td>
+				<td ><?php echo $muser->getUserName();?></td>
+				<td ><?php echo $muser->getLoginUserName();?></td>
+				<td >
+				<?php $flag=true;
+					foreach ($this->area_code as $area_code){
+						if ($area_code->getItemCd() == $muser->getAreaCode()){
+							echo $area_code->getItemName();
+							$flag=false;
+							break;
+						}
+					}
+					if ($flag) echo $muser->getAreaCode();
+					?>
+				</td>
+				<td ><?php echo $muser->getAddress();?></td>
+				<td ><?php echo $user['tel_no'];?></td>
+				<td ><?php echo $user['sales_name'];?></td>
+				<td >
+				<?php
+				if ($muser->getAdminFlg() != null){
+					if ($muser->getAdminFlg() == Core_Util_Const::ADMIN_TYPE_SYSTEM_ADMINISTRATOR)
+					{
+						echo $user['admin_type_name'];
+					} else if ($muser->getAdminFlg() == Core_Util_Const::ADMIN_TYPE_NO){
+						echo "ポイント： ". number_format($muser->getUserPoint())."pt";
+					} else if ($muser->getUserClass() != null){
+						echo $user['user_type_name'];
+					} else {
+						echo "ポイント： ". number_format($muser->getUserPoint())."pt";
+					}
+				} else {
+					echo "ポイント： ". number_format($muser->getUserPoint())."pt";
+				}
+				?></td>
+			</tr>
+			<?php
+			} 
+			?>
+		</table>
+</div>

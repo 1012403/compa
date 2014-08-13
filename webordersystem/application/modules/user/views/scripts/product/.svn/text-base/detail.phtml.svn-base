@@ -1,0 +1,488 @@
+<?php
+	$pro = $this->products;
+	$product = $pro['product'];
+	?>
+	<script type="text/javascript">
+	window.onload=function(){
+		<?php
+		if ($pro['productValid'] == false){
+		?>
+			alert('この商品が存在しない。');
+			window.location.href = '/index';
+		<?php
+		}
+		?>
+	}	
+	</script>
+	
+	<script type="text/javascript">
+	var detailMode = "1";
+	$(document).ready(function(){
+			$('.image-responsive img').addClass("img-responsive");
+			$('.image-responsive img').css({ height : "auto"});
+	});
+	function onChangeQuantity(proId){
+		var txtName = "#txtQuantity-" + proId;
+		var cmbName = "#cmbQuantity-" + proId;
+		$(txtName).val($(cmbName).val());
+	}
+	$(document).ready(function(){
+		$( ".unlike" ).click(function() {
+				var cthis = $(this);
+				var id = cthis.attr('id');
+				$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updatelike','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "tyle":"1", "detailMode":detailMode},
+						success: function( strData ){
+							if (strData == "true"){
+								cthis.hide();
+								$(".like[id=\""+id+"\"]").show();
+							}
+						}
+					});
+			return false;
+		});
+		$( ".like" ).click(function() {
+				var cthis = $(this);
+				var id = cthis.attr('id');
+				$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updatelike','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "tyle":"0", "detailMode":detailMode},
+						success: function( strData ){
+							if (strData == "true"){
+								cthis.hide();
+								$(".unlike[id=\""+id+"\"]").show();
+							}
+						}
+					});
+			return false;
+		});
+		$( ".addorder" ).click(function() {
+				var cthis = $(this);
+				var id = cthis.attr('id');
+				var quantity = $('input[id="txtQuantity-'+id+'"]').val();
+				var quanRes = $("#quanRes-" + id).val();
+				$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updateordercartinfo','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "quantity":quantity, "detailMode":detailMode, "quanRes": quanRes},
+						success: function( strData ){
+							if (strData != "null"){
+								$("#numberorder").html(strData);
+							}
+							location.href='/ordercart/';
+						}
+					});
+			return false;
+		});
+		$( ".addquotes" ).click(function() {
+				var cthis = $(this);
+				var id = cthis.attr('id');
+				var quantity = $('input[id="txtQuantity-'+id+'"]').val();
+				$.ajax({
+						url: "<?php echo $this->url(array('action' => 'updatequotationcartinfo','controller' =>'product')); ?>",
+						type: "post",
+						data: { "id": id, "quantity":quantity, "detailMode":detailMode},
+						success: function( strData ){
+							if (strData != "null"){
+								$("#numberquotes").html(strData);
+							}
+							location.href='/quotationcart/';
+						}
+					});
+			return false;
+		});
+
+		$( ".todetail" ).click(function() {
+				var id = $(this).attr('id');
+
+				var data = $('#frmSearch').serialize();
+			var url = '<?php echo $this->config['url_base']?>/product/detail?'+data+'&id='+id;
+			window.location.href=url;
+		});
+
+		$( ".pagination a" ).click(function(event) {
+				var id = $(this).attr('id');
+				$(this).attr('id', '0');
+				$.ajax({
+				url: "<?php echo $this->config['url_base']?>/product/historyorder",
+				type: "post",
+				data: { "page": id, "id": <?php echo $product->getProductId(); ?>, "detailMode":detailMode},
+				success: function( strData ){
+					if (strData != "null"){
+							$('#td_history_order').html(strData);
+					}
+				}
+			});
+				return false;
+		});
+	});
+</script>
+
+<style>
+.product-image-small{
+	display:none;
+}
+.ship-fee-small{
+	display:none;
+}
+.product-info-small{
+	display:none;
+}
+@media screen and (max-width: 992px){
+	.product-info {
+		display: none;
+	}
+	.product-info-small {
+		display: block;
+	}
+	.ship-fee-small{
+		display:none;
+	}
+	 .ship-fee{
+		display:block;
+	}
+	.product-title{
+		display:none;
+	}
+	.detail-button{
+		display:none;
+	}
+	.product-image{
+		display:none;
+	}
+	.product-image-small{
+		display:block;
+	}
+}
+	@media screen and (max-width: 767px){
+	.ship-fee-small{
+		display:block;
+	}
+	 .ship-fee{
+		display:none;
+	}
+
+}
+
+
+</style>
+<?php
+$folderImage = Core_Util_Helper::getImageProductFolder();
+$folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;
+?>
+		<div class="row" >
+			<div class="col-12 col-xs-12 col-md-9 col-md-9 col-lg-9 title_col">
+				<div class="row title_tyle" >
+						<label class="pull-left"> 商品詳細 </label>
+				</div>
+						</div>
+						<div class="col-12 col-xs-12 col-md-3 col-lg-3 title_col detail-like">
+					<?php if ($pro['like'] != null) {?>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike">☆お気に入り</a>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like" style="display:none;">お気に入りへ</a>
+					<?php } else { ?>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike" style="display:none;">☆お気に入り</a>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like">お気に入りへ</a>
+					<?php } ?>
+						</div>
+					</div>
+ <div class="row">
+		<div class="col-12 col-xs-12 col-sm-5 col-md-4 col-lg-5" style="text-align: center;">
+			<img	
+			onerror="imgError(this);"
+			src="<?php echo $this->config['url_base']?><?php echo $folderImage; ?><?php if ($product->getImagePath()!=null) echo $product->getImagePath(); else echo "no_images.jpg"?>" 
+			class="img-responsive">
+		</div>
+
+		<div class="col-12 col-sm-3 col-md-2 col-lg-2">
+			<div class="row" style="padding-left: 5px">
+				<span class="pull-left" ><?php echo $product->getProductName();?></span> 
+				<span class="pull-right product-info"><b>商品番号 <?php echo $product->getProductNo();?></b></span>
+			</div>
+			<p class="product-info" style="padding: 10px;" > 
+				<?php echo nl2br($product->getProductBrief());?> 
+			</p>
+			<span class="pull-left"><?php echo $product->getProductNo();?></span>
+		</div>
+			 <div class="col-12 col-sm-4 col-md-3 col-lg-2 price">
+			<?php if ($pro['price'] != null) {?>
+				<span> <b> 販売価格（税抜）</b>
+				</span> <span class="number pull-right" ><b><?php echo $pro['price'];?> 円 </b>
+
+			<?php } ?>
+
+			<!-- MOD 20140416 Hieunm start -->
+			<!--
+			<-?php if ($pro['price1'] != null) {?>
+			</span> <span> <b> お見積り価格（税抜）</b>
+			</span> <span class="number"> <b><-?php echo $pro['price1'];?>円</b>
+			<-?php }?>
+			</span> <span class="end">【送料込み】／【在庫あり】</span>
+			-->
+			<?php	if ($pro['quotation_id'] != null && $pro['is_valid_until_date'] != '0') { ?>
+					</span> <span> <b>お見積り価格（税抜） </b>
+					<?php if ($pro['price1'] != null && $pro['status'] != '1') {?>
+					</span> <span class="number pull-right"> <b style="padding-right : 30px"><?php echo $pro['price1'];?></b><b style="padding-right : 15px"> 円 </b>
+					<?php } else {?>
+					</span> <span class="number pull-right" style="margin-right: 50px"> <b><?php echo Core_Util_Const::QUOTATION_INFO_WAIT;?></b>
+					<?php }?>
+			<?php }?>
+
+			</span> <span class="end">
+
+			<?php
+			 if ($product->getShippingDisplayFlag()==1){
+					if ($pro['shipping_item_name'] != null) {
+						echo "【".$pro['shipping_item_name'];
+						if ($product->getShippingClass() == Core_Util_Const::SHIPPING_CLASS_3){
+							echo $product->getShippingFee()."円";
+						}
+						echo "】 ";
+						if ($product->getStockDisplayFlag()==1 && $pro['stock_item_name'] != null){
+							echo " / ";
+						}
+					}
+				}
+				if ($product->getStockDisplayFlag()==1){
+					if ($pro['stock_item_name'] != null) {
+						echo "【".$pro['stock_item_name'];
+						if ($product->getStockClass() == Core_Util_Const::STOCK_CLASS_3){
+							echo $product->getStockQty()."個";
+						}
+						echo "】 ";
+					}
+				}?>
+			</span>
+			<!-- MOD 20140416 Hieunm end -->
+		</div>
+		<br>
+		 <div class="col-12 col-sm-12 product-info-small" >
+	 <p style="padding: 10px;"> <?php echo nl2br($product->getProductBrief());?> </p>
+	 </div>
+	 <div class="col-12 col-sm-12 col-md-3 col-lg-3 price product-info">
+			<span> <b>数量</b>
+			</span>
+			<span>
+				<select id="<?php echo 'cmbQuantity-'.$product->getProductId(); ?>"
+					style="height: 22px; width: 100px"
+					onfocus="this.selectedIndex = -1"
+					<?php 
+						if ($product->getQuantityRestriction() != null ){
+							if ('1' == $product->getQuantityRestriction() ){
+									echo 'disabled="true"'	;		
+							}
+						}
+					?>
+					onchange="onChangeQuantity(<?php echo $product->getProductId() ?>);">
+						<?php for($i=1; $i<=10; $i++){ ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php } ?>
+				</select> 
+				<input type="text"
+				id="<?php echo 'txtQuantity-'.$product->getProductId(); ?>"
+				name="<?php echo 'txtQuantity-'.$product->getProductId(); ?>"
+				onkeydown="if (event.keyCode == 13) return false;"
+				onblur="onBlurTxt(<?php echo $product->getProductId(); ?>);"
+				value="1"
+				<?php 
+					if ($product->getQuantityRestriction() != null ){
+						if ('1' == $product->getQuantityRestriction() ){
+							echo 'disabled="true"'	;
+						}
+					}
+				?>
+				style="color:blue; font-weight:bold ;border-width: 0px; border-left-width: 1px; height: 20px; width: 82px; margin-left: -104px; text-align: right; padding-right: 5px;">
+				<br/>
+			</span>
+			<a href="#" id="<?php echo $product->getProductId(); ?>" class="button order addorder">注文カートへ入れる</a>
+			<br>
+			<a href="#" id="<?php echo $product->getProductId(); ?>" class=" button quotes addquotes" >見積りカートへ入れる</a>
+			<?php 
+				echo '<input type="hidden" name ="quanRes-'.$product->getProductId().'"'
+				.' id ="quanRes-'.$product->getProductId().'"'
+				.' value = "'.$product->getQuantityRestriction().'"/>'  	;	
+			 ?>	
+
+		</div>
+
+	</div>
+
+<div class="row">
+	<div class="col-12 col-xs-12 col-md-9 col-md-9 col-lg-9">
+		<div style="display:block; width: 100%; " class="image-responsive">
+	<?php
+		/* @var $extra Core_Models_MstProductExtra */
+		if ($pro['arrProExtra'] != null){
+			foreach ($pro['arrProExtra'] as $key =>$extra){
+				echo "<b>【".$extra->getDetailClassLabel()."】</b>";
+				echo "<br />";
+				echo htmlspecialchars_decode($extra->getProductDetailInfo());
+				echo "<br />";
+				echo "<br />";
+			}
+		}		
+		?>
+		</div>
+ <div class="col-12" >
+	 <div class="col-12 col-xs-12 col-md-3 col-lg-3 detail-like-small">
+					<?php if ($pro['like'] != null) {?>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike">☆お気に入り</a>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like" style="display:none;">お気に入りへ</a>
+					<?php } else { ?>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button star unlike" style="display:none;">☆お気に入り</a>
+						<a href="#" id="<?php echo $product->getProductId(); ?>" class="button nonstar like">お気に入りへ</a>
+					<?php } ?>
+						</div>
+		<div class="col-12 col-sm-3 col-xs-12 product-info-small" >
+			<span> <b>数量</b>
+			</span>
+			<br>
+			<select id="<?php echo 'cmbQuantity-'.$product->getProductId(); ?>"
+								style="height: 22px; width: 100px"
+								onfocus="this.selectedIndex = -1"
+								<?php 
+									if ($product->getQuantityRestriction() != null ){
+										if ('1' == $product->getQuantityRestriction() ){
+											echo 'disabled="true"'	;
+										}
+									}
+								?>
+								onchange="onChangeQuantity(<?php echo $product->getProductId() ?>);">
+									<?php for($i=1; $i<=10; $i++){ ?>
+									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+									<?php } ?>
+								</select> <input type="text"
+								id="<?php echo 'txtQuantity-'.$product->getProductId(); ?>"
+								name="<?php echo 'txtQuantity-'.$product->getProductId(); ?>"
+								<?php 
+									if ($product->getQuantityRestriction() != null ){
+										if ('1' == $product->getQuantityRestriction() ){
+											echo 'disabled="true"'	;
+										}
+									}
+								?>
+								onkeydown="if (event.keyCode == 13) return false;"
+								onblur="onBlurTxt(<?php echo $product->getProductId(); ?>);"
+								value="1"
+								style="color:blue; font-weight:bold ;border-width: 0px; border-left-width: 1px; height: 20px; width: 82px; margin-left: -104px; text-align: right; padding-right: 5px;">
+								<br/>
+		</div>
+		<div class="col-sm-1 product-info-small">
+		</div>
+		<div class="col-sm-3 col-xs-12 product-info-small" style="padding-top: 10px" >
+		<a href="#" id="<?php echo $product->getProductId(); ?>" class="button order addorder" style="margin-bottom: 5px">注文カートへ入れる</a>
+			<br><a href="#" id="<?php echo $product->getProductId(); ?>" class=" button quotes addquotes" >見積りカートへ入れる</a>
+			<?php 
+				echo '<input type="hidden" name ="quanRes-'.$product->getProductId().'"'
+				.' id ="quanRes-'.$product->getProductId().'"'
+				.' value = "'.$product->getQuantityRestriction().'"/>'  	;	
+			 ?>	
+			</div>
+
+	</div>
+
+	<div class="col-12 col-xs-12 col-md-12 col-md-12 col-lg-12 title_col" style="margin-top: 10px">
+		<div class="row title_tyle" >
+			<label class="pull-left"> この商品の購入履歴 </label>
+		</div>
+</div>
+<table border="0" width="100%"><tr><td align="left" valign="top" id="td_history_order">
+		<?php
+		if ($this->producthis != null){ foreach ($this->producthis as $key =>$arr){
+		?>
+			<div class="row">
+				<div class="col-12 col-sm-3 col-xs-9 col-md-3 col-md-3 col-lg-3 pull-left" >
+
+					<div>注文日時</div>
+					<div>
+						<?php echo $arr['order']->getOrderDateTime(); ?>
+					</div>
+				</div>
+				<div class="col-sm-2 col-xs-3 ship-fee-small">
+					<div>送料</div>
+					<div class="pull-left" style="margin-left: 20px" ><?php echo $arr['orderdetail']->getShippingFee(); ?> 円</div>
+				</div>
+
+				<div class="col-12 col-sm-3 col-xs-5 col-md-3 col-md-3 col-lg-3 ">
+
+					<div>注文価格（税抜)</div>
+					<div class="pull-left"	style="margin-left: 20px"><?php echo $arr['orderdetail']->getPrice(); ?> 円</div>
+				</div>
+
+
+				<div class="col-12 col-sm-1 col-xs-2 col-md-1 col-md-1 col-lg-2 " >
+					<div>数量</div>
+					<div class="pull-left" style="margin-left: 20px"><?php echo $arr['orderdetail']->getQuantity(); ?></div>
+				</div>
+
+
+				<div class="col-12 col-sm-3 col-xs-5 col-md-3 col-md-3 col-lg-3">
+
+					<div>注文金額（税抜)</div>  
+					<div class="pull-left" style="margin-left: 20px"><?php echo number_format($arr['orderdetail']->getTotalPrice(),0,",",","); ?> 円</div>
+				</div>
+
+				<div class="col-12 col-sm-2 col-xs-2 col-md-1 col-md-1 col-lg-1 ship-fee">
+					<div>送料</div>
+					<div class="pull-left" style="margin-left: 20px " ><?php echo $arr['orderdetail']->getShippingFee(); ?> 円</div>
+				</div>
+			</div>
+		<?php }} ?>
+			<div>
+			<?php echo $this->paginator;?>
+			</div>
+</td></tr></table>
+
+	</div>
+
+ <div class="col-12 col-sm-12 col-xs-12 col-md-3 col-lg-3">
+	<div class="col-12 title_col">
+		<div class="row title_tyle" >
+			<label class="pull-left"> 関連商品 </label>
+		</div>
+	</div>
+	<div class="col-12 col-sm-12 col-xs-12 col-md-12 col-lg-12">
+		<?php
+			if ($this->productrelations != null){
+			foreach ($this->productrelations as $key =>$product):
+		?>
+
+		<div class="col-xs-12 col-lg-12 col-md-12 col-sm-4">
+			<table class="table" width="100%">
+				<tr>
+					<td>
+						<h5><?php echo $product->getProductName();?></h5>
+					</td>
+				</tr>
+				<tr><td><b class="product-title">商品番号 </b> <b><?php echo $product->getProductNo();?></b></td>
+				</tr>
+				<tr>
+					<td class="product-image">
+						<img onerror="imgError(this);" 
+							style="max-width:100px" src="<?php echo $this->config['url_base']?><?php echo $folderImageThumb; ?><?php if ($product->getImagePath()!=null) echo $product->getImagePath();else echo $folderImage."no_images.jpg"?>" class="img-responsive">
+					</td>
+					<td class="product-image-small">
+						<a class="todetail" href="#" id="<?php echo $product->getProductId();?>" >
+							<img onerror="imgError(this);" 
+							style="max-width:100px" src="<?php echo $this->config['url_base']?><?php echo $folderImageThumb; ?><?php if ($product->getImagePath()!=null) echo $product->getImagePath(); else echo $folderImage."no_images.jpg"?>" class="img-responsive">
+						</a>
+					</td>
+				</tr>
+				<tr class="detail-button">
+					<td colspan="2">
+						<a class="todetail" href="#" id="<?php echo $product->getProductId();?>" >
+						<img src="<?php echo $this->config['url_base']?>/images/web/btn_detail.jpg" /></a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+		<?php endforeach; } ?>
+		</div>
+	</div>
+
+</div>
+

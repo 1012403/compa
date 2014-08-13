@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="<?php echo $this->config["url_base"] . $this->baseUrl() . '/'; ?>" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+
+<link rel="stylesheet" href="css/admin/common.css" type="text/css" />
+
+<?php echo $this->headLink(); ?>
+<?php echo $this->headStyle();?>
+<?php echo $this->headScript();?>
+<title>Ｗｅｂ注文システム　《管理サイト》</title>
+</head>
+<body>
+<div id="all">
+  <div id="header">
+    <div>
+      <h2>Ｗｅｂ注文システム　《管理サイト》</h2>
+      <p>こんにちは、<b><?php echo $this->userLogin->getLoginUsername();?>さん</b><br/>
+          <a href="/admin/login/logout">ログアウト</a>
+      </p>
+    </div>
+  </div>
+  <div id="navigation">
+    <div>
+      <ul class="clear">
+                <li><a href="/admin">TOP</a>&nbsp; |&nbsp;</li>
+                <li><a href="/admin">注文情報管理 </a>&nbsp; |&nbsp;</li>
+                <li><a href="/admin">見積り依頼管理</a>&nbsp; |&nbsp;</li>
+                <li><a href="/admin">ユーザ情報管理</a>&nbsp; |&nbsp;</li>
+                <li><a href="/admin/product">商品情報</a>&nbsp; |&nbsp;</li>
+                <li><a href="/admin">その他保守</a></li>
+       </ul>
+   </div>
+  </div>
+  <div id="main">
+    <?php echo $this->layout()->content;?>
+  </div>
+  <div id="footer">
+      <div>
+        <a href="/admin/">
+          <img alt="株式会社イシダ" src="<?php echo $this->config['url_base'] ?>/images/f_logo.jpg">
+        </a>
+        <p>
+          <?php echo $this->getViewConstAdmin("ADDRESS_INFO");?></br>
+          <?php echo $this->getViewConstAdmin("COPYRIGHT_INFO");?>
+        </p>
+      </div>
+  </div>
+</div>
+</body>
+</html>

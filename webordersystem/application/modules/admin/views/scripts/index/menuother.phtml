@@ -1,0 +1,28 @@
+<style>
+	a{
+		color: black;
+	}
+</style>
+
+<div id="sidebar" role="navigation">
+	<h5>
+		<b><a href="<?php echo $this->config['url_base'] ?>/admin/category" style="text-align: left; padding: 0px" >商品カテゴリー</a></b>
+	</h5>
+	<h5>
+		<b><a href="<?php echo $this->config['url_base'] ?>/admin/userprice/" style="text-align: left; padding: 0px">ユーザ商品単価</a></b>
+	</h5>
+	<h5>
+		<b><a href="<?php echo $this->config['url_base'] ?>/admin/contact/" style="text-align: left; padding: 0px">問い合わせ対応</a></b>
+	</h5>
+	<?php if (!Core_Util_Helper::isReferenceAdmin()) : ?>
+	<h5>
+		<b><a href="<?php echo $this->config['url_base'] ?>/admin/operationloginfo" style="text-align: left; padding: 0px">操作ログ</a></b>
+	</h5>
+	<h5>
+		<b><a href="<?php echo $this->config['url_base'] ?>/admin/mailtemplate" style="text-align: left; padding: 0px">メール通知設定</a></b>
+	</h5>
+	<h5>
+		<b><a href="<?php echo $this->config['url_base'] ?>/admin/class/" style="text-align: left; padding: 0px">区分情報設定</a></b>
+	</h5>
+	<?php endif; ?>
+</div>

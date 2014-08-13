@@ -1,0 +1,10 @@
+
+#main .item_detail .feature {
+    margin-bottom: 20px;
+}
+#main .item_detail .review {
+    margin-bottom: 20px;
+}
+#main .related .item_panel {
+    border: medium none;
+}

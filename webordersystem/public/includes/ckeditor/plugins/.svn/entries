@@ -1,0 +1,138 @@
+10
+
+dir
+1199
+https://192.168.10.20:8443/svn/Ishida02/trunk/webordersystem/public/includes/ckeditor/plugins
+https://192.168.10.20:8443/svn/Ishida02
+
+
+
+2014-03-04T12:08:01.335887Z
+167
+baovd
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+86519964-7e95-bd43-89ae-0fb55afb0635
+
+a11yhelp
+dir
+
+about
+dir
+
+clipboard
+dir
+
+dialog
+dir
+
+fakeobjects
+dir
+
+icons.png
+file
+
+
+
+
+2014-08-05T02:58:02.961000Z
+b517cd444285385ec7bce8d52a83b48d
+2014-03-04T12:08:01.335887Z
+167
+baovd
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10030
+
+icons_hidpi.png
+file
+
+
+
+
+2014-08-05T02:58:03.101000Z
+1f57f384a8331a0cd3b8dfadfb61f0cd
+2014-03-04T12:08:01.335887Z
+167
+baovd
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+34465
+
+image
+dir
+
+link
+dir
+
+magicline
+dir
+
+pastefromword
+dir
+
+scayt
+dir
+
+specialchar
+dir
+
+table
+dir
+
+tabletools
+dir
+
+wsc
+dir
+
