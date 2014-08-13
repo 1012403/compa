@@ -31,14 +31,14 @@ $(document).ready(function(){
 });
 </script>
 <?php $user = $this->userLogin;?>
-<form action="<?php echo $this->formaction; ?>" method="get" id="frmSearch">
+<form action="<?php echo $this->formaction; ?>" method="get" id="frmSearch" class="search_form form_inline" role="form">
 	<input type="hidden" id="operateElementType" name="operateElementType" value=""/>
   	<input type="hidden" id="operateElementName" name="operateElementName" value=""/>
   	
-	<div class="sidebar-offcanvas" id="sidebar" role="navigation">
-			<div class="container">
-		      	<input type="text" id="keyword" name="keyword" size="16" placeholder="商品を探す" value="<?php echo $this->keyword;?>">
-				<input type="button" class="submitSearch" value="検索">
+	<div class="side_inner" id="sidebar" role="navigation">
+			<div class="form-group">
+		      	<input type="text" class=""form-control input-sm id="keyword" name="keyword" size="16" placeholder="商品を探す" value="<?php echo $this->keyword;?>">
+				<button type="submit" class="btn btn-default btn-sm" value=""><span class="glyphicon glyphicon-search">検索</span></button>
 			</div><br>
 			<?php if (isset($this->mcontroller) && strcmp($this->mcontroller, 'order')==0):?>
 			<h5><b>
@@ -98,12 +98,19 @@ $(document).ready(function(){
 		    <h5><b>
 		      <span class="glyphicon "></span>&nbsp;商品カテゴリー</b>
 		    </h5>
-		    <ul id="menu2">
+		    
+		    <div class="category_list" id="menu2">
+		    	
 		    	<?php foreach ($this->m_categorys as $key => $category):
 		        ?>
-		        <li> <a href="#" ><?php echo $category['parent']->getCategoryName(); 
-		        ?></a>
-		            <ul>
+		        <div class="panel panel-default"> 
+		        <div class="panel-heading">
+		        <h4>
+		        <a class="" href="#collapse<?php echo $key;?>" data-parent="#accordion" data-toggle="collapse" ><?php echo $category['parent']->getCategoryName(); 
+		        ?></a></h4></div>
+		            <div id="collapse<?php echo $key;?>" class="panel-collapse collapse">
+		            <div class="panel-body">
+		            	<ul class="list-unstyled">
 		            <?php foreach ($category['child'] as $keychild => $child):
 		            ?>
 		            <li>
@@ -111,17 +118,20 @@ $(document).ready(function(){
 		            				<?php echo $child->getCategoryName(); ?></a></li>
 		            <?php endforeach; ?>
 		            </ul>
-		        </li>
+		            </div>
+		            </div>
+		        </div>
 		        <?php endforeach; ?>
-		    </ul>
-	<div class="point_container_out">
-    	<div class="point_container_in">
-    		<div class="current_point_title">現在のポイント</div>
-    		<div class="current_point">
+		    	
+		    </div>
+	<div class="point">
+    	<div class="title">
+    		<span class="glyphicon glyphicon-heart-empty"></span> 現在のポイント</div>
+    		<div class="num">
     			<span class="point"><?php echo $this->escape($this->formatNumber($user->getUserPoint()));?></span> 
     			<span class="units">point</span>
     		</div>
-    	</div>
+    	
     </div>
 	</div><!--/span-->
 </form>

@@ -316,7 +316,8 @@ function preSlider(index) {
 $folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_Const::THUMBNAIL_PRE_FIX_NAME_DEFAULT;	// ADD 20140512 Hieunm
 ?>
 <!--<div class="col-xs-12 " id="listproduce">-->
-<div class="row row_container image_responsive"
+<div class="info_area">
+	<div class="row"
 	style="border-style: solid; border-width: 1px;">
 		<?php
 			$news = $this->news;
@@ -326,49 +327,51 @@ $folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_C
 			}
 
 		?>
-</div>
-<div class="row row_container image_responsive"
-	style="border-style: solid; border-width: 1px; border-color: #CDCECB; padding: 0px; margin: 0px; margin-top: 5px; width: 98%; height: auto;">
-
-	<div class="title_review" style="padding: 0px;">
-		<div class="title_bg">
-			<span style="color: white; font-weight: bold;"> ご案内 abc </span>
+	</div>
+	<div class="row"
+		style="border-style: solid; border-width: 1px; border-color: #CDCECB; padding: 0px; margin: 0px; margin-top: 5px; width: 98%; height: auto;">
+	
+		<div class="title_review" style="padding: 0px;">
+			<div class="title_bg">
+				<span style="color: white; font-weight: bold;"> ご案内 </span>
+			</div>
+		</div>
+		<div class="title_review2" style="padding: 0px;">
+			<span style="color: #727370; margin-left: 5px; padding-top: 4px;">
+				営業担当者からのご挨拶 </span>
+		</div>
+		<div>
+			<?php
+				$notice = $this->notice;
+				/* @var $notice Core_Models_NoticeInfo */
+				if ($notice !== null) {
+					echo $notice->getContent ();
+				}
+			?>
 		</div>
 	</div>
-	<div class="title_review2" style="padding: 0px;">
-		<span style="color: #727370; margin-left: 5px; padding-top: 4px;">
-			営業担当者からのご挨拶 </span>
-	</div>
-	<div>
-		<?php
-			$notice = $this->notice;
-			/* @var $notice Core_Models_NoticeInfo */
-			if ($notice !== null) {
-				echo $notice->getContent ();
-			}
-		?>
-	</div>
 </div>
-<div class="row">
-	<div style="padding: 0px; width: 99%" class="list-normal">
-		<div class="title_cate">
-			<div class="title_cate_bg">
-				<span style="color: black;"> おすすめ商品 </span> <span
-					style="color: black; float: right; display: inline-block;"
+
+<div class="recommend">
+		<div class="title">
+
+			<span style="color: black;"> おすすめ商品 </span>
+			<span style="color: black; float: right; display: inline-block;"
 					id="slider1_control"></span>
-			</div>
 		</div>
 		<a href="javascript:preSlider(1);">
 			<div class="slider1_control slider1_pre_next btnpre1">
 				<span>&lt;</span>
 			</div>
 		</a>
-		<div class="content_cate" style="float: left; width: 1000px;">
-			<ul id="lightSlider1" style="list-style-type: none;">
+		<div id="recommend_carousel" class="carousel slide">
+			<div class="carousel-inner">
+			
 			<?php $arrFeaProduct = $this->arrFeaProduct;
 				if (count($arrFeaProduct) > 0) :
 			?>
-				<li>
+				<div class="item active">
+				
 					<?php
 						$index = 0;
 						/* @var $product Core_Models_MstProduct */
@@ -378,39 +381,38 @@ $folderImageThumb = Core_Util_Helper::getImageProductFolderThumb() . Core_Util_C
 							}
 							$index ++;
 					?>
-						<div class="content_product_container">
+						<div class="item_panel">
 
-						<div class="img_bounder">
-							<img  onerror="imgError(this);"
-								alt="<?php echo $this->escape($product->getProductName());?>"
-								src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
-								width="60px;">
-						</div>
+						<img width="130px" height="130px" onerror="imgError(this);"
+							alt="<?php echo $this->escape($product->getProductName());?>"
+							src="<?php echo $this->config['url_base'] ?><?php echo $folderImageThumb; ?><?php echo $this->escape($product->getImagePath());?>"
+							>
 
-						<div class="content_product_info">
-							<div class="content_product_name">
+						<div class="meta">
+							<div class="title">
 									<?php echo $this->escape($product->getProductName())?>
 								</div>
-							<div class="content_product_no pull-left" style="margin-left:15px">
+							<div class="text">
 									&lt;<?php echo$this->escape($product->getProductNo());?>&gt;
-								</div>
+							</div>
+							<div class="more">
+								<a class="btn btn-info btn-sm" >
+									href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
+									<img alt="" class="detail_btn" src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
+								</a>
+							</div>
 						</div>
-							<a style="float: left;"
-								href="/product/detail/id/<?php echo $this->escape($product->getProductId());?>">
-								<img alt="" class="detail_btn" src="<?php echo $this->config['url_base'] ?>/images/web/btn_detail.jpg">
-							</a>
 					</div>
 					<?php endforeach; ?>
-					</li>
+					</div>
 					<?php endif; ?>
-			</ul>
+				</div>
 		</div>
 		<a href="javascript:nextSlider(1);">
 			<div style="padding-left: 3px; margin-left: 5px;"
 				class="slider1_pre_next slider1_control btnnext1">&gt;</div>
 		</a>
-	</div>
-	 <div style="padding: 0px; width: 99%;" class="list-small" >
+	 	<div style="padding: 0px; width: 99%;" class="list-small" >
 		<div class="title_cate">
 			<div class="title_cate_bg">
 				<span style="color: black;"> おすすめ商品 </span> <span

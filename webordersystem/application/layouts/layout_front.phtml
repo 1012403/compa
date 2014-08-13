@@ -8,12 +8,14 @@
         
         <title>株式会社イシダ - 【はかる】【包む】【検査する】【表示する】～イシダはあらゆる産業シーンをサポートします</title>
 
+		<link href="<?php echo $this->config['url_base'] ?>/css/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo $this->config['url_base'] ?>/css/user/login.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo $this->config['url_base'] ?>/css/style.css" rel="stylesheet">
+        <link href="<?php echo $this->config['url_base'] ?>/css/index.css" rel="stylesheet">
         <link href="<?php echo $this->config['url_base'] ?>/css/offcanvas.css" rel="stylesheet">
 		<link href="<?php echo $this->config['url_base'] ?>/css/temp.css" rel="stylesheet" type="text/css" />
-		<link href="<?php echo $this->config['url_base'] ?>/css/common.small.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo $this->config['url_base'] ?>/css/user/product.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo $this->config['url_base'] ?>/css/detail.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo $this->config['url_base'] ?>/css/list.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo $this->config['url_base'] ?>/css/import.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo $this->config['url_base'] ?>/css/jquery.timepicker.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo $this->config['url_base'] ?>/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo $this->config['url_base'] ?>/css/colorbox/colorbox.css"	rel="stylesheet" type="text/css" />
@@ -58,28 +60,50 @@
       /* @var $user Core_Models_MstUser */
       $user = $this->userLogin;
     ?>
-        <div class="header">
+        <div class="header" style="margin-top:25px;">
         <div class="container">
-          <div class="logo col-xs-12 col-sm-5 col-md-3" style="float: left; padding-left: 10px;">
-            <img src="<?php echo $this->config['url_base'] ?>/images/logo.jpg" class="img-responsive">
-            </div>
-            <div class="site_description col-xs-12 col-sm-4 col-md-5">
+          <div class="logo col-xs-12 col-sm-2 col-md-2" style="float: left; padding-left: 10px;">
+          	<a href=#>  <img src="<?php echo $this->config['url_base'] ?>/images/logo.jpg" class="img-responsive"></a>
+          </div>
+            <div class="site_description col-xs-12 col-sm-3 col-md-5">
               <?php echo $this->getViewConst("HEADER_TITLE");?>
             </div>
-            <a href="<?php echo $this->config['url_base'] ?>/quotationcart/" class="quotes">
-                  <div class="pull-right"> 
-                    <span class="name">見積り</span><br />
-                    <span class="number"><span id="numberquotes"><?php echo $this->sizeQuotationCart; ?></span> 件</span>
-                  </div>
-                  <img src="<?php echo $this->config['url_base'] ?>/images/2.png" class="pull-right img-responsive">
-            </a>
-            <a href="<?php echo $this->config['url_base'] ?>/ordercart/" class="order">
-                <div class="pull-right">
-                    <span class="name">&nbsp; 注文</span><br />
-                    <span class="number"><span id="numberorder"><?php echo $this->sizeOrderCart; ?></span> 件</span>
-                </div>
-                <img src="<?php echo $this->config['url_base'] ?>/images/1.png" class="pull-right img-responsive">
-            </a>
+            <div class="col-xs-12 col-sm-2 col-md-2">
+            	<div class="row">
+            		<div class="col-xs-12 col-sm-3 col-md-6">
+            			<a href="<?php echo $this->config['url_base'] ?>/quotationcart/" class="quotes">
+		                  <div class="pull-right"> 
+		                    <span class="name">見積り</span><br />
+		                    <span class="number"><span id="numberquotes"><?php echo $this->sizeQuotationCart; ?></span> 件</span>
+		                  </div>
+		                  <img src="<?php echo $this->config['url_base'] ?>/images/2.png" class="pull-right img-responsive">
+		            	</a>
+            		</div>
+		            <div class="col-xs-12 col-sm-3 col-md-6">
+		            	<a href="<?php echo $this->config['url_base'] ?>/ordercart/" class="order">
+		                <div class="pull-right">
+		                    <span class="name">&nbsp; 注文</span><br />
+		                    <span class="number"><span id="numberorder"><?php echo $this->sizeOrderCart; ?></span> 件</span>
+		                </div>
+		                <img src="<?php echo $this->config['url_base'] ?>/images/1.png" class="pull-right img-responsive">
+		            </a>
+		            </div>
+		            
+            	</div>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-3">
+		            	<div class="pull-right">
+				            <div style="width: auto; height: 50px; padding-right: 20px;">
+				              <div style="margin-left: 3px;">こんにちは、<b><?php echo $this->escape($user->getUserName());?> さん</b></div>
+				              <div>
+				                <div>
+				                  <a style="float: left; width: 85px; height: 22px; text-align: center;vertical-align: middle;" href="/login/logout">ログアウト</a>
+				                </div>
+				              </div>
+				            </div>
+				            </div>
+		            </div>
+            
             <!-- <a href="#" class="order">
                 <div class="pull-right">
                     <span class="name">注文</span><br />
@@ -87,76 +111,77 @@
                 </div>
                 <img src="<?php echo $this->config['url_base'] ?>/images/1.png" class="pull-right img-responsive">
             </a> -->
-            <div class="pull-right">
-            <div style="width: auto; height: 50px; padding-right: 20px;">
-              <div style="margin-left: 3px;">こんにちは、<b><?php echo $this->escape($user->getUserName());?> さん</b></div>
-              <div>
-                <div>
-                  <a style="float: left; width: 85px; height: 22px; text-align: center;vertical-align: middle;" href="/login/logout">ログアウト</a>
-                </div>
-              </div>
-            </div>
-            </div>
+            
             </div>
 
         </div>
     <!-- <a href="/login/logout" style="float: right;"><h3>logout</h3></a> -->
-        <div class="container"></div>
+        <div class="clearfix"></div>
         <hr />
 
-        <div class="navbar navbar-inverse" role="navigation">
-            <div class="navbar-header">
+        <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="row">
+            	<div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <button type="button" class="navbar-toggle pull-left" data-toggle="offcanvas">
+                <button type="button" class="navbar-toggle" data-target="#nav_bar" data-toggle="collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span></button>
             </div>
 
-            <div class="collapse navbar-collapse">
+            <div id="nav_bar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="menu_item" style="width: 125px; min-height:54px; text-align: center;"><a href="<?php echo $this->config['url_base'] ?>/index">TOP</a></li>
-                    <li class="menu_item" style="width: 125px; min-height:54px; text-align: center;"><a href="<?php echo $this->config['url_base'] ?>/product/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_FEATURED_PRODUCTS;?>">おすすめ商品</a></li>
-                    <li class="menu_item" style="width: 125px; min-height:54px; text-align: center;"><a href="<?php echo $this->config['url_base'] ?>/product/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_POPULAR_PRODUCTS;?>">人気商品</a></li>
-                    <li class="menu_item" style="width: 125px; min-height:54px; text-align: center;"><a href="<?php echo $this->config['url_base'] ?>/product/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_WISH_LIST;?>">お気に入り商品</a></li>
-                    <li class="menu_item" style="width: 125px; min-height:54px; text-align: center;"><a href="<?php echo $this->config['url_base'] ?>/order/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_HISTORY_PRODUCTS;?>">購入履歴</a></li>
-                    <li class="menu_item" style="width: 125px; min-height:54px; text-align: center;"><a href="<?php echo $this->config['url_base'] ?>/contact/">お問い合わせ</a></li>
+                    <li><a href="<?php echo $this->config['url_base'] ?>/index">TOP</a></li>
+                    <li><a href="<?php echo $this->config['url_base'] ?>/product/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_FEATURED_PRODUCTS;?>">おすすめ商品</a></li>
+                    <li><a href="<?php echo $this->config['url_base'] ?>/product/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_POPULAR_PRODUCTS;?>">人気商品</a></li>
+                    <li><a href="<?php echo $this->config['url_base'] ?>/product/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_WISH_LIST;?>">お気に入り商品</a></li>
+                    <li><a href="<?php echo $this->config['url_base'] ?>/order/index?tylelist=<?php echo Core_Util_Const::TYLE_LIST_HISTORY_PRODUCTS;?>">購入履歴</a></li>
+                    <li><a href="<?php echo $this->config['url_base'] ?>/contact/">お問い合わせ</a></li>
                     <!-- <li class="menu_item" style="width: 2px;"><a href="javascript:void(0)">&nbsp;</a></li> -->
                 </ul>
             </div>
-
-        </div>
-     <div class="row-offcanvas row-offcanvas-right">
-     <table width="100%">
-     <tr>
-       <td valign="top" id="colMenu"><?php echo $this->catehtml; ?></td>
-       <td valign="top">
-         <div class="rightcolumn" id="listproduce">
-        <?php echo $this->layout()->content; ?>
+            </div>
+		</div>
+     </nav>
+     
+     <div id="contents">
+     <div class="container">
+     	<div class="row">
+     	
+     <div id="side" class="hidden-xs col-sm-3">
+     	<div class="side_inner"><?php echo $this->catehtml; ?></div>
+     </div>
+       
+     <div id="main" class="col-xs-12 col-sm-9">
+           <?php echo $this->layout()->content; ?>
       </div>
-    </td>
-     </tr>
-     </table>
+  <div class="clearfix"></div>
+
+     	</div>
+     </div>
     </div><!--/row-->
   <!-- <hr /> -->
 
-      <footer style="padding-top: 10px; padding-left: 10px;">
-          <p style="float: left;">
+      <div id="footer" style="padding-top: 10px; padding-left: 10px;">
+          <div class="container">
+          	<div class="logo col-xs-12 col-sm-5 col-md-3">
             <a href="#">
               <img alt="株式会社イシダ" src="<?php echo $this->config['url_base'] ?>/images/f_logo.jpg">
             </a>
-          </p>
+          </div>
           <div style="float: left; padding-left: 10px;">
 
           <address style="margin-bottom: 0px;"><?php echo $this->getViewConst("ADDRESS_INFO");?> </address>
           <p id="copy"><?php echo $this->getViewConst("COPYRIGHT_INFO");?></p>
           </div>
-      </footer>
+          </div>
+      </div>
    </body>
 </html>
