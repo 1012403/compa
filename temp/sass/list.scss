@@ -1,0 +1,121 @@
+/*
+list.htmlのスタイル
+
+01.list_pager
+02.item_panel
+*/
+
+/* ------------------------------------- */
+/*	 pager 	*/
+/* ------------------------------------- */
+#main .list_pager{
+	padding: 6px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	.page_title{
+		line-height: 30px;
+	}
+	ul{
+		margin: 0;
+		li{
+			@media (max-width: 767px){
+				margin-bottom: 10px;
+			}
+		}
+	}
+}
+
+/* ------------------------------------- */
+/*	 item_panel 	*/
+/* ------------------------------------- */
+#main .item_panel{
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	&:last-child{
+		border: none;
+	}
+	.meta,.cart,.info,.price{
+		display: inline-block;
+	}
+	img{
+		vertical-align: top;
+		width: 100%;
+		height: 100%;
+	}
+	.meta{
+		@media (max-width: 767px){
+			margin-bottom: 10px;
+		}
+		.title{
+			margin-bottom: 5px;
+		}
+		.num{
+			margin-bottom: 5px;
+			font-size: 12px;
+		}
+		.description{
+			font-size: 12px;
+		}
+	}
+	.price{
+		margin-bottom: 10px;
+		font-size: 12px;
+		span{
+			color: #f00;
+			font-size: 14px;
+			font-weight: bold;
+		}
+	}
+	.cart{
+		@media (max-width: 767px){
+			width: 100%;
+		}
+		li{
+			margin-bottom: 10px;
+			@media (max-width: 767px){
+				width: 100%;
+			}
+			a{
+				font-size: 10px;
+				@media (max-width: 767px){
+					width: 100%;
+				}
+			}
+		}
+	}
+	.more{
+		text-align: center;
+		@media (max-width: 767px){
+			margin-left: 0;
+		}
+		li{
+			padding-right: 0;
+			margin-bottom: 10px;
+			@media (max-width: 767px){
+				width: 47%;
+				padding: 0;
+				margin-right: 4%;
+			}
+			&:last-child{
+				@media (max-width: 767px){
+				margin-right: 0;
+			}
+			}
+			a{
+				@media (max-width: 1199px){
+					font-size: 10px;
+				}
+				@media (max-width: 767px){
+					width: 100%;
+					font-size: 12px;
+				}
+				&.btn-sm{
+					@media (max-width: 991px){
+						padding: 5px 8px;
+					}
+				}
+			}
+		}
+	}
+}

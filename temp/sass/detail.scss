@@ -1,0 +1,29 @@
+/*
+detail.htmlのスタイル
+
+01.item_detail
+02.related
+*/
+
+/* ------------------------------------- */
+/*	 item_detail 	*/
+/* ------------------------------------- */
+#main .item_detail{
+	.feature{
+		margin-bottom: 20px;
+	}
+	.review{
+		margin-bottom: 20px;
+	}
+}
+
+/* ------------------------------------- */
+/*	 related 	*/
+/* ------------------------------------- */
+
+// 基本スタイルはindex.cssの#main.recommendを継承
+#main .related{
+	.item_panel{
+		border: none;
+	}
+}

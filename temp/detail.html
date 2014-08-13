@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/list.css">
+    <link rel="stylesheet" href="css/detail.css">
+    <link rel="stylesheet" href="css/temp.css">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="header">
+      <div class="container">
+        <div class="logo col-xs-12 col-sm-5 col-md-3">
+          <a href="index.html"><img src="images/logo.png" height="56" width="" alt="流通業界向けサプライ品通販サイト ichiきゅ〜いち"></a>
+        </div>
+        <div class="site_description col-xs-12 col-sm-4 col-md-5">
+          業務用消耗資材と消耗資材を使用する機械のノウハウ№１の注文サイト「きゅーいち」。豊富な品揃えの商品をパソコン・スマートフォンで簡単に注文できます。
+        </div>
+        <div class="login col-xs-12 col-sm-3 col-md-3">
+          <a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-lock"></span> ログイン</a>
+          <a href="#" class="btn btn-info"><span class="glyphicon glyphicon-off"></span> ログアウト</a>
+        </div>
+      </div>
+    </div><div class="clearfix"></div>
+    <!-- /header -->
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_bar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand visible-xs" href="#">メニュー</a>
+        </div>
+     
+        <div class="collapse navbar-collapse" id="nav_bar">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">TOP</a></li>
+            <li><a href="list.html">おすすめ商品</a></li>
+            <li><a href="list.html">人気商品</a></li>
+            <li><a href="list.html">お気に入り商品</a></li>
+            <li><a href="#">購入履歴</a></li>
+            <li><a href="#">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- /nav -->
+    
+    <div id="contents">
+      <div class="container">
+        <div class="row">
+          
+          <div id="side" class="hidden-xs col-sm-3">
+            <div class="side_inner">
+
+              <form class="form-inline" role="form">
+                <div class="form-group">
+                  <label class="sr-only" for="search_input">search hword</label>
+                  <input type="text" class="form-control input-sm" id="search_input">
+                </div>
+                <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span> 検索</button>
+              </form>
+              <!-- /search_form -->
+
+              <div class="category_list">
+                <div class="title"><span class="glyphicon glyphicon-th-large"></span> 商品カテゴリ</div>
+                <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                          消耗品
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <ul class="list-unstyled">
+                          <li><a href="list.html">ラベル用品</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                          ラベルプリンタ
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <ul class="list-unstyled">
+                          <li><a href="list.html">ラベルプリンタ</a></li>
+                          <li><a href="list.html">ラベル発行ソフト</a></li>
+                          <li><a href="list.html">ラベル用紙</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /category_list -->
+
+              <div class="point">
+                <div class="title"><span class="glyphicon glyphicon-heart-empty"></span> 現在のポイント</div>
+                <div class="num">
+                  0 <span>point</span>
+                </div>
+              </div>
+              <!-- /point -->
+
+            </div>
+            <!-- /side_inner -->
+          </div>
+          <!-- /side -->
+
+          <div id="main" class="col-xs-12 col-sm-9">
+
+            <div class="item_panel">
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-4">
+                  <img src="images/item1.jpg" height="130" width="130" alt="">
+                  <ul class="more list-inline hidden-xs">
+                    <li>
+                      <a href="#" class="btn btn-warning btn-lg">
+                        <span class="glyphicon glyphicon-star"></span> お気に入りへ
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /image_col -->
+                <div class="meta col-xs-12 col-sm-3 col-md-4">
+                  <div class="info">
+                    <div class="title">ラベル用紙</div>
+                    <div class="num">123456789</div>
+                    <div class="description">
+                      商品説明、商品説明〇〇〇〇〇〇〇〇〇〇〇〇〇〇〇〇
+                    </div>
+                  </div>
+                </div>
+                <!-- /meta_col -->
+                <div class="clearfix visible-xs"></div>
+                <div class="buy col-xs-12 col-sm-4">
+                  <div class="price">
+                    販売価格（税抜）<br>
+                    <span>123,400円</span>
+                  </div>
+                  <form class="form-inline">
+                    <ul class="cart list-unstyled">
+                      <li>
+                        数量：
+                        <select class="form-control input-sm">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                        </select>
+                      </li>
+                      <li><a href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-shopping-cart"></span> 注文カートへ入れる</a></li>
+                      <li><a href="#" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-shopping-cart"></span> 見積もりカートへ入れる</a></li>
+                    </ul>
+                  </form>
+                  <ul class="more list-inline visible-xs">
+                    <li>
+                      <a href="#" class="btn btn-warning btn-lg">
+                        <span class="glyphicon glyphicon-star"></span> お気に入りへ
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /buy_col -->
+              </div>
+            </div>
+            <!-- /item_panel -->
+            
+            <div class="item_detail">
+
+              <div class="feature">
+                【特徴１】
+              </div>
+              <!-- /feature -->
+
+              <div class="feature">
+                【仕様】
+              </div>
+              <!-- /feature -->
+
+              <div class="review">
+                【レビュー】
+              </div>
+              <!-- /review -->
+
+            </div>
+            <!-- /item_detail -->
+
+            <div class="related">
+              <div class="title">関連商品</div>
+
+              <div id="related_carousel" class="carousel slide">
+                <ol class="carousel-indicators">
+                  <li data-target="#related_carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#related_carousel" data-slide-to="1" class=""></li>
+                </ol>
+                <div class="carousel-inner">
+
+                  <div class="item active">
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /item1 -->
+
+                  <div class="item">
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                    <div class="item_panel">
+                      <img src="images/item1.jpg" height="130" width="130" alt="">
+                      <div class="meta">
+                        <div class="title">ラベル用紙</div>
+                        <div class="text">123456789</div>
+                        <div class="more"><a href="#" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> 詳細はこちら</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /item2 -->
+
+                <a class="left carousel-control" href="#related_carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#related_carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+              </div>
+              <!-- /carousel -->
+               
+            </div>
+            <!-- /related -->
+
+          </div>
+          <!-- /main -->
+
+          <div class="clearfix"></div>
+
+          <div id="side_bottom" class="visible-xs">
+            <div class="side_inner">
+
+              <form class="search_form form-inline" role="form">
+                <div class="form-group">
+                  <label class="sr-only" for="search_input">search hword</label>
+                  <input type="text" class="form-control input-sm" id="search_input">
+                </div>
+                <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span> 検索</button>
+              </form>
+              <!-- /search_form -->
+
+              <div class="category_list">
+                <div class="title"><span class="glyphicon glyphicon-th-large"></span> 商品カテゴリ</div>
+                <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                          消耗品
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <ul class="list-unstyled">
+                          <li><a href="list.html">ラベル用品</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                          ラベルプリンタ
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <ul class="list-unstyled">
+                          <li><a href="list.html">ラベルプリンタ</a></li>
+                          <li><a href="list.html">ラベル発行ソフト</a></li>
+                          <li><a href="list.html">ラベル用紙</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /category_list -->
+
+              <div class="point">
+                <div class="title"><span class="glyphicon glyphicon-heart-empty"></span> 現在のポイント</div>
+                <div class="num">
+                  0 <span>point</span>
+                </div>
+              </div>
+              <!-- /point -->
+
+            </div>
+            <!-- /side_inner -->
+          </div>
+          <!-- /side_bottom -->
+
+        </div>
+      </div>
+    </div>
+    <!-- /contents -->
+
+    <div id="footer">
+      <div class="container">
+        <div class="logo col-xs-12 col-sm-5 col-md-3">
+          <a href="index.html"><img src="images/logo.png" height="56" width="" alt="流通業界向けサプライ品通販サイト ichiきゅ〜いち"></a>
+        </div>
+        <div class="infoc ol-xs-12 col-sm-5 col-md-5">
+          きゅーいち<br>
+      名古屋市西区新福寺町1丁目1番2<br>
+      TEL (060)529-1230 FAX (052)529-1330<br>
+      電話お問合せ　平日　9：00～17：30<br>メール相談24時間　E-mail：support@kyu-ichi.com
+        </div>
+      </div>
+    </div>
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

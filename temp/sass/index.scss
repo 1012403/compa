@@ -1,0 +1,248 @@
+/*
+index.htmlのスタイル
+
+01.header
+02.side
+03.main
+04.footer
+*/
+
+/* ------------------------------------- */
+/*	 header 	*/
+/* ------------------------------------- */
+#header{
+	height: 60px;
+	.logo{
+		line-height: 60px;
+		padding-left: 0;
+		@media (max-width : 767px){
+			text-align: center;
+		}
+	}
+	.site_description{
+		margin-top: 14px;
+		font-size: 12px;
+		@media (max-width: 991px){ //md
+			margin-top: 8px;
+		}
+	}
+	.login{
+		line-height: 60px;
+		@media (max-width : 1199px){
+			line-height: 40px;
+		}
+		@media (max-width : 767px){
+			text-align: center;
+		}
+	}
+}
+
+/* ------------------------------------- */
+/*	 side 	*/
+/* ------------------------------------- */
+#side,#side_bottom{
+	margin-bottom: 30px;
+	.side_inner{
+		padding: 15px;
+		border: 2px solid #ccc;
+	}
+	.title{
+		padding-bottom: 2px;
+		margin-bottom: 10px;
+		border-bottom: 1px solid #ccc;
+	}
+	form{
+		margin-bottom: 20px;
+		input{
+			@media (max-width: 1199px){
+				width: 112px;
+			}
+			@media (max-width: 991px){
+				max-width: 73px;
+			}
+			@media (max-width: 767px){
+				max-width: 150px;
+			}
+		}
+		.form-group{
+			display: inline-block !important;
+		}
+		button{
+			vertical-align: top;
+		}
+	}
+	.category_list{
+		margin-bottom: 20px;
+		ul{
+			margin: 0;
+			li{
+				a{
+					font-size: 12px;
+				}
+			}
+		}
+		.panel-title{
+			a{
+				font-size: 12px;
+			}
+		}
+	}
+	.point{
+		.num{
+			color: #f00;
+			font-size: 16px;
+			font-weight: bold;
+			span{
+				font-size: 12px;
+			}
+		}
+	}
+}
+
+/* ------------------------------------- */
+/*	 main 	*/
+/* ------------------------------------- */
+#main{
+	margin-bottom: 40px;
+	.banner_area{
+		margin-bottom: 20px;
+		img{
+			margin-bottom: 10px;
+		}
+		img.sm{
+			max-width: 100%;
+			max-height: 100%;
+			@media (max-width: 1199px){
+				width: 170px;
+				height: 100%;
+			}
+			@media (max-width: 991px){
+				width: 200px;
+				height: 100%;
+			}
+		}
+		img.lg{
+			max-width: 100%;
+			max-height: 100%;
+		}
+		img.md{
+			max-width: 100%;
+			max-height: 100%;
+			@media (max-width: 1199px){
+				width: 346px;
+				height: 100%;
+			}
+			@media (max-width: 991px){
+				width: 397px;
+				height: 100%;
+			}
+		}
+	}
+	.info_area{
+		margin-bottom: 30px;
+		.title{
+			padding-left: 10px;
+			margin-bottom: 5px;
+			border-left: 6px solid #aaa;
+			border-bottom: 1px solid #ccc;
+			font-size: 16px;
+		}
+		.description{
+			font-size: 12px;
+		}
+		.top_image{
+			margin-bottom: 20px;
+		}
+	}
+	.recommend{
+		margin-bottom: 30px;
+		>.title{
+			padding-left: 10px;
+			margin-bottom: 10px;
+			border-left: 6px solid #aaa;
+			border-bottom: 1px solid #ccc;
+			font-size: 16px;
+		}
+		.carousel-inner{
+			text-align: center;
+		}
+		.item_panel{
+			display: inline-block;
+			width: 200px;
+			margin-bottom: 10px;
+			@media (max-width: 1199px){ //md
+				width: 160px;
+			}
+			@media (max-width: 991px){ //sm
+				width: 120px;
+			}
+			@media (max-width: 767px){ //xs
+				width: 130px;
+			}
+			img{
+				width: 64px;
+				height: 100%;
+				margin-right: 10px;
+				vertical-align: top;
+			}
+			.meta{
+				display: inline-block;
+				width: 90px;
+				.more{
+					a{
+						font-size: 10px;
+					}
+				}
+			}
+		}
+		.carousel-indicators{
+			bottom: -30px;
+			.active{
+				background-color: #aaa;
+			}
+			li{
+				border-color: #aaa;
+			}
+		}
+		.carousel-control{
+			width: 30px;
+		}
+		.carousel-control.right,
+		.carousel-control.left{
+			background: none;
+		}
+		.carousel-control .glyphicon-chevron-left,
+		.carousel-control .glyphicon-chevron-right{
+			font-size: 20px;
+			color: #555;
+		}
+	}
+	.popular{
+		@extend .recommend;
+	}
+	.favorite{
+		@extend .recommend;
+	}
+	.related{
+		@extend .recommend;
+	}
+}
+
+/* ------------------------------------- */
+/*	 footer 	*/
+/* ------------------------------------- */
+#footer{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: 1px solid #ccc;
+	.logo{
+		display: inline-block;
+		vertical-align: top;
+		@media (max-width : 767px){
+			text-align: center;
+		}
+	}
+	.info{
+		display: inline-block;
+	}
+}
